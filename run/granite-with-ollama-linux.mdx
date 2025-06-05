@@ -1,0 +1,67 @@
+---
+title: "Run Granite with Ollama on Linux"
+description: "Learn how to run Granite models with Ollama on Linux."
+icon: "linux"
+---
+
+## Overview
+
+In this guide we'll be using [Ollama](https://ollama.com/), an open-source tool
+that makes it easy to download and run AI models locally.
+
+## Install Ollama
+
+Install [Ollama for Linux](https://ollama.com/download/linux) with:
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+This will install Ollama on your system and set up a `systemd` service named
+`ollama.service` to run the server in the background.
+
+<Warning>
+The automatic installation script requires root access. For manual
+instructions that can run without root, see the
+[manual installation instructions](https://github.com/ollama/ollama/blob/main/docs/linux.md)
+</Warning>
+
+## Download the models
+
+Now, let's download the models. Determining which model to use depends on your
+needs and what your device can handle. Generally, larger models will produce
+better results but also require more resources.
+
+In this guide, we'll fetch the Granite 8b models. This is a large files and will
+take some time to download.
+
+Ollama supports a wide range of Granite models:
+
+- granite3.2:2b
+- granite3.2:8B
+- granite3.2-vision:2b
+- granite3.1-guardian:2b
+- granite3.1-guardian:8b
+- granite3.1-moe:1b
+- granite3.1-moe:3b
+- granite-code:20b
+- granite-code:3b
+
+```bash
+ollama pull granite3.2:8b
+```
+
+## Run Granite
+
+<Note>
+By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this when using `ollama run`, update the `num_ctx` parameter with `/set parameter num_ctx <desired_context_length>`. The largest `<desired_context_length>` supported by Granite 3.1 models is `131072` (128k).
+</Note>
+
+To run the model, type:
+
+```bash
+ollama run granite3.2:8b
+```
+
+If you want to run a different Granite model, replace `granite3.2:8b` with the
+model name. For example, to run the 2b variant, use `ollama run granite3.2:2b`.

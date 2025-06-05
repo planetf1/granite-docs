@@ -1,0 +1,36 @@
+---
+title: "Prompt Declaration Language with IBM Granite 3.0"
+description: "Learn about prompt declaration language (PDL), a YAML-based declarative approach to prompt programming."
+icon: "file-code"
+---
+
+Prompt engineering is difficult: minor variations in prompts have large impacts
+on the output of LLMs and prompts are model-dependent. In recent years prompt
+programming languages have emerged to bring discipline to prompt engineering.
+Many of them are embedded in an imperative language such as Python or
+TypeScript, making it difficult for users to directly interact with prompts and
+multi-turn LLM interactions.
+
+The
+[Prompt Declaration Language](https://ibm.github.io/prompt-declaration-language/)
+(PDL) is a YAML-based declarative approach to prompt programming, where prompts
+are at the forefront. PDL facilitates model chaining and tool use, abstracting
+away the plumbing necessary for such compositions. It enables type checking of
+the input and output of models. PDL has been used with application patterns like
+RAG, CoT, ReAct, and an agent for solving SWE-bench.
+[PDL is open-source](https://github.com/IBM/prompt-declaration-language).
+
+You can use PDL stand-alone or from a Python SDK. In a Jupyter notebook, a
+convenient extension lets you write PDL directly, without the need to write
+Python "boilerplate". It even provides color coding of the YAML declarations and
+in the cell output, model-generated text is rendered in green font, and
+tool-generated text is rendered in purple font. You will use this notebook
+extension in this recipe.
+
+<Card
+  title="Get started with PDL"
+  icon="github"
+  href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/PDL/Prompt_Declaration_Language.ipynb"
+>
+  Jupyter notebook introducing Prompt Declaration Language with Granite
+</Card>

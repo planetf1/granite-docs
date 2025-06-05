@@ -1,67 +1,122 @@
 ---
-title: "Granite 3.3"
-description: "Granite 3.3 models leverage new dense architecture. These models were
-    trained with 12 trillion tokens across 12 languages and 116 programming
-    languages. IBM is committed to open-source innovation, and these models are
-    no exception. All Granite models are licensed under Apache 2.0."
+title: 'IBM Granite 3.3'
+description: 'Get started with Granite 3.3 models today.'
+icon: 'cube'
 ---
 
+Granite 3.3 models leverage new dense architecture. These models were trained with 12 trillion tokens across 12 languages and 116 programming languages. IBM is committed to open-source innovation, and these models are no exception. All Granite models are licensed under Apache 2.0.
+
 <CardGroup cols={2}>
-  <Card title="Model playground" icon="code" iconType="regular" color="#000000" href="https://www.ibm.com/granite/playground">
-    Try Granite
+  <Card
+    title="Model card"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
+  >
+    View the full model card on Hugging Face
   </Card>
-  <Card title="Agentic RAG" icon="code" color="#000000" href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/AI-Agents/Agentic_RAG.ipynb">
+  <Card
+    title="Run locally with Ollama"
+    icon="arrow-right"
+    href="https://ollama.com/library/granite3.3:8b"
+  >
+    Download and run Granite 3.3 with Ollama
+  </Card>
+</CardGroup>
+
+<CardGroup cols={2}>
+  <Card
+    title="Try Granite"
+    icon="cube"
+    href="https://granite-playground.vercel.app/"
+  >
+    Model playground
+  </Card>
+  <Card
+    title="Agentic RAG"
+    icon="robot"
+    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/AI-Agents/Agentic_RAG.ipynb"
+  >
     Use Granite in an agentic RAG pattern to answer complex queries using external information.
   </Card>
-  <Card title="Entity extraction" icon="code" color="#000000" href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Entity-Extraction/entity_extraction.ipynb">
+  <Card
+    title="Entity extraction"
+    icon="extract"
+    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Entity-Extraction/entity_extraction.ipynb"
+  >
     Extract well-formed entities from unstructured data with Granite.
   </Card>
-  <Card title="Document summarization" icon="code" color="#000000" href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Summarize/Summarize.ipynb">
+  <Card
+    title="Document summarization"
+    icon="file-text"
+    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Summarize/Summarize.ipynb"
+  >
     Multi-level abstractive document summarization using Granite.
   </Card>
 </CardGroup>
 
 ## Overview
 
-Granite 3.3 models feature enhanced reasoning capabilities and support for
-Fill-in-the-Middle (FIM) code completion. They are built on a foundation of
-open-source instruction datasets with permissive licenses, alongside internally
-curated synthetic datasets tailored for long-context problem-solving. These
-models preserve the key strengths of previous Granite versions, including
-support for a 128K context length, strong performance in retrieval-augmented
-generation (RAG) and function calling, and controls for response length and
-originality. Granite 3.3 also delivers competitive results across general,
-enterprise, and safety benchmarks. Released as open source, the models are
-available under the Apache 2.0 license.
+Granite 3.3 models feature enhanced reasoning capabilities and support for Fill-in-the-Middle (FIM) code completion. They are built on a foundation of open-source instruction datasets with permissive licenses, alongside internally curated synthetic datasets tailored for long-context problem-solving. These models preserve the key strengths of previous Granite versions, including support for a 128K context length, strong performance in retrieval-augmented generation (RAG) and function calling, and controls for response length and originality. Granite 3.3 also delivers competitive results across general, enterprise, and safety benchmarks. Released as open source, the models are available under the Apache 2.0 license.
 
-### Model cards
+## Model cards
 
 <CardGroup cols={2}>
-  <Card title="Granite 3.3 8B Instruct" icon="code" iconType="regular" color="#000000" href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct" />
-  <Card title="Granite 3.3 2B Instruct" icon="code" color="#000000" href="https://huggingface.co/ibm-granite/granite-3.3-2b-instruct" />
-  <Card title="Granite 3.3 8B Base" icon="code" color="#000000" href="https://huggingface.co/ibm-granite/granite-3.3-8b-base" />
-  <Card title="Granite 3.3 2B Base" icon="code" color="#000000" href="https://huggingface.co/ibm-granite/granite-3.3-2b-base" />
+  <Card
+    title="Granite 3.3 8B Instruct"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
+  >
+    8B parameter instruction-tuned model
+  </Card>
+  <Card
+    title="Granite 3.3 2B Instruct"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-3.3-2b-instruct"
+  >
+    2B parameter instruction-tuned model
+  </Card>
+  <Card
+    title="Granite 3.3 8B Base"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-3.3-8b-base"
+  >
+    8B parameter base model
+  </Card>
+  <Card
+    title="Granite 3.3 2B Base"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-3.3-2b-base"
+  >
+    2B parameter base model
+  </Card>
 </CardGroup>
 
-### Run locally with Ollama
+## Run locally with Ollama
 
 [Learn more](https://ollama.com/blog/ibm-granite) about Granite 3.3 on Ollama.
 
 <CardGroup cols={2}>
-  <Card title="Granite 3.3 8B Instruct" icon="code" iconType="regular" color="#000000" href="https://ollama.com/library/granite3.3:8b" />
-  <Card title="Granite 3.3 2B Instruct" icon="code" color="#000000" href="https://ollama.com/library/granite3.3:2b" />
+  <Card
+    title="Granite 3.3 8B Instruct"
+    icon="download"
+    href="https://ollama.com/library/granite3.3:8b"
+  >
+    Download the 8B model for Ollama
+  </Card>
+  <Card
+    title="Granite 3.3 2B Instruct"
+    icon="download"
+    href="https://ollama.com/library/granite3.3:2b"
+  >
+    Download the 2B model for Ollama
+  </Card>
 </CardGroup>
 
 ## Granite 3.3 highlights
 
-Granite 3.3 models feature extended context length and deliver strong
-performance across tasks such as retrieval-augmented generation (RAG), function
-calling, and reasoning. They retain key capabilities from earlier versions—such
-as response length control and originality. Additionally, Granite 3.3 introduces
-fill-in-the-middle (FIM) support for code completion and improves the clarity of
-model reasoning by separating intermediate thoughts from final answers.
+Granite 3.3 models feature extended context length and deliver strong performance across tasks such as retrieval-augmented generation (RAG), function calling, and reasoning. They retain key capabilities from earlier versions—such as response length control and originality. Additionally, Granite 3.3 introduces fill-in-the-middle (FIM) support for code completion and improves the clarity of model reasoning by separating intermediate thoughts from final answers.
 
-### Basic chat template example
+## Basic chat template example
 
 Below, we show a basic example of Granite 3.3 models chat template.
 
@@ -127,16 +182,16 @@ Speaker 1 (00:02):
 The last several years have been all about our expectations, what we thought you would do, what we thought the team would do. What were your expectations coming here?
 
 Simone (00:10):
-My expectations or at least the team’s expectation was to go out there and win gold for Team USA, and we did just that. And after that, my expectation was go to all-around, see if you can place top three, see what happens. And then after that, everything else was a cherry on top. So Vault, gold. Floor, silver. I’m not mad.
+My expectations or at least the team's expectation was to go out there and win gold for Team USA, and we did just that. And after that, my expectation was go to all-around, see if you can place top three, see what happens. And then after that, everything else was a cherry on top. So Vault, gold. Floor, silver. I'm not mad.
 
 Speaker 1 (00:28):
 Are you proud of yourself?
 
 Simone (00:30):
-Yes. I’m very proud of myself for how I held it together all of those competition days, all throughout those routines. It’s very rigorous for however many days we compete in a row. So I’m very proud of my performances.
+Yes. I'm very proud of myself for how I held it together all of those competition days, all throughout those routines. It's very rigorous for however many days we compete in a row. So I'm very proud of my performances.
 
 Speaker 1 (00:41):
-And you’ve been all about self-care.
+And you've been all about self-care.
 
 Simone (00:42):
 Yes.
@@ -145,10 +200,10 @@ Speaker 1 (00:43):
 Did it work?
 
 Simone (00:44):
-Yes. No, most definitely. I’ve been seeing my therapist a lot while I’ve been here in Paris, so I owe a lot to her.
+Yes. No, most definitely. I've been seeing my therapist a lot while I've been here in Paris, so I owe a lot to her.
 
 Speaker 1 (00:53):
-I don’t mean to make you do my job, but if you had to write the headlines of these games telling your story, what would it be?
+I don't mean to make you do my job, but if you had to write the headlines of these games telling your story, what would it be?
 
 Simone (01:02):
 I would say my success is defined by what I make it.
@@ -169,27 +224,26 @@ Speaker 1 (01:13):
 You also inspired a lot of people along the way. Have you ever sat back and really thought about what you have contributed to this sport?
 
 Simone (01:22):
-I think the impact that I’ve made, I definitely see, because I see all of those little girls cheering for me, supporting me on Instagram, on TikTok, all of the outlets. So I do understand the impact that I’ve made. But to fully understand the depth of it, I think it’ll take one day whenever I retire, and then I look back at the career and everything that I’ve done to evolve the sport.
+I think the impact that I've made, I definitely see, because I see all of those little girls cheering for me, supporting me on Instagram, on TikTok, all of the outlets. So I do understand the impact that I've made. But to fully understand the depth of it, I think it'll take one day whenever I retire, and then I look back at the career and everything that I've done to evolve the sport.
 
 Speaker 1 (01:42):
-I mean, we’ve seen celebrities in the stands. We’ve seen young gymnasts looking up at you. It’s been quite a ride. I mean, it’s a lot of pressure on you, I would think. How have you dealt with it?
+I mean, we've seen celebrities in the stands. We've seen young gymnasts looking up at you. It's been quite a ride. I mean, it's a lot of pressure on you, I would think. How have you dealt with it?
 
 Simone (01:53):
-Yes. It’s a lot of pressure, but pressure is privilege. So I’m just super excited to represent the United States every time I get the opportunity.
+Yes. It's a lot of pressure, but pressure is privilege. So I'm just super excited to represent the United States every time I get the opportunity.
 
 Speaker 1 (02:00):
 There have been so many moments. One that struck me was watching three Black athletes together on the podium. When that was happening, did you recognize the significance of it?
 
 Simone (02:11):
-Oh, absolutely. And I don’t think we got to recognize it enough because the award ceremony happened so fast. They’re trying to break down the set and move in the next event that’s going to be there. But we all recognized it and we were really excited about it.
+Oh, absolutely. And I don't think we got to recognize it enough because the award ceremony happened so fast. They're trying to break down the set and move in the next event that's going to be there. But we all recognized it and we were really excited about it.
 Summary:<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>Simone Biles, in an NBC interview, discusses her successful participation in the Paris 2024 Olympic Games. Her expectations were to win gold for Team USA and place in the top three in all-around, which she achieved with a gold on Vault and silver on Floor. Biles emphasizes her pride in her performances and credits her self-care, including therapy, for her success. She asserts that her success is self-defined and acknowledges her impact on young gymnasts, though she expects a clearer understanding of it post-retirement. Biles addresses the pressure of representation, stating "pressure is privilege," and recalls the significance of three Black athletes standing together on the podium, though she feels it was rushed.<|end_of_text|>
 ```
 
 #### Text classification
 
-This example demonstrates a classification task for movie reviews. The user
-query includes classification examples to improve the model's response accuracy.
+This example demonstrates a classification task for movie reviews. The user query includes classification examples to improve the model's response accuracy.
 
 ```
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
@@ -209,7 +263,7 @@ Sentiment:
 negative
 
 Review:
-Russell Crowe's new action movie Land of Bad can't break the star's recent streak of poor Rotten Tomatoes ratings. Co-starring Liam and Luke Hemsworth, Crowe’s latest action effort concerns a special ops mission in the Philippines that goes wrong, leading to a harrowing fight for survival. Crowe plays Reaper, a drone pilot who must guide a group of outnumbered and stranded soldiers back to safety.
+Russell Crowe's new action movie Land of Bad can't break the star's recent streak of poor Rotten Tomatoes ratings. Co-starring Liam and Luke Hemsworth, Crowe's latest action effort concerns a special ops mission in the Philippines that goes wrong, leading to a harrowing fight for survival. Crowe plays Reaper, a drone pilot who must guide a group of outnumbered and stranded soldiers back to safety.
 
 Despite the Land of Bad cast including big names like Crowe and two of the Hemsworths, the action film has failed to impress critics, currently sitting at 52% fresh on Rotten Tomatoes on 24 reviews, becoming the fifth straight Crowe-starring film to be certified rotten by the review aggregator.
 Sentiment:<|end_of_text|>
@@ -218,8 +272,7 @@ Sentiment:<|end_of_text|>
 
 #### Text extraction
 
-This example demonstrates how to extract certain information from a set of
-documents with a similar structural pattern.
+This example demonstrates how to extract certain information from a set of documents with a similar structural pattern.
 
 ```
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
@@ -246,8 +299,7 @@ Line Of Credit Facility Maximum Borrowing Capacity:<|end_of_text|>
 
 #### Text translation
 
-Granite 3.3 models also support tasks in multiple languages. This is a basic
-example of how to use the models to translate text from English to Spanish.
+Granite 3.3 models also support tasks in multiple languages. This is a basic example of how to use the models to translate text from English to Spanish.
 
 ```
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
@@ -260,14 +312,11 @@ Please only output the translation, and nothing else.<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>¡Buenos días!, ¿cómo estás?, hola, bueno es verte, ¿qué tal?<|end_of_text|>
 ```
 
-Granite 3.3 models support text translation as well as other multilingual tasks
-in English, German, Spanish, French, Japanese, Portuguese, Arabic, Czech,
-Italian, Korean, Dutch, and Chinese (Simplified).
+Granite 3.3 models support text translation as well as other multilingual tasks in English, German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese (Simplified).
 
 ### Advanced examples
 
-In this section, we demonstrate how to use the chat template to leverage the
-advanced features supported by Granite 3.3 models.
+In this section, we demonstrate how to use the chat template to leverage the advanced features supported by Granite 3.3 models.
 
 #### Control the response length
 
@@ -296,15 +345,9 @@ advanced features supported by Granite 3.3 models.
 These wildflowers are known for their beauty and are characteristic of Colorado's diverse landscapes, from meadows to mountain slopes.<|end_of_text|>
 ```
 
-Important considerations:
-
-- The `length` annotation can be added to the assistant response to control the
-  response's length.
-- The annotation will only influence the immediate next generation of the
-  assistant role.
-- The supported values are `short` and `long`. A `short` value guides the model
-  to generate a direct response, while a `long` value encourages a more subtle
-  response.
+<Note>
+The `length` annotation can be added to the assistant response to control the response's length. The annotation will only influence the immediate next generation of the assistant role. The supported values are `short` and `long`. A `short` value guides the model to generate a direct response, while a `long` value encourages a more subtle response.
+</Note>
 
 Use the following code example to reproduce the previous output.
 
@@ -336,8 +379,7 @@ print(output[0])
 
 #### Thinking capability
 
-This example demonstrates the application of Granite 3.3 models' thinking
-capabilities to a math problem.
+This example demonstrates the application of Granite 3.3 models' thinking capabilities to a math problem.
 
 ```
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
@@ -394,71 +436,12 @@ Add the legs from all animals:
 The total number of legs for all the animals is \( \boxed{58} \).</response><|end_of_text|>
 ```
 
-The following example demonstrates the application of Granite 3.3 models'
-thinking capabilities to a logical fallacy.
-
-```
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.
-Respond to every user query in a comprehensive and detailed way. You can write down your thoughts and reasoning process before responding. In the thought process, engage in a comprehensive cycle of analysis, summarization, exploration, reassessment, reflection, backtracing, and iteration to develop well-considered thinking process. In the response section, based on various attempts, explorations, and reflections from the thoughts section, systematically present the final solution that you deem correct. The response should summarize the thought process. Write your thoughts between <think></think> and write your response between <response></response> for each user query.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>If all roses are flowers and some flowers fade quickly, does it mean all roses fade quickly? Why or why not?<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|><think>This question presents a classic example of a syllogism, a form of logical argument where a conclusion is drawn from two given or assumed propositions (premises). Here, the premises are:
-
-1. All roses are flowers.
-2. Some flowers fade quickly.
-
-The conclusion to be evaluated is: "Do all roses fade quickly?"
-
-To analyze this, we need to understand the logical structure:
-
-- Premise 1 establishes a categorical inclusion: every rose belongs to the category of flowers.
-- Premise 2 describes a property (fading quickly) that applies to some members of the broader category (flowers).
-
-The fallacy in concluding that "all roses fade quickly" from these premises lies in the misapplication of the property from the broader category to a subset. Just because some flowers fade quickly does not imply that every specific type within the flowers category (like roses) shares this characteristic.
-
-Roses, being a type of flower, inherit the property of being a flower, but this does not automatically transfer all properties of flowers to roses. There could be rose varieties that do not fade quickly, just as there might be other flowers that do not fade quickly.
-
-This logical error is known as "illicit conversion" or "fallacy of the undistributed middle" where one mistakenly assumes that a property of the middle term (flowers) applies to one of the terms of the syllogism (roses) without proper justification.
-
-Therefore, the correct answer is that we cannot conclude all roses fade quickly based on the given premises.</think><response>### Analysis:
-
-The given premises are:
-1. All roses are flowers.
-2. Some flowers fade quickly.
-
-The conclusion to evaluate is: "Do all roses fade quickly?"
-
-#### Logical Breakdown:
-
-- **Premise 1** (All roses are flowers) establishes a subset relationship: roses are a type of flower.
-- **Premise 2** (Some flowers fade quickly) describes a property of flowers.
-
-#### Why the Conclusion Does Not Follow:
-
-This situation illustrates a common logical fallacy, specifically the "illicit conversion" or "fallacy of the undistributed middle." Here's why the conclusion does not logically follow:
-
-1. **Subset Property Transfer**: Just because some flowers have a property (fading quickly) does not mean all members of that subset (roses) will share this property.
-2. **Undistributed Middle**: The term "flowers" in the second premise is not distributed (it doesn't refer to all flowers, only "some"). We cannot infer properties about the subset (roses) from a property stated only about some members of the broader category (flowers).
-
-#### Correct Understanding:
-
-While it's true that roses, being flowers, might share characteristics common to flowers in general, we lack information about whether "fading quickly" is a characteristic specific to roses. There could be rose varieties that do not fade quickly, and the premises do not provide evidence to the contrary.
-
-### Conclusion:
-
-No, it does not mean all roses fade quickly. The given premises are insufficient to draw such a conclusion about roses. The fallacy lies in assuming that a property of a broader category (flowers) applies uniformly to its subset (roses) without additional evidence.
-
-Thus, the answer is: **No, we cannot conclude that all roses fade quickly based on the provided premises.**</response><|end_of_text|>
-```
-
-Important considerations:
-
+<Note>
 - To activate this feature you must use the system prompt for reasoning tasks.
-- Note that thoughts appear between the tags `<think>` and `</think>`, and the
-  final response between `<response>` and `</response>`.
+- Note that thoughts appear between the tags `<think>` and `</think>`, and the final response between `<response>` and `</response>`.
+</Note>
 
-Use the following code example to reproduce the outputs for both reasoning
-tasks. To reproduce the second task, simply update the user prompt.
+Use the following code example to reproduce the outputs for both reasoning tasks. To reproduce the second task, simply update the user prompt.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
@@ -520,23 +503,18 @@ This example demonstrates Granite 3.3 models ability to perform tool calls.
 ]<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>What's the current weather in New York?<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|><|tool_call|>[{"name": "get_current_weather", "arguments": {"location": "New York"}}]<|end_of_text|>
-<|start of role|>tool_response<|end of role|>{“temp”: 20.5, “unit”: “C”}<|end of text|>
+<|start of role|>tool_response<|end of role|>{"temp": 20.5, "unit": "C"}<|end of text|>
 ```
 
+<Note>
 Consider the following points to build promts for function-calling tasks:
 
-- Use the system prompt for function-calling tasks to obtain the best
-  performance out of Granite 3.3 models.
+- Use the system prompt for function-calling tasks to obtain the best performance out of Granite 3.3 models.
 - Use `available_tools` turn type to provide the list of tools to the model.
-- Tools are provided to the model as a list of dictionaries, with each
-  dictionary representing a tool. While the model has been trained to understand
-  various dictionary structures for tools, we recommend building your prompts as
-  shown in this example. In this approach, each tool is represented by a
-  dictionary that includes the tool's name, description, and required arguments.
-- The format of the assistant responses containing function calls should be
-  pre-pended by a `<|tool_call|>` token.
-- Use `tool_response` turn type to feed back to the model the external system
-  execution of a tool call.
+- Tools are provided to the model as a list of dictionaries, with each dictionary representing a tool. While the model has been trained to understand various dictionary structures for tools, we recommend building your prompts as shown in this example. In this approach, each tool is represented by a dictionary that includes the tool's name, description, and required arguments.
+- The format of the assistant responses containing function calls should be pre-pended by a `<|tool_call|>` token.
+- Use `tool_response` turn type to feed back to the model the external system execution of a tool call.
+</Note>
 
 Use the following code example to nearly reproduce the previous output.
 
@@ -587,22 +565,19 @@ output = tokenizer.batch_decode(output)
 print(output[0])
 ```
 
-After obtaining a tool call from the `assistant` and executing it via an
-external system, you could feed the execution's result back to the model by
-updating the chat history as follows:
+After obtaining a tool call from the `assistant` and executing it via an external system, you could feed the execution's result back to the model by updating the chat history as follows:
 
 ```python
 chat=[
     {"role": "user", "content": "What's the current weather in New York?"},
     {"role": "assistant", "content": "<|tool_call|>[{\"name\": \"get_current_weather\", \"arguments\": {\"location\": \"New York\"}}]"},
-    {"role": "tool_response", "content":"{“temp”: 20.5, “unit”: “C”}"} # This result is obtained by executing the tool call via an external system.
+    {"role": "tool_response", "content":"{"temp": 20.5, "unit": "C"}"} # This result is obtained by executing the tool call via an external system.
 ]
 ```
 
 #### FIM for a coding task
 
-This example demonstrates how to use Granite 3.3 models for a FIM code
-completion task.
+This example demonstrates how to use Granite 3.3 models for a FIM code completion task.
 
 ```
 <fim_prefix>def print_hello_world():<fim_suffix><fim_middle>
@@ -610,15 +585,14 @@ completion task.
     print("Hello, World!")
 ```
 
+<Note>
 Consider the following points to build prompts for FIM coding tasks:
 
 - Prepend code before the missing part with the tag `<fim_prefix>`
 - Prepend code after the missing part with the tag `<fim_suffix>`
-- End your prompt with the tag `<fim_middle>` to indicate to the model something
-  is missing in the code snippet.
-- Completion of basic programming concepts (e.g., function, method,
-  conditionals, loops) is covered for various programming languages (e.g.,
-  python, c/c++, go, java).
+- End your prompt with the tag `<fim_middle>` to indicate to the model something is missing in the code snippet.
+- Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
+</Note>
 
 Use the following code example to reproduce the previous output.
 
@@ -646,57 +620,28 @@ print(answer)
 
 ## Backward compatibility
 
-Prompt templates designed for basic inference tasks should remain compatible
-with Granite 3.3 models. However, more complex templates may require a migration
-process. To take full advantage of the new features introduced in Granite 3.3,
-please refer to this prompt engineering guide for creating new templates or
-migrating existing ones.
+Prompt templates designed for basic inference tasks should remain compatible with Granite 3.3 models. However, more complex templates may require a migration process. To take full advantage of the new features introduced in Granite 3.3, please refer to this prompt engineering guide for creating new templates or migrating existing ones.
 
 Some points to consider while migrating templates are:
 
-- Tool/function calling
-  - The turn type used to provide the list of tools varies by version. For
-    Granite 3.3, we recommend to use `available_tools`, but `tools` will also
-    work to keep compatibility with previous versions.
-  - Additionally, the token that precedes a tool call in the model's response is
-    `<|tool_call|>` for Granite 3.3 models, and `<tool_call>` for Granite 3.2
-    and 3.1 models. Please consider these variants to parse tool call outputs
-    from Granite models.
-- RAG tasks: In Granite 3.3, each document must be provided in a separate turn.
-  This differs from previous versions, where documents could be passed as a list
-  within a single turn.
-- Reasoning: Granite 3.3 models display reasoning outputs with intermediate
-  thoughts clearly separated from the final answer, a capability not supported
-  in Granite 3.2.
+- **Tool/function calling**
+  - The turn type used to provide the list of tools varies by version. For Granite 3.3, we recommend to use `available_tools`, but `tools` will also work to keep compatibility with previous versions.
+  - Additionally, the token that precedes a tool call in the model's response is `<|tool_call|>` for Granite 3.3 models, and `<tool_call>` for Granite 3.2 and 3.1 models. Please consider these variants to parse tool call outputs from Granite models.
+- **RAG tasks**: In Granite 3.3, each document must be provided in a separate turn. This differs from previous versions, where documents could be passed as a list within a single turn.
+- **Reasoning**: Granite 3.3 models display reasoning outputs with intermediate thoughts clearly separated from the final answer, a capability not supported in Granite 3.2.
 
 ## Building prompts with `transformers` library
 
-The `apply_chat_template` function from the `transformers` library automatically
-applies the basic chat template structure of Granite 3.3 models to your prompts.
-To build prompts that integrate advanced features via the `apply_chat_template`
-you must use the appropriate `kwargs`.
+The `apply_chat_template` function from the `transformers` library automatically applies the basic chat template structure of Granite 3.3 models to your prompts. To build prompts that integrate advanced features via the `apply_chat_template` you must use the appropriate `kwargs`.
 
-- Use `documents`, to pass the list of documents for RAG prompts. This will
-  automatically activate the RAG system prompt.
-- Use `tools`, to pass the list of tools for function-calling tasks. This will
-  automatically activate the function-calling system prompt.
-- Use `thinking`, to make the model reason about its response. This will
-  automatically activate the reasoning system prompt.
-- Use `controls` to pass a `json` indicating what optional annotations should be
-  activated. The respective system prompt extension (if needed) will also be
-  automatically activated.
+- Use `documents`, to pass the list of documents for RAG prompts. This will automatically activate the RAG system prompt.
+- Use `tools`, to pass the list of tools for function-calling tasks. This will automatically activate the function-calling system prompt.
+- Use `thinking`, to make the model reason about its response. This will automatically activate the reasoning system prompt.
+- Use `controls` to pass a `json` indicating what optional annotations should be activated. The respective system prompt extension (if needed) will also be automatically activated.
 
-We strongly recommend that developers use the `apply_chat_template` function to
-construct their prompts, as it enhances the development experience and minimizes
-the risk of inference errors caused by manually crafting chat templates.
-However, you can also load a chat template that incorporates Granite 3.3’s
-advanced features without using this function.
+We strongly recommend that developers use the `apply_chat_template` function to construct their prompts, as it enhances the development experience and minimizes the risk of inference errors caused by manually crafting chat templates. However, you can also load a chat template that incorporates Granite 3.3's advanced features without using this function.
 
-In the following example, we load the template for RAG inference with
-annotations to moderate `length` and `originality`. The list of documents and
-desired annotations have been previously rendered. The final model prompt is
-saved in `input_text` variable. You can take this example as baseline to build
-wrappers for libraries that do no suppot `kwargs`.
+In the following example, we load the template for RAG inference with annotations to moderate `length` and `originality`. The list of documents and desired annotations have been previously rendered. The final model prompt is saved in `input_text` variable. You can take this example as baseline to build wrappers for libraries that do no suppot `kwargs`.
 
 ```python
 import torch
@@ -732,18 +677,8 @@ RAG stands for Retrieval-Augmented Generation. It's a method that enhances gener
 
 ## Inference Tips
 
-- Verify the Max New Tokens setting. If you see a model response stopping
-  mid-sentence, the max new tokens setting is likely set too low. This is
-  particularly critical in long-context tasks.
-- Avoid pronouns in follow-up questions. For example, do not use “Can you edit
-  it?”, instead use “Can you edit the table?”.
-- Reduce explanation length. If the explanations provided by the model are too
-  long, update the instruction to make it clear there should be no additional
-  explanations.
-- Fix run-on sentences/responses. If the model is generating run-on
-  sentences/responses, try reducing the max tokens output parameter or adding
-  line breaks or spaces as stop token(s). This should lead the model to stop
-  generating the output after generating these tokens.
-- For prompts that include in-context examples, consider using the example
-  labels as a stop token so the model stops generation after providing the
-  answer.
+- Verify the Max New Tokens setting. If you see a model response stopping mid-sentence, the max new tokens setting is likely set too low. This is particularly critical in long-context tasks.
+- Avoid pronouns in follow-up questions. For example, do not use "Can you edit it?", instead use "Can you edit the table?".
+- Reduce explanation length. If the explanations provided by the model are too long, update the instruction to make it clear there should be no additional explanations.
+- Fix run-on sentences/responses. If the model is generating run-on sentences/responses, try reducing the max tokens output parameter or adding line breaks or spaces as stop token(s). This should lead the model to stop generating the output after generating these tokens.
+- For prompts that include in-context examples, consider using the example labels as a stop token so the model stops generation after providing the answer.

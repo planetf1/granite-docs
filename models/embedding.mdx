@@ -1,5 +1,227 @@
 ---
-title: 'Embedding'
-description: 'Description of your new file.'
+title: 'IBM Granite Embedding'
+description: 'Get started with Granite Embedding models today.'
+icon: 'vector-square'
 ---
 
+The Granite Embedding collection delivers high-performance sentence-transformer models optimized for retrieval, generating precise embeddings for seamless comparison. Built on ethically sourced datasets and fine-tuned with advanced techniques, these models excel in both academic and enterprise use cases.
+
+<CardGroup cols={1}>
+  <Card
+    title="Model card"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-embedding-30m-english"
+  >
+    View the full model card on Hugging Face
+  </Card>
+</CardGroup>
+
+## Table of contents
+
+1. [Overview](#overview)
+1. [Model cards](#model-cards)
+1. [Run locally with Ollama](#run-locally-with-ollama)
+1. [Examples](#examples)
+   1. [Granite Embedding with sentence transformers](#granite-embedding-with-sentence-transformers)
+   1. [Granite Embedding with Hugging Face transformers](#granite-embedding-with-hugging-face-transformers)
+   1. [Granite Embedding with LangChain](#granite-embedding-with-langchain)
+
+## Overview
+
+The Granite Embedding collection delivers innovative sentence-transformer models purpose-built for retrieval-based applications. Featuring a bi-encoder architecture, these models generate high-quality embeddings for textual inputs such as queries, passages, and documents, enabling seamless comparison through cosine similarity. The Granite Embedding lineup includes granite-embedding-30m-english, granite-embedding-125m-english, granite-embedding-107m-multilingual, and granite-embedding-278m-multilingual, each optimized to ensure strong alignment between query and passage embeddings.
+
+Built on a foundation of carefully curated, permissibly licensed public datasets, the Granite Embedding models set a high standard for performance, achieving state-of-the-art results in their respective weight classes. Developed to meet enterprise-grade expectations, they are crafted transparently in accordance with IBM's AI Ethics principles and offered under the Apache 2.0 license for both research and commercial innovation.
+
+Looking ahead, the Granite Embedding series is gearing up to introduce sparse embedding models, designed to reduce computational complexity and enhance memory efficiency, further pushing the boundaries of efficiency and scalability.
+
+### Model cards
+
+<CardGroup cols={2}>
+  <Card
+    title="Granite Embedding 125m English"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-embedding-125m-english"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Embedding 30m English"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-embedding-30m-english"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Embedding 107m Multilingual"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-embedding-107m-multilingual"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Embedding 278m Multilingual"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-embedding-278m-multilingual"
+  >
+    View model on Hugging Face
+  </Card>
+</CardGroup>
+
+### Run locally with Ollama
+
+[Learn more](https://ollama.com/blog/ibm-granite) about Granite Embedding on Ollama.
+
+<CardGroup cols={2}>
+  <Card
+    title="Granite Embedding 278m Multilingual"
+    icon="download"
+    href="https://ollama.com/library/granite-embedding:278m"
+  >
+    Download for Ollama
+  </Card>
+  <Card
+    title="Granite Embedding 30m English"
+    icon="download"
+    href="https://ollama.com/library/granite-embedding:30m"
+  >
+    Download for Ollama
+  </Card>
+</CardGroup>
+
+## Examples
+
+### Granite Embedding with sentence transformers
+
+This is a simple example of how to use granite-embedding-30m-english model with sentence_transformers.
+
+First, install the sentence transformers library
+
+```python
+pip install sentence_transformers
+```
+
+The model can then be used to encode pairs of text and find the similarity between their representations
+
+```python
+from sentence_transformers import SentenceTransformer, util
+
+model_path = "ibm-granite/granite-embedding-30m-english"
+# Load the Sentence Transformer model
+model = SentenceTransformer(model_path)
+
+input_queries = [
+    ' Who made the song My achy breaky heart? ',
+    'summit define'
+    ]
+
+input_passages = [
+    "Achy Breaky Heart is a country song written by Don Von Tress. Originally titled Don't Tell My Heart and performed by The Marcy Brothers in 1991. ",
+    "Definition of summit for English Language Learners. : 1 the highest point of a mountain : the top of a mountain. : 2 the highest level. : 3 a meeting or series of meetings between the leaders of two or more governments."
+    ]
+
+# encode queries and passages
+query_embeddings = model.encode(input_queries)
+passage_embeddings = model.encode(input_passages)
+
+# calculate cosine similarity
+print(util.cos_sim(query_embeddings, passage_embeddings))
+```
+
+### Granite Embedding with Hugging Face transformers
+
+This is a simple example of how to use the granite-embedding-30m-english model with the Transformers library and PyTorch.
+
+First, install the required libraries
+
+```python
+pip install transformers torch
+```
+
+The model can then be used to encode pairs of text
+
+```python
+import torch
+from transformers import AutoModel, AutoTokenizer
+
+model_path = "ibm-granite/granite-embedding-30m-english"
+
+# Load the model and tokenizer
+model = AutoModel.from_pretrained(model_path)
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+model.eval()
+
+input_queries = [
+    ' Who made the song My achy breaky heart? ',
+    'summit define'
+    ]
+
+# tokenize inputs
+tokenized_queries = tokenizer(input_queries, padding=True, truncation=True, return_tensors='pt')
+
+# encode queries
+with torch.no_grad():
+    # Queries
+    model_output = model(**tokenized_queries)
+    # Perform pooling. granite-embedding-30m-english uses CLS Pooling
+    query_embeddings = model_output[0][:, 0]
+
+# normalize the embeddings
+query_embeddings = torch.nn.functional.normalize(query_embeddings, dim=1)
+```
+
+### Granite Embedding with LangChain
+
+This is how you could use our models for Retrieval using IBM LangChain.
+
+First, install LangChain dependencies
+
+```python
+pip install git+https://github.com/ibm-granite-community/utils \
+#     "langchain_community<0.3.0" \
+#     langchain-huggingface \
+#     langchain-milvus \
+#     replicate \
+#     wget
+```
+
+The below recipe, with granite-embedding-30m-english model, shows how to:
+
+- **Setup an database:** how to setup a local Milvus VectorDB, process the corpus to produce indexable documents, and ingest those documents using an embedding model.
+- **Retrieve relevant passages from the database:** how to use an embedding of the query to retrieve semantically similar passages.
+
+```python
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_milvus import Milvus
+from langchain.document_loaders import TextLoader
+from langchain.text_splitter import CharacterTextSplitter
+import uuid
+import os, wget
+
+#load the embedding model
+embeddings_model = HuggingFaceEmbeddings(model_name="ibm-granite/granite-embedding-30m-english")
+
+#setup the vectordb
+db_file = f"/tmp/milvus_{str(uuid.uuid4())[:8]}.db"
+print(f"The vector database will be saved to {db_file}")
+vector_db = Milvus(embedding_function=embeddings_model, connection_args={"uri": db_file}, auto_id=True)
+
+#load example corpus file
+filename = 'state_of_the_union.txt'
+url = 'https://raw.github.com/IBM/watson-machine-learning-samples/master/cloud/data/foundation_models/state_of_the_union.txt'
+
+if not os.path.isfile(filename):
+  wget.download(url, out=filename)
+
+loader = TextLoader(filename)
+documents = loader.load()
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+
+#add processed documents to the vectordb
+vector_db.add_documents(texts)
+
+#search the vectordb with the query
+query = "What did the president say about Ketanji Brown Jackson"
+docs = vector_db.similarity_search(query)
+print(docs[0].page_content)
+```

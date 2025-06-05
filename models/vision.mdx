@@ -1,4 +1,186 @@
 ---
-title: "Vision"
-description: "Description of your new file."
+title: 'IBM Granite Vision'
+description: 'Get started with Granite Vision models today.'
+icon: 'eye'
 ---
+
+Granite Vision is designed for efficient content extraction from tables, charts, and diagrams, making it a powerful tool for structured data analysis. Our focus was on creating a lightweight, computationally efficient model that keeps resource costs low, making it practical and accessible for real-world applications.
+
+<CardGroup cols={2}>
+  <Card
+    title="Model card"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-vision-3.2-2b"
+  >
+    View the full model card on Hugging Face
+  </Card>
+  <Card
+    title="Run locally with Ollama"
+    icon="arrow-right"
+    href="https://ollama.com/library/granite3.2-vision:2b"
+  >
+    Download and run Granite Vision with Ollama
+  </Card>
+</CardGroup>
+
+<CardGroup cols={2}>
+  <Card
+    title="Fine-tune Granite Vision"
+    icon="code"
+    href="https://huggingface.co/learn/cookbook/en/fine_tuning_granite_vision_sft_trl"
+  >
+    granite-vision-3.2-2b - Fine-tune Granite Vision with the Transformer Reinforcement Learning library (TRL).
+  </Card>
+  <Card
+    title="Multimodal RAG"
+    icon="robot"
+    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/RAG/Granite_Multimodal_RAG.ipynb"
+  >
+    granite-vision-3.2-2b - Multimodal RAG recipe.
+  </Card>
+</CardGroup>
+
+## Table of contents
+
+1. [Overview](#overview)
+1. [Model cards](#model-cards)
+1. [Getting Started](#getting-started)
+   1. [Granite Vision with Hugging Face transformers](#granite-vision-with-hugging-face-transformers)
+   1. [Granite Vision with vLLM](#granite-vision-with-vllm)
+
+## Overview
+
+The Granite Vision collection offers a streamlined model tailored for visual document understanding, specifically aimed at enterprise needs. It's trained to handle a variety of tasks, such as extracting information from tables, charts, diagrams, sketches, and infographics, along with general image-related tasks. The Granite Vision model can support up to ~1.5 million pixels, with images up to 1152x1152.
+
+Despite its lightweight design, Granite Vision delivers strong performance on standard visual document understanding benchmarks and the LiveXiv benchmark, which uses a constantly updated set of new Arxiv papers to avoid data leakage.
+
+We're releasing Granite Vision under the Apache 2.0 license, making it freely available for both research and commercial use, with complete visibility into the training data.
+
+[Granite Vision white paper](https://arxiv.org/abs/2502.09927)
+
+### Model cards
+
+<CardGroup cols={1}>
+  <Card
+    title="Granite Vision 3.2 2B"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-vision-3.2-2b"
+  >
+    View model on Hugging Face
+  </Card>
+</CardGroup>
+
+### Run locally with Ollama
+
+[Learn more](https://ollama.com/blog/ibm-granite) about Granite 3.2 on Ollama.
+
+<CardGroup cols={1}>
+  <Card
+    title="Granite Vision 3.2 2B"
+    icon="download"
+    href="https://ollama.com/library/granite3.2-vision:2b"
+  >
+    Download for Ollama
+  </Card>
+</CardGroup>
+
+## Getting Started
+
+### Granite Vision with Hugging Face transformers
+
+This is a simple example of how to use the granite-vision-3.2-2b model with the Transformers library and PyTorch.
+
+First, install the required libraries
+
+```python
+pip install transformers>=4.49
+```
+
+```python
+from transformers import AutoProcessor, AutoModelForVision2Seq
+from huggingface_hub import hf_hub_download
+import torch
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+model_path = "ibm-granite/granite-vision-3.2-2b"
+processor = AutoProcessor.from_pretrained(model_path)
+model = AutoModelForVision2Seq.from_pretrained(model_path).to(device)
+
+# prepare image and text prompt, using the appropriate prompt template
+
+img_path = hf_hub_download(repo_id=model_path, filename='example.png')
+
+conversation = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image", "url": img_path},
+            {"type": "text", "text": "What is the highest scoring model on ChartQA and what is its score?"},
+        ],
+    },
+]
+inputs = processor.apply_chat_template(
+    conversation,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt"
+).to(device)
+
+
+# autoregressively complete prompt
+output = model.generate(**inputs, max_new_tokens=100)
+print(processor.decode(output[0], skip_special_tokens=True))
+```
+
+### Granite Vision with vLLM
+
+The granite-vision-3.2-2b model can also be loaded with vLLM. First make sure to install the following libraries:
+
+```python
+pip install torch torchvision torchaudio
+pip install vllm==0.6.6
+```
+
+Then, copy the snippet from the section that is relevant for your use case.
+
+```python
+from vllm import LLM, SamplingParams
+from vllm.assets.image import ImageAsset
+from huggingface_hub import hf_hub_download
+from PIL import Image
+
+model_path = "ibm-granite/granite-vision-3.2-2b"
+
+model = LLM(
+    model=model_path,
+    limit_mm_per_prompt={"image": 1},
+)
+
+sampling_params = SamplingParams(
+    temperature=0.2,
+    max_tokens=64,
+)
+
+# Define the question we want to answer and format the prompt
+image_token = "<image>"
+system_prompt = "<|system|>\nA chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\n"
+
+question = "What is the highest scoring model on ChartQA and what is its score?"
+prompt = f"{system_prompt}<|user|>\n{image_token}\n{question}\n<|assistant|>\n"
+img_path = hf_hub_download(repo_id=model_path, filename='example.png')
+image = Image.open(img_path).convert("RGB")
+print(image)
+
+# Build the inputs to vLLM; the image is passed as `multi_modal_data`.
+inputs = {
+    "prompt": prompt,
+    "multi_modal_data": {
+        "image": image,
+    }
+}
+
+outputs = model.generate(inputs, sampling_params=sampling_params)
+print(f"Generated text: {outputs[0].outputs[0].text}")
+```

@@ -1,0 +1,43 @@
+---
+title: "Agentic RAG with IBM Granite"
+description: "Learn how to create a LangChain agentic RAG system using the Granite model."
+icon: "robot"
+---
+
+## Retrieval Agent
+
+The Retrieval Agent is an implementation of Agentic RAG (Retrieval Augmented
+Generation) that can answer queries using a combination of both local document
+and web retrieval. It serves as a both personal productivity tool as well as an
+example of building an agent using task planning, adaptive step-by-step
+execution, and tool calling with Granite 3.2 Model at the helm.
+
+The core agent code is wrapped inside of an
+[Open WebUI Function](https://docs.openwebui.com/features/plugin/functions/) so
+that interaction with the agent can be accomplished through an easy to use chat
+UI.
+
+## Image Research Agent
+
+The Image Research Agent is an AI-powered agent capable of conducting in-depth
+research based on image analysis that leverages
+[CrewAI](https://www.crewai.com/) as an agentic framework. This tutotial uses
+the Granite 3.2 Vision Model alongside the Granite 3.2 8B Instruct Model, which
+offers enhanced reasoning capabilities.
+
+<CardGroup cols={2}>
+  <Card
+    title="Granite Agentic RAG"
+    icon="github"
+    href="https://github.com/ibm-granite-community/granite-retrieval-agent"
+  >
+    Build agentic RAG systems with Granite models
+  </Card>
+  <Card
+    title="Granite Agentic RAG tutorial"
+    icon="book"
+    href="https://developer.ibm.com/tutorials/awb-build-agentic-rag-system-granite/"
+  >
+    Step-by-step tutorial for building agentic RAG
+  </Card>
+</CardGroup>

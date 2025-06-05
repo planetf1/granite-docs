@@ -1,0 +1,182 @@
+---
+title: "Fine-tuning IBM Granite Time Series"
+description: "Learn how to fine-tune Granite Time Series models"
+icon: "chart-line"
+---
+
+## Overview
+
+In order to be generally applicable to many time series datasets, the pretrained
+Granite-TimeSeries model is trained in a channel independent way. Under channel
+independence, the model learns a common dynamics model across all channels
+without considering interactions. In many cases, there is important information
+in a time series dataset related to how different channels interact with each
+other. In order to capture these dependencies, we need to fine tune and enable
+channel mixing in the decoder.
+
+The fine-tuning process requires the following steps:
+
+1. Load and prepare data using the time series preprocessor. Since we are
+   fine-tuning the model, we have more options to include things like
+   cross-channel interactions, exogenous features and categorical values.
+2. Load the model and freeze the backbone
+3. Create a Hugging Face Trainer and train the model
+4. Evaluate the model
+
+For the example code-snippets below, we assume that a dataset is available with
+a timestamp column ("date"), and three value columns ("value1", "value2",
+"value3"). The columns "value1" and "value2" will serve as targets of the
+forecasting exercise, while the "value3" column will serve as a control column.
+A control column is a type of exogenous column where it is assumed that its
+value is known into the future.
+
+## Prerequisites
+
+Please make sure your python environment is properly set up. The code snippets
+below are illustrative examples of how various components work with our
+Granite-TimeSeries models, and require the installation of the
+[Granite TSFM library](https://github.com/ibm-granite/granite-tsfm). Please
+[see the setup instructions](/run/granite-on-mac/time-series).
+
+## Data loading
+
+Pandas dataframes are required in the preprocessing and forecasting pipeline
+components. We simply read the csv into a pandas dataframe, making sure to
+format the timestamp column properly.
+
+```python
+data = pd.read_csv(
+  dataset_path,
+  parse_dates=["date"],
+)
+```
+
+## Data preparation
+
+In the zero-shot case, we can only handle datasets with id columns and one or
+more target columns, advanced use cases involving exogenous or categorical
+features are not yet supported. In the fine-tuning case, we are free to specify
+additional columns, like control_columns. We first specify the parameters of the
+preprocessor, enabling scaling (normalization) of the data. Then we use the
+preprocessor to extract train, validation, and test datasets from the original
+data.
+
+```python
+tsp = TimeSeriesPreprocessor(
+  id_columns=[],
+  timestamp_column="date"
+  target_columns=["value1", "value2"],
+  control_columns=["value3"],
+  prediction_length=96,
+  context_length=512,
+  scaling=True,
+  scaling_type="standard",
+)
+
+dset_train, dset_valid, dset_test = get_datasets(tsp, data, split_config={"train": 0.6, "test": 0.2})
+```
+
+## Loading the pretrained granite time series model
+
+Here we load the model using `from_pretrained` but pass some extra configuration
+arguments. Note the presence of "decoder_mode" and the other index related
+arguments. The TimeSeriesPreprocessor provides some helper functions to make
+passing these parameters easier.
+
+```python
+model = TinyTimeMixerForPrediction.from_pretrained(
+  "ibm-granite/granite-timeseries-ttm-r2",
+  num_input_channels=tsp.num_input_channels,
+  prediction_channel_indices=tsp.prediction_channel_indices,
+  exogenous_channel_indices=tsp.exogenous_channel_indices,
+  decoder_mode="mix_channel"
+)
+
+for param in model.backbone.parameters():
+  param.requires_grad = False
+```
+
+The key here is the "mix-channel" decoder mode. This enables the decoder to
+consider inter-channel dependencies.
+
+## Creating a hugging face trainer and training the model
+
+We create a hugging face Trainer, passing the train and validation datasets that
+were created earlier. The first step is to define the training arguments:
+
+```python
+finetune_forecast_args = TrainingArguments(
+  output_dir="train_output",
+  overwrite_output_dir=True,
+  learning_rate=0.001,
+  num_train_epochs=100,
+  do_eval=True,
+  evaluation_strategy="epoch",
+  per_device_train_batch_size=64,
+  per_device_eval_batch_size=64,
+  dataloader_num_workers=8,
+  report_to=None,
+  save_strategy="epoch",
+  logging_strategy="epoch",
+  save_total_limit=1,
+  logging_dir="train_logs",
+  load_best_model_at_end=True,
+  metric_for_best_model="eval_loss",
+  greater_is_better=False,
+)
+```
+
+Many of the arguments above, e.g., learning rate, batch size, are dataset
+specific and will need to be adjusted for your specific use case. Next we define
+the callbacks. We add early stopping, which stops training when no improvement
+is seen, and a tracking callback, which reports training time statistics.
+
+```python
+early_stopping_callback = EarlyStoppingCallback(
+  early_stopping_patience=10,  # Number of epochs with no improvement after which to stop
+  early_stopping_threshold=0.0,  # Minimum improvement required to consider as improvement
+)
+tracking_callback = TrackingCallback()
+```
+
+Next we create the optimizer and the learning rate scheduler. We use AdamW as
+the optimizer and the 1cycle learning rate policy which adapts the learning rate
+quickly.
+
+```python
+optimizer = AdamW(finetune_forecast_model.parameters(), lr=learning_rate)
+scheduler = OneCycleLR(
+  optimizer,
+  learning_rate,
+  epochs=num_epochs,
+  steps_per_epoch=math.ceil(len(dset_train) / (batch_size)),
+)
+```
+
+Finally, we construct the trainer, using the components we created above:
+
+```python
+finetune_forecast_trainer = Trainer(
+  model=model,
+  args=finetune_forecast_args,
+  train_dataset=dset_train,
+  eval_dataset=dset_val,
+  callbacks=[early_stopping_callback, tracking_callback],
+  optimizers=(optimizer, scheduler),
+)
+finetune_forecast_trainer.train()
+```
+
+## Evaluating the fine-tuned model
+
+We make use of the trainer to evaluate on the test dataset created earlier. In
+the output of the command below "eval_loss" refers to the mean squared error on
+the normalized test data.
+
+```python
+fewshot_output = finetune_forecast_trainer.evaluate(dset_test)
+```
+
+A complete notebook for fine-tuning a Granite-TimeSeries TTM model on bike
+sharing data can be found
+[here](https://github.com/ibm-granite-community/granite-timeseries-cookbook/blob/main/recipes/Time_Series/Bike_Sharing_Finetuning_with_Exogenous.ipynb).

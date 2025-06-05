@@ -1,0 +1,71 @@
+---
+title: 'Run IBM Granite with Ollama on Mac'
+description: 'Learn how to run Granite models with Ollama on macOS.'
+icon: 'apple'
+---
+
+## Overview
+
+In this guide we'll be using [Ollama](https://ollama.com/), an open-source tool that makes it easy to download and run AI models locally.
+
+## Install Ollama
+
+The easiest way to get started is to install the [desktop app](https://ollama.com/). You can also use this script:
+
+```sh
+curl -L -O https://ollama.com/download/Ollama-darwin.zip
+unzip Ollama-darwin.zip
+mv Ollama.app /Applications
+rm Ollama-darwin.zip
+open /Applications/Ollama.app
+```
+
+You can also download the latest build from the [GitHub releases page](https://github.com/ollama/ollama/releases), or install using [homebrew](https://brew.sh/) with:
+
+```bash
+brew install ollama
+```
+
+## Download the models
+
+Now, let's download the models. Determining which model to use depends on your needs and what your device can handle. Generally, larger models will produce better results but also require more resources.
+
+In this guide, we'll fetch the Granite 8b model. This is a large files and will take some time to download.
+
+Ollama supports a wide range of Granite models:
+
+- granite3.3:8b
+- granite3.3:2b
+- granite3.2:2b
+- granite3.2:8B
+- granite3.2-vision:2b
+- granite3.1-guardian:2b
+- granite3.1-guardian:8b
+- granite3.1-moe:1b
+- granite3.1-moe:3b
+- granite-code:20b
+- granite-code:3b
+
+```bash
+ollama pull granite3.2:8b
+```
+
+## Run Granite
+
+<Note>
+By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this when using `ollama run`, update the `num_ctx` parameter with `/set parameter num_ctx <desired_context_length>`. The largest `<desired_context_length>` supported by Granite 3.1 models is `131072` (128k).
+</Note>
+
+To run the model, type:
+
+```bash
+ollama run granite3.2:8b
+```
+
+If you want to run a different Granite model, replace `granite3.2:8B` with the model name. For example, to run the granite 2b variant, use `ollama run granite3.2:2b`.
+
+You can also interact with the model using a curl command to send requests through the OpenAI-compatible API:
+
+```bash
+curl -XPOST -H "Content-Type: application/json" http://localhost:11434/v1/chat/completions -d '{"model": "granite3.2:8b", "messages": [{"role": "users", "content": "How are you today?"}]}'
+```

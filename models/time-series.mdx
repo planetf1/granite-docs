@@ -1,5 +1,160 @@
 ---
-title: 'Time Series'
-description: 'Description of your new file.'
+title: 'IBM Granite Time Series'
+description: 'Get started with Granite Time Series models today.'
+icon: 'chart-line'
 ---
 
+The Granite Time Series models are compact pre-trained models for Multivariate Time-Series Forecasting, open-sourced by IBM Research. With 1-3 million parameters, it introduces the notion of the first-ever tiny pre-trained models for time-series forecasting.
+
+<CardGroup cols={1}>
+  <Card
+    title="Model card"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-timeseries-ttm-r2"
+  >
+    View the full model card on Hugging Face
+  </Card>
+</CardGroup>
+
+## Overview
+
+Granite Time Series Tiny Time Mixer (TTM) models supports multivariate forecasting via both channel independence and channel-mixing approaches. TTMs are lightweight and can be executed even on CPU-only machines, enhancing usability and fostering wider adoption in resource-constrained environments. Decoder Channel-Mixing can be enabled during fine-tuning for capturing strong channel-correlation patterns across time-series variates, a critical capability lacking in other existing approaches. In addition, TTM also supports exogenous and categorical data infusion.
+
+For time series foundation models, the prompts do not consist of free-form text, instead we configure the model based on metadata from the time series and pass context windows of time series data. The metadata include things like the type of column (target, categorical, control, etc.) or the frequency or resolution of the data (minute, hourly, etc.). Below, we describe the zero-shot forecasting use case. More detailed examples can be found in the [recipes](https://github.com/ibm-granite-community/granite-timeseries-cookbook/tree/main).
+
+Current Granite Time Series models are available to support several input context lengths ranging from: 52 to 1536 timepoints, with forecasts ranging from 16 to 720 timepoints. All Granite Time Series models are released under an Apache 2.0 license for research and commercial use.
+
+### Model cards
+
+<CardGroup cols={2}>
+  <Card
+    title="Granite Time Series TTM r1"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-timeseries-ttm-r1"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Time Series TTM r2"
+    icon="hdd"
+    href="https://huggingface.co/ibm-granite/granite-timeseries-ttm-r2"
+  >
+    View model on Hugging Face
+  </Card>
+</CardGroup>
+
+### Try Granite Time Series
+
+<CardGroup cols={2}>
+  <Card
+    title="Run Granite locally on Mac"
+    icon="laptop"
+    href="/run/granite-on-mac/time-series"
+  >
+    Local setup guide for Mac
+  </Card>
+  <Card
+    title="Run Granite locally on Linux"
+    icon="laptop"
+    href="/run/granite-on-linux/time-series"
+  >
+    Local setup guide for Linux
+  </Card>
+  <Card
+    title="Try the time series forecast API on watsonx.ai"
+    icon="cube"
+    href="https://cloud.ibm.com/apidocs/watsonx-ai#time-series-forecast"
+  >
+    Cloud API documentation
+  </Card>
+  <Card
+    title="Recipes"
+    icon="book"
+    href="https://github.com/ibm-granite-community/granite-timeseries-cookbook/tree/main"
+  >
+    Cookbook with examples
+  </Card>
+</CardGroup>
+
+### Data for Granite Time Series
+
+Granite Time Series models are trained on a collection of publicly available datasets which permit commercial use. A total of up to 1 billion timepoints were used from selected datasets from the Monash Forecasting Repository, the LOTSA collection, among others. Complete details can be found in the model cards above.
+
+### Benchmarks for Granite Time Series
+
+Granite time series models have shown excellent performance on several time series benchmark datasets, outperforming models which are more than 10x larger. Comprehensive benchmarking results comparing Granite Time Series models to other models can be found in [Tiny Time Mixers (TTMs): Fast Pre-trained Models for Enhanced Zero/Few-Shot Forecasting of Multivariate Time Series](https://arxiv.org/abs/2401.03955). The recently released R2 models are now included in the comprehensive [GIFT-Eval benchmark and leaderboard](https://huggingface.co/spaces/Salesforce/GIFT-Eval).
+
+## Zero-shot inference
+
+The basic steps to conduct zero-shot inference with Granite-TimeSeries-TTM are the following:
+
+1. Load and prepare data using the time series preprocessor: the time series preprocessor is responsible for scaling data, encoding categorical values, and provides other utilities that make configuring the pre-trained model easier.
+2. Load the pretrained granite model
+3. Generate forecasts using the time series forecasting pipeline
+
+For the example code-snippets below, we assume that a dataset is available with a timestamp column ("date"), and two target value columns ("value1", "value2").
+
+### Prerequisites
+
+Please make sure your python environment is properly set up. The code snippets below are illustrative examples of how various components work with our Granite-TimeSeries models, and require the installation of the [Granite TSFM library](https://github.com/ibm-granite/granite-tsfm). Please [see the setup instructions](/run/granite-on-mac/time-series).
+
+### Load data
+
+Pandas dataframes are required in the preprocessing and forecasting pipeline components. We simply read the csv into a pandas dataframe, making sure to format the timestamp column properly.
+
+```python
+data = pd.read_csv(dataset_path, parse_dates=["date"],)
+```
+
+### Prepare data
+
+In the zero-shot case, we can only handle datasets with id columns and one or more target columns. Advanced use cases involving exogenous or categorical features are not yet supported.
+
+```python
+tsp = TimeSeriesPreprocessor(
+  id_columns=[],
+  timestamp_column="date",
+  target_columns=["value1", "value2"],
+  prediction_length=96,
+  context_length=512,
+  scaling=False,
+)
+
+tsp.train(data)
+```
+
+### Load the pretrained Granite timeseries model
+
+Here we load the model using `from_pretrained` but pass some extra configuration arguments.
+
+```python
+model = TinyTimeMixerForPrediction.from_pretrained("ibm-granite/granite-timeseries-ttm-r2",
+  num_input_channels=tsp.num_input_channels)
+```
+
+### Generate forecasts
+
+First we instantiate the time series pipeline, then use it to make forecasts:
+
+```python
+pipeline = TimeSeriesForecastingPipeline(
+  model=model,
+  feature_extractor=tsp,
+  device="cpu")
+forecasts = pipeline(data)
+```
+
+A complete notebook for zero-shot forecasting on energy demand data can be found [here](https://github.com/ibm-granite-community/granite-timeseries-cookbook/blob/main/recipes/Time_Series/Time_Series_Getting_Started.ipynb).
+
+## General guidelines
+
+- Users should externally scale their data independently for every channel before feeding it to the model. Refer to the [`TimeSeriesPreprocessor`](https://github.com/ibm-granite/granite-tsfm/blob/main/tsfm_public/toolkit/time_series_preprocessor.py), our data processing utility for data scaling and data preparation.
+- The currently released models support a variety of resolutions:
+
+  - r1: only minutely and hourly resolutions (e.g., 10 min, 15 min, 1 hour)
+  - r2: only minutely and hourly resolutions (e.g., 10 min, 15 min, 1 hour)
+  - r2.1: daily and weekly in addition to minutely and hourly
+
+  A model with appropriate context and prediction length should be chosen based on the application.
+
+- Enabling any upsampling or prepending zeros to virtually increase the context length for shorter-length datasets is not recommended and will impact the model performance.

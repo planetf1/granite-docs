@@ -1,0 +1,169 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "IBM Granite Documentation",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#0f62fe",
+    "light": "#0f62fe",
+    "dark": "#0f62fe",
+    "anchors": {
+      "from": "#0f62fe",
+      "to": "#0043ce"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:granite-support@ibm.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "IBM Granite",
+    "url": "https://www.ibm.com/granite"
+  },
+  "tabs": [
+    {
+      "name": "Models",
+      "url": "models"
+    },
+    {
+      "name": "Run Granite",
+      "url": "run"
+    },
+    {
+      "name": "Fine-tuning",
+      "url": "fine-tune"
+    },
+    {
+      "name": "Use Cases",
+      "url": "use-cases"
+    },
+    {
+      "name": "Responsible AI",
+      "url": "responsible-ai"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Documentation",
+      "icon": "book-open-cover",
+      "url": "https://granite.docs.com"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://ibm-granite-community.slack.com"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://ibm.com/blog/granite"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction"
+      ]
+    },
+    {
+      "group": "Models",
+      "pages": [
+        "models/granite",
+        "models/vision",
+        "models/speech",
+        "models/guardian",
+        "models/embedding",
+        "models/time-series",
+        "models/code"
+      ]
+    },
+    {
+      "group": "Run Granite",
+      "pages": [
+        "run/granite-with-ollama-mac",
+        "run/granite-with-vllm/containerized",
+        "run/granite-with-lmstudio/lmstudio",
+        "run/granite-on-cloud"
+      ]
+    },
+    {
+      "group": "Fine-tuning",
+      "pages": [
+        "fine-tune/granite",
+        "fine-tune/time-series"
+      ]
+    },
+    {
+      "group": "Use Cases",
+      "pages": [
+        "use-cases/granite-bee",
+        "use-cases/agentic-rag",
+        "use-cases/multimodal-rag",
+        "use-cases/docling-rag",
+        "use-cases/prompt-declaration-language",
+        "use-cases/forecast-energy-demand",
+        "use-cases/coding-assistant",
+        "use-cases/all-cookbooks"
+      ]
+    },
+    {
+      "group": "Responsible AI",
+      "pages": [
+        "responsible-ai"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/ibmgranite",
+    "github": "https://github.com/ibm-granite",
+    "linkedin": "https://www.linkedin.com/company/ibm",
+    "youtube": "https://www.youtube.com/c/IBMTechnology"
+  },
+  "search": {
+    "prompt": "Search IBM Granite documentation..."
+  },
+  "analytics": {
+    "gtag": {
+      "measurementId": "G-XXXXXXXXXX"
+    }
+  },
+  "api": {
+    "maintainOrder": true
+  },
+  "openapi": [
+    {
+      "url": "https://raw.githubusercontent.com/mintlify/starter/main/api-reference/openapi.json"
+    }
+  ],
+  "integrations": {
+    "intercom": "your-intercom-app-id"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
+  "seo": {
+    "indexHiddenPages": true
+  },
+  "backgroundImage": "/images/background.png",
+  "modeToggle": {
+    "default": "light",
+    "isHidden": false
+  },
+  "redirects": [
+    {
+      "source": "/old-path",
+      "destination": "/new-path"
+    }
+  ],
+  "customJS": [
+    "/mintlify-analytics.js"
+  ]
+}

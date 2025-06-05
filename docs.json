@@ -59,7 +59,7 @@
         "tab": "Cookbooks",
         "groups": [
           {
-            "group": "Use cases",
+            "group": "Cookbooks",
             "pages": [
               "use-cases/cookbooks",
               "use-cases/granite-bee",
@@ -73,50 +73,46 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Playground",
+        "url": "https://www.ibm.com/granite/playground"
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/granite_light.svg",
     "dark": "/logo/granite_dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "IBM Granite",
+      "href": "https://www.ibm.com/granite"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+      "github": "https://github.com/ibm-granite",
+      "website": "https://www.ibm.com/granite"
+    },
+    "links": [
+      {
+        "items": [
+          {
+            "label": "Hugging Face",
+            "href": "https://huggingface.co/ibm-granite"
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "label": "Ollama",
+            "href": "https://ollama.com/library/granite3.3"
+          }
+        ]
+      }
+    ]
   }
 }
