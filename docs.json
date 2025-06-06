@@ -8,23 +8,31 @@
     "dark": "#000000"
   },
    "fonts": {
-    "family": "IBM Plex Sans",
-    "weight": 400,
-    "source": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap",
-    "format": "woff2",
-    "body": {
-      "family": "IBM Plex Sans",
-      "weight": 400,
-      "source": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap",
-      "format": "woff2"
-    }
+    "family": "IBM Plex Sans"
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Responsible AI",
+          "icon": "shield-check",
+          "pages": [
+            "responsible-ai/index"
+          ]
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Docs",
         "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction"
+            ]
+          },
           {
             "group": "Models",
             "pages": [
@@ -40,10 +48,12 @@
           {
             "group": "Run Granite",
             "pages": [
-              "run/ollama",
-              "run/vllm",
-              "run/lm-studio",
-              "run/cloud"
+              "run/granite-with-ollama-mac",
+              "run/granite-with-ollama-linux", 
+              "run/granite-with-ollama-windows",
+              "run/granite-with-vllm-containerized",
+              "run/granite-with-lmstudio",
+              "run/granite-on-cloud"
             ]
           },
           {
@@ -69,14 +79,18 @@
               "use-cases/prompt-declaration-language",
               "use-cases/forecast-energy-demand",
               "use-cases/coding-assistant",
+              "use-cases/granite-code-on-replicate",
+              "use-cases/granite-code-with-continue",
+              "use-cases/risk-detection",
+              "use-cases/text-to-shell",
               "use-cases/all-cookbooks"
             ]
           }
         ]
       },
       {
-        "tab": "Playground",
-        "url": "https://www.ibm.com/granite/playground"
+        "tab": "Playground ↗",
+        "href": "https://www.ibm.com/granite/playground"
       }
     ]
   },
@@ -92,27 +106,44 @@
     }
   },
   "footer": {
-    "socials": {
-      "github": "https://github.com/ibm-granite",
-      "website": "https://www.ibm.com/granite"
-    },
     "links": [
       {
+        "header": "Resources",
         "items": [
+          {
+            "label": "IBM Granite Website",
+            "href": "https://www.ibm.com/granite"
+          },
           {
             "label": "Hugging Face",
             "href": "https://huggingface.co/ibm-granite"
+          },
+          {
+            "label": "Ollama",
+            "href": "https://ollama.com/library/granite3.3"
+          },
+          {
+            "label": "GitHub",
+            "href": "https://github.com/ibm-granite"
           }
         ]
       },
       {
+        "header": "More",
         "items": [
           {
-            "label": "Ollama",
-            "href": "https://ollama.com/library/granite3.3"
+            "label": "IBM Blog",
+            "href": "https://ibm.com/blog/granite"
+          },
+          {
+            "label": "Playground",
+            "href": "https://www.ibm.com/granite/playground"
           }
         ]
       }
     ]
+  },
+  "search": {
+    "prompt": "Search IBM Granite documentation..."
   }
 }
