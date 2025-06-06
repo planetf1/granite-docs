@@ -12,17 +12,6 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Responsible AI",
-          "icon": "shield-check",
-          "pages": [
-            "responsible-ai/index"
-          ]
-        }
-      ]
-    },
     "tabs": [
       {
         "tab": "Docs",
@@ -61,6 +50,12 @@
             "pages": [
               "fine-tune/granite",
               "fine-tune/time-series"
+            ]
+          },
+          {
+            "group": "Responsible AI",
+            "pages": [
+              "responsible-ai/index"
             ]
           }
         ]
