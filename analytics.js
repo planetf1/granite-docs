@@ -40,10 +40,6 @@
   script.defer = true;
   document.head.appendChild(script);
 
-  // Set up automatic pageview tracking for SPA navigation
-  var originalPushState = history.pushState;
-  var originalReplaceState = history.replaceState;
-  
   function trackPageview() {
     // Wait for IBM Analytics to load, then track pageview
     setTimeout(function() {
@@ -53,18 +49,6 @@
     }, 100);
   }
 
-  // Override pushState to track SPA navigation
-  history.pushState = function() {
-    originalPushState.apply(history, arguments);
-    trackPageview();
-  };
-
-  // Override replaceState to track SPA navigation
-  history.replaceState = function() {
-    originalReplaceState.apply(history, arguments);
-    trackPageview();
-  };
-
   // Track initial page load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', trackPageview);
@@ -72,6 +56,9 @@
     trackPageview();
   }
 
-  // Also track on popstate (back/forward button)
-  window.addEventListener('popstate', trackPageview);
+  if(window.navigation) {
+    window.navigation.addEventListener("navigate", trackPageview)
+  } else {
+    window.addEventListener('popstate', trackPageview);
+  }
 })();
