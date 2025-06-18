@@ -1,5 +1,6 @@
 ---
 title: "IBM Granite"
+sidebarTitle: "Quick start"
 description: "Enterprise-grade AI foundation models built for business"
 ---
 
@@ -7,32 +8,29 @@ description: "Enterprise-grade AI foundation models built for business"
 
 IBM Granite is a family of enterprise-grade foundation models designed for business applications. These models are built with transparency, accountability, and governance in mind, making them ideal for enterprise deployment.
 
-## Quick Start
+## Run Granite with Ollama
 
-Get started with IBM Granite in minutes:
+Get started with IBM Granite in 3 simple steps:
 
 <Steps>
-  <Step title="Choose Your Platform">
-    Run Granite on [Ollama](/run/granite-with-ollama-mac), [vLLM](/run/granite-with-vllm-containerized), or [IBM Cloud](/run/granite-on-cloud)
+  <Step title="Install Ollama">
+    Download and install Ollama from [ollama.com](https://ollama.com)
   </Step>
   
-  <Step title="Explore Use Cases">
-    Check out our [cookbooks](/use-cases/cookbooks) for practical applications and examples
+  <Step title="Pull Granite">
+    Run the following command to download Granite:
+    ```bash
+    ollama pull granite3.3
+    ```
   </Step>
   
-  <Step title="Fine-tune for Your Needs">
-    Learn how to [fine-tune](/fine-tune/granite) Granite models for your specific use case
+  <Step title="Start chatting">
+    Start a conversation with Granite:
+    ```bash
+    ollama run granite3.3
+    ```
   </Step>
 </Steps>
-
-## What is IBM Granite?
-
-IBM Granite models are large language models (LLMs) and multimodal models trained on enterprise-relevant data with a focus on:
-
-- **Enterprise-ready**: Built for business applications with governance and compliance in mind
-- **Transparent**: Open sourcing code, data governance, and model development processes  
-- **Performant**: Competitive performance across language understanding, generation, and reasoning tasks
-- **Responsible**: Developed with AI ethics and responsible AI principles
 
 ## Model Family
 
