@@ -111,7 +111,7 @@
         "header": "Resources",
         "items": [
           {
-            "label": "IBM Granite Website",
+            "label": "IBM Granite",
             "href": "https://www.ibm.com/granite"
           },
           {
@@ -132,8 +132,8 @@
         "header": "More",
         "items": [
           {
-            "label": "IBM Blog",
-            "href": "https://ibm.com/blog/granite"
+            "label": "Blog",
+            "href": "https://ibm.com/blog"
           },
           {
             "label": "Playground",
