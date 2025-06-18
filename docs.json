@@ -42,9 +42,15 @@
           {
             "group": "Run Granite",
             "pages": [
-              "run/granite-with-ollama-mac",
-              "run/granite-with-ollama-linux", 
-              "run/granite-with-ollama-windows",
+              {
+                "group": "Run locally with Ollama",
+                "icon": "download",
+                "pages": [
+                  "run/granite-with-ollama-mac",
+                  "run/granite-with-ollama-linux",
+                  "run/granite-with-ollama-windows"
+                ]
+              },
               "run/granite-with-vllm-containerized",
               "run/granite-with-lmstudio",
               "run/granite-on-cloud"
