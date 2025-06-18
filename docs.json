@@ -7,10 +7,15 @@
     "light": "#c5c5c5",
     "dark": "#000000"
   },
-   "fonts": {
-    "family": "IBM Plex Sans"
+  "fonts": {
+    "heading": {
+      "family": "IBM Plex Sans"
+    },
+    "body": {
+      "family": "IBM Plex Sans"
+    }
   },
-  "favicon": "/images/granite-pictogram.svg",
+  "favicon": "/images/granite-icon.svg",
   "navigation": {
     "tabs": [
       {
