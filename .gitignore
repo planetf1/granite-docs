@@ -4,6 +4,7 @@ CLAUDE.md
 .cursor/
 .vscode/settings.json
 .vscode/extensions.json
+claude_ref_images/
 
 # IDE and editor files
 .vscode/

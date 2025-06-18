@@ -15,14 +15,14 @@
       "family": "IBM Plex Sans"
     }
   },
-  "favicon": "/images/granite-icon.svg",
+  "favicon": "/images/granite-pictogram.svg",
   "navigation": {
     "tabs": [
       {
         "tab": "Docs",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Introduction",
             "pages": [
               "introduction"
             ]
@@ -101,8 +101,8 @@
   "navbar": {
     "primary": {
       "type": "button",
-      "label": "IBM Granite",
-      "href": "https://www.ibm.com/granite"
+      "label": "Download Granite",
+      "href": "https://huggingface.co/ibm-granite"
     }
   },
   "footer": {
