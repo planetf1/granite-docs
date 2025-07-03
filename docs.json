@@ -43,7 +43,7 @@
             "group": "Run Granite",
             "pages": [
               {
-                "group": "Run locally with Ollama",
+                "group": "Ollama",
                 "icon": "download",
                 "pages": [
                   "run/granite-with-ollama-mac",

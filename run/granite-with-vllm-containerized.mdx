@@ -1,5 +1,5 @@
 ---
-title: "Run Granite with vLLM (Containerized)"
+title: "vLLM (Containerized)"
 description: "Learn how to run Granite models with vLLM in a container."
 icon: "docker"
 ---
@@ -36,10 +36,10 @@ docker run --runtime nvidia --gpus all \
 ```
 
 <Note>
-You can pre-download the model into `~/.cache/huggingface` using
-`huggingface-cli download ibm-granite/granite-3.1-8b-instruct`. If not
-pre-downloaded, the model will be downloaded when `vllm` boots and saved in the
-mounted cache.
+  You can pre-download the model into `~/.cache/huggingface` using
+  `huggingface-cli download ibm-granite/granite-3.1-8b-instruct`. If not
+  pre-downloaded, the model will be downloaded when `vllm` boots and saved in
+  the mounted cache.
 </Note>
 
 ## Run a sample request
