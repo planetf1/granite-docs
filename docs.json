@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "maple",
   "name": "IBM Granite",
   "colors": {
     "primary": "#000000",
@@ -151,8 +151,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/granite_light.svg",
-    "dark": "/logo/granite_dark.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "primary": {
