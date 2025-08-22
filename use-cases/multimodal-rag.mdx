@@ -1,6 +1,6 @@
 ---
-title: "Multimodal RAG with IBM Granite"
-description: "Use Granite Vision model to build an AI-powered multimodal RAG pipeline."
+title: "Multimodal RAG"
+description: "Use the Granite Vision model to build an AI-powered multimodal RAG pipeline."
 icon: "images"
 ---
 
@@ -10,7 +10,7 @@ following processes:
 
 1. **Document preprocessing:** Learn how to handle documents from various
    sources, parse and transform them into usable formats and store them in
-   vector databases by using Docling. You will use a Granite MLLM to generate
+   vector databases by using Docling. You will use a Granite LLM to generate
    image descriptions of images in the documents.
 1. **RAG:** Understand how to connect LLMs such as Granite with external
    knowledge bases to enhance query responses and generate valuable insights.
@@ -23,25 +23,27 @@ This recipe uses three cutting-edge technologies:
 - [Docling](https://github.com/DS4SD/docling): An open-source toolkit used to
   parse and convert documents.
 - [Granite](https://www.ibm.com/granite/docs/models/granite/): A
-  state-of-the-art LLM that provides robust natural language capabilities and a
+  state-of-the-art MLLM that provides robust natural language capabilities and a
   vision language model that provides image to text generation.
 - [LangChain](https://github.com/langchain-ai/langchain): A powerful framework
   used to build applications powered by language models, designed to simplify
   complex workflows and integrate external tools seamlessly.
 
+You will need a Replicate API token to run this recipe in Colab.
+
 <CardGroup cols={2}>
   <Card
-    title="Granite Multimodal RAG notebook"
+    title="Get started"
     icon="github"
     href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/RAG/Granite_Multimodal_RAG.ipynb"
   >
-    Jupyter notebook demonstrating multimodal RAG with Granite
+  Explore sample code in a GitHub repo
   </Card>
   <Card
-    title="Granite Multimodal RAG tutorial"
-    icon="book"
-    href="https://www.ibm.com/think/tutorials/build-multimodal-rag-langchain-with-docling-granite"
+    title="Try it out"
+    icon="/images/icons8-google-colab.svg"
+    href="https://colab.research.google.com/github/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/RAG/Granite_Multimodal_RAG.ipynb"
   >
-    Comprehensive tutorial for building multimodal RAG systems
+  Execute sample code in Colab
   </Card>
 </CardGroup>

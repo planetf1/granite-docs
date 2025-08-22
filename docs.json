@@ -75,21 +75,71 @@
         "tab": "Cookbooks",
         "groups": [
           {
-            "group": "Cookbooks",
+            "group": "Introduction",
             "pages": [
-              "use-cases/cookbooks",
-              "use-cases/granite-bee",
-              "use-cases/agentic-rag",
-              "use-cases/multimodal-rag",
-              "use-cases/docling-rag",
-              "use-cases/prompt-declaration-language",
-              "use-cases/forecast-energy-demand",
-              "use-cases/coding-assistant",
-              "use-cases/granite-code-on-replicate",
-              "use-cases/granite-code-with-continue",
+              "use-cases/cookbooks"
+            ]
+          },
+          {
+            "group": "Granite Language Cookbook",
+            "pages": [
+              "use-cases/summarize",
+              "use-cases/langchain-rag",
+              "use-cases/contract-analysis",
+              "use-cases/prompt-declaration-language"
+            ]
+          },
+          {
+            "group": "Granite Vision Cookbook",
+            "pages": [
+              "use-cases/multimodal-rag"
+            ]
+          },
+          {
+            "group": "Granite Speech Cookbook",
+            "pages": [
+              "use-cases/voice-assistant"
+            ]
+          },
+          {
+            "group": "Granite Guardian Cookbook",
+            "pages": [
               "use-cases/risk-detection",
-              "use-cases/text-to-shell",
-              "use-cases/all-cookbooks"
+              "use-cases/hap-detection"
+            ]
+          },
+          {
+            "group": "Granite Time Series Cookbook",
+            "pages": [
+              "use-cases/forecast-energy-demand"
+            ]
+          },
+          {
+            "group": "Granite Code Cookbook",
+            "pages": [
+              "use-cases/text-to-python",
+              "use-cases/text-to-shell"
+            ]
+          },
+          {
+            "group": "Agentic AI Cookbook",
+            "pages": [
+              "use-cases/granite-bee",
+              "use-cases/travel-planner"
+            ]
+          },
+          {
+            "group": "Model Evaluation Cookbook",
+            "pages": [
+              "use-cases/unitxt",
+              "use-cases/granite-as-judge"
+            ]
+          },
+          {
+            "group": "Additional Cookbooks",
+            "pages": [
+              "use-cases/granite-snack-cookbook",
+              "use-cases/granite-community"
             ]
           }
         ]
