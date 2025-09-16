@@ -15,7 +15,7 @@
       "family": "IBM Plex Sans"
     }
   },
-  "favicon": "/granite/docs/images/granite-pictogram.svg",
+  "favicon": "/images/granite-pictogram.svg",
   "navigation": {
     "tabs": [
       {
@@ -24,19 +24,19 @@
           {
             "group": "Introduction",
             "pages": [
-              "granite/docs/introduction"
+              "introduction"
             ]
           },
           {
             "group": "Models",
             "pages": [
-              "granite/docs/models/granite",
-              "granite/docs/models/vision",
-              "granite/docs/models/speech",
-              "granite/docs/models/guardian",
-              "granite/docs/models/embedding",
-              "granite/docs/models/time-series",
-              "granite/docs/models/code"
+              "models/granite",
+              "models/vision",
+              "models/speech",
+              "models/guardian",
+              "models/embedding",
+              "models/time-series",
+              "models/code"
             ]
           },
           {
@@ -46,27 +46,27 @@
                 "group": "Ollama",
                 "icon": "download",
                 "pages": [
-                  "granite/docs/run/granite-with-ollama-mac",
-                  "granite/docs/run/granite-with-ollama-linux",
-                  "granite/docs/run/granite-with-ollama-windows"
+                  "run/granite-with-ollama-mac",
+                  "run/granite-with-ollama-linux",
+                  "run/granite-with-ollama-windows"
                 ]
               },
-              "granite/docs/run/granite-with-vllm-containerized",
-              "granite/docs/run/granite-with-lmstudio",
-              "granite/docs/run/granite-on-cloud"
+              "run/granite-with-vllm-containerized",
+              "run/granite-with-lmstudio",
+              "run/granite-on-cloud"
             ]
           },
           {
             "group": "Fine-tuning",
             "pages": [
-              "granite/docs/fine-tune/granite",
-              "granite/docs/fine-tune/time-series"
+              "fine-tune/granite",
+              "fine-tune/time-series"
             ]
           },
           {
             "group": "Responsible AI",
             "pages": [
-              "granite/docs/responsible-ai/index"
+              "responsible-ai/index"
             ]
           }
         ]
@@ -77,71 +77,71 @@
           {
             "group": "Introduction",
             "pages": [
-              "granite/docs/use-cases/cookbooks",
-              "granite/docs/use-cases/getting-credentials"
+              "use-cases/cookbooks",
+              "use-cases/getting-credentials"
             ]
           },
           {
             "group": "Granite Language Cookbook",
             "pages": [
-              "granite/docs/use-cases/summarize",
-              "granite/docs/use-cases/langchain-rag",
-              "granite/docs/use-cases/contract-analysis",
-              "granite/docs/use-cases/prompt-declaration-language"
+              "use-cases/summarize",
+              "use-cases/langchain-rag",
+              "use-cases/contract-analysis",
+              "use-cases/prompt-declaration-language"
             ]
           },
           {
             "group": "Granite Vision Cookbook",
             "pages": [
-              "granite/docs/use-cases/multimodal-rag"
+              "use-cases/multimodal-rag"
             ]
           },
           {
             "group": "Granite Speech Cookbook",
             "pages": [
-              "granite/docs/use-cases/voice-assistant"
+              "use-cases/voice-assistant"
             ]
           },
           {
             "group": "Granite Guardian Cookbook",
             "pages": [
-              "granite/docs/use-cases/risk-detection",
-              "granite/docs/use-cases/hap-detection"
+              "use-cases/risk-detection",
+              "use-cases/hap-detection"
             ]
           },
           {
             "group": "Granite Time Series Cookbook",
             "pages": [
-              "granite/docs/use-cases/forecast-energy-demand",
-              "granite/docs/use-cases/forecast-bike-rentals"
+              "use-cases/forecast-energy-demand",
+              "use-cases/forecast-bike-rentals"
             ]
           },
           {
             "group": "Granite Code Cookbook",
             "pages": [
-              "granite/docs/use-cases/text-to-python",
-              "granite/docs/use-cases/text-to-shell"
+              "use-cases/text-to-python",
+              "use-cases/text-to-shell"
             ]
           },
           {
             "group": "Agentic AI Cookbook",
             "pages": [
-              "granite/docs/use-cases/granite-bee",
-              "granite/docs/use-cases/travel-planner"
+              "use-cases/granite-bee",
+              "use-cases/travel-planner"
             ]
           },
           {
             "group": "Model Evaluation Cookbook",
             "pages": [
-              "granite/docs/use-cases/unitxt",
-              "granite/docs/use-cases/granite-as-judge"
+              "use-cases/unitxt",
+              "use-cases/granite-as-judge"
             ]
           },
           {
             "group": "Additional Cookbooks",
             "pages": [
-              "granite/docs/use-cases/granite-snack-cookbook",
-              "granite/docs/use-cases/granite-community"
+              "use-cases/granite-snack-cookbook",
+              "use-cases/granite-community"
             ]
           }
         ]
@@ -153,8 +153,8 @@
     ]
   },
   "logo": {
-    "light": "/granite/docs/logo/logo-light.svg",
-    "dark": "/granite/docs/logo/logo-dark.svg"
+    "light": "/logo/logo-light.svg",
+    "dark": "/logo/logo-dark.svg"
   },
   "navbar": {
     "primary": {
