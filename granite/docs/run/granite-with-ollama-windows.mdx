@@ -7,72 +7,93 @@ icon: "windows"
 
 ## Overview
 
-In this guide we'll be using [Ollama](https://ollama.com/), an open-source tool
-that makes it easy to download and run AI models locally.
+In this guide, we'll use [Ollama](https://ollama.com/), an open-source tool that makes it easy to download and run AI models locally.
 
-## Download Ollama
+---
 
-You can download the installer directly
-[from Ollama](https://ollama.com/download/windows). You can also use this
-script:
+## 1. Download Ollama
 
-```sh
+You can download the installer directly from [Ollama](https://ollama.com/download/windows).  
+Alternatively, use PowerShell to download and run the installer:
+
+```powershell
 $url = 'https://ollama.com/download/OllamaSetup.exe'
 $outputPath = 'C:\Downloads\OllamaSetup.exe'
 Invoke-WebRequest -Uri $url -OutFile $outputPath
 & $outputPath
 ```
 
-## Install Ollama
+---
 
-After downloading, double-click OllamaSetup.exe and follow the on-screen
-instructions to complete the installation.
+## 2. Install Ollama
 
-## Download the models
+After downloading, double-click **OllamaSetup.exe** and follow the on-screen instructions to complete the installation.
 
-Now, let's download the models. Determining which model to use depends on your
-needs and what your device can handle. Generally, larger models will produce
-better results but also require more resources.
+---
 
-In this guide, we'll fetch the Granite 8b models. This is a large files and will
-take some time to download.
+## 3. Download Granite Models
 
-Ollama supports a wide range of Granite models:
+Ollama supports a range of IBM Granite models. Larger models provide better results but require more resources.
 
-- granite3.2:2b
-- granite3.2:8B
-- granite3.2-vision:2b
-- granite3.1-guardian:2b
-- granite3.1-guardian:8b
-- granite3.1-moe:1b
-- granite3.1-moe:3b
-- granite-code:20b
-- granite-code:3b
+Example models:
 
-Use PowerShell to run the following comands:
+- `granite3.3:8b`
+- `granite3.3:2b`
+- `granite3.2:8b`
+- `granite3.2:2b`
+- `granite3.2-vision:2b`
+- `granite3.1-guardian:2b`
+- `granite3.1-guardian:8b`
+- `granite3.1-moe:1b`
+- `granite3.1-moe:3b`
+- `granite-code:20b`
+- `granite-code:3b`
 
-```bash
-ollama pull granite3.2:8b
+Use PowerShell to download Granite 3.3 (8b variant):
+
+```powershell
+ollama pull granite3.3:8b
 ```
 
-## Run Granite
+---
+
+## 4. Run Granite
+
+To start chatting with Granite:
+
+```powershell
+ollama run granite3.3:8b
+```
+
+If you want to use a different variant, replace the model name (e.g., `granite3.3:2b`).
+
+---
+
+## 5. Notes on Context Length
 
 <Note>
-By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this when using `ollama run`, update the `num_ctx` parameter with `/set parameter num_ctx <desired_context_length>`. The largest `<desired_context_length>` supported by Granite 3.1 models is `131072` (128k).
-</Note>
+By default, Ollama runs models with a short context length to save memory.  
+For longer conversations, you can adjust it by setting:
 
-To run the model, type:
-
-```bash
-ollama run granite3.2:8b
+```
+/set parameter num_ctx <desired_context_length>
 ```
 
-If you want to run a different Granite model, replace `granite3.2:8B` with the
-model name. For example, to run the 2b variant, use `ollama run granite3.2:2b`.
+The largest supported context for Granite 3.1 models is `131072` (128k).
 
-You can also interact with the model using a curl command to send requests
-through the OpenAI-compatible API:
+</Note>
 
-```bash
-curl -XPOST -H "Content-Type: application/json" http://localhost:11434/v1/chat/completions -d '{"model": "granite3.2:8b", "messages": [{"role": "users", "content": "How are you today?"}]}'
+---
+
+## 6. Using the API
+
+You can also interact with Granite programmatically using Ollama’s OpenAI-compatible API:
+
+```powershell
+curl -X POST http://localhost:11434/v1/chat/completions `
+  -H "Content-Type: application/json" `
+  -d '{
+        "model": "granite3.3:8b",
+        "messages": [{"role": "user", "content": "How are you today?"}]
+      }'
 ```

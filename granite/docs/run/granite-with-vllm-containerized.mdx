@@ -6,49 +6,55 @@ icon: "docker"
 
 ## Overview
 
-In this guide, we'll be using [vLLM](https://docs.vllm.ai/en/latest/) running as
-a container to run Granite.
+In this guide, we'll use [vLLM](https://docs.vllm.ai/en/latest/) running inside a container to serve Granite models.
+
+---
 
 ## Prerequisites
 
-This guide assumes you have a docker-compatible container runtime such as
-[podman](https://podman.io/) or
-[Docker Desktop](https://www.docker.com/products/docker-desktop/) installed.
-This guide also requires an NVIDIA GPU be available on your machine.
+- A container runtime such as [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/)
+- An NVIDIA GPU with drivers installed
 
-## Pull the container image
+---
+
+## 1. Pull the vLLM container image
 
 ```sh
 docker pull vllm/vllm-openai:latest
 ```
 
-## Run the model
+_(For stability, you may pin a version tag, e.g., `vllm/vllm-openai:v0.5.4`.)_
 
-To run the model inside the container, simply run the container with your
-huggingface cache mounted:
+---
+
+## 2. Run Granite in the container
+
+Run the container with your Hugging Face cache mounted:
 
 ```sh
-docker run --runtime nvidia --gpus all \
-    -v ~/.cache/huggingface:/root/.cache/huggingface \
-    -p 8000:8000 \
-    vllm/vllm-openai:latest \
-    --model ibm-granite/granite-3.1-8b-instruct
+docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-3.1-8b-instruct
 ```
 
 <Note>
-  You can pre-download the model into `~/.cache/huggingface` using
-  `huggingface-cli download ibm-granite/granite-3.1-8b-instruct`. If not
-  pre-downloaded, the model will be downloaded when `vllm` boots and saved in
-  the mounted cache.
-</Note>
-
-## Run a sample request
+You can pre-download the model into `~/.cache/huggingface` using:
 
 ```sh
-curl -H "Content-Type: application/json" http://localhost:8000/v1/chat/completions -d '{
-  "model": "ibm-granite/granite-3.1-2b-instruct",
-  "messages": [
-    {"role": "users", "content": "How are you today?"}
-  ]
-}'
+huggingface-cli download ibm-granite/granite-3.1-8b-instruct
+```
+
+If not pre-downloaded, the model will be fetched automatically when vLLM starts and cached in the mounted directory.
+
+</Note>
+
+---
+
+## 3. Run a sample request
+
+```sh
+curl -X POST http://localhost:8000/v1/chat/completions   -H "Content-Type: application/json"   -d '{
+        "model": "ibm-granite/granite-3.1-8b-instruct",
+        "messages": [
+          {"role": "user", "content": "How are you today?"}
+        ]
+      }'
 ```
