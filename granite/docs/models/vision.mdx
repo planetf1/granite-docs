@@ -1,7 +1,7 @@
 ---
-title: 'Granite Vision'
-description: 'Granite Vision is designed for efficient content extraction from tables, charts, and diagrams, making it a powerful tool for structured data analysis.'
-icon: 'eye'
+title: "Granite Vision"
+description: "Granite Vision is designed for efficient content extraction from tables, charts, and diagrams, making it a powerful tool for structured data analysis."
+icon: "eye"
 ---
 
 <CardGroup cols={2}>
@@ -27,7 +27,8 @@ icon: 'eye'
     icon="code"
     href="https://huggingface.co/learn/cookbook/en/fine_tuning_granite_vision_sft_trl"
   >
-    granite-vision-3.2-2b - Fine-tune Granite Vision with the Transformer Reinforcement Learning library (TRL).
+    granite-vision-3.2-2b - Fine-tune Granite Vision with the Transformer
+    Reinforcement Learning library (TRL).
   </Card>
   <Card
     title="Multimodal RAG"
@@ -90,11 +91,17 @@ This is a simple example of how to use the granite-vision-3.2-2b model with the 
 
 First, install the required libraries
 
-```python
+<CodeGroup>
+
+```python Python
 pip install transformers>=4.49
 ```
 
-```python
+</CodeGroup>
+
+<CodeGroup>
+
+```python Python
 from transformers import AutoProcessor, AutoModelForVision2Seq
 from huggingface_hub import hf_hub_download
 import torch
@@ -132,18 +139,26 @@ output = model.generate(**inputs, max_new_tokens=100)
 print(processor.decode(output[0], skip_special_tokens=True))
 ```
 
+</CodeGroup>
+
 ### Granite Vision with vLLM
 
 The granite-vision-3.2-2b model can also be loaded with vLLM. First make sure to install the following libraries:
 
-```python
+<CodeGroup>
+
+```python Python
 pip install torch torchvision torchaudio
 pip install vllm==0.6.6
 ```
 
+</CodeGroup>
+
 Then, copy the snippet from the section that is relevant for your use case.
 
-```python
+<CodeGroup>
+
+```python Python
 from vllm import LLM, SamplingParams
 from vllm.assets.image import ImageAsset
 from huggingface_hub import hf_hub_download
@@ -182,3 +197,5 @@ inputs = {
 outputs = model.generate(inputs, sampling_params=sampling_params)
 print(f"Generated text: {outputs[0].outputs[0].text}")
 ```
+
+</CodeGroup>

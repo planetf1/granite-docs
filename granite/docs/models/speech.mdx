@@ -1,7 +1,7 @@
 ---
-title: 'Granite Speech'
-description: 'Granite Speech is a compact and efficient speech-language model, built on top of IBM’s Granite language model and specifically designed for English automatic speech recognition (ASR).'
-icon: 'microphone'
+title: "Granite Speech"
+description: "Granite Speech is a compact and efficient speech-language model, built on top of IBM’s Granite language model and specifically designed for English automatic speech recognition (ASR)."
+icon: "microphone"
 ---
 
 <CardGroup cols={1}>
@@ -50,13 +50,19 @@ The Granite speech collection offers a robust speech model built by LoRA fine-tu
 
 This is a simple example of how to use granite-speech-3.3-8b model with transformers. First, make sure to build the latest version of transformers from source:
 
-```python
+<CodeGroup>
+
+```python Python
 pip install https://github.com/huggingface/transformers/archive/main.zip torchaudio peft soundfile
 ```
 
+</CodeGroup>
+
 Then run the code:
 
-```python
+<CodeGroup>
+
+```python Python
 import torch
 import torchaudio
 from transformers import AutoProcessor, AutoModelForSpeechSeq2Seq
@@ -125,3 +131,5 @@ output_text = tokenizer.batch_decode(
 )
 print(f"STT output = {output_text[0].upper()}")
 ```
+
+</CodeGroup>

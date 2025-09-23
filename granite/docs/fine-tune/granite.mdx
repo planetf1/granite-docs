@@ -57,7 +57,9 @@ change all answers to be spoken like a pirate.
 The dataset is split into training and testing subsets, allowing us to both
 train the model and evaluate its performance on unseen data.
 
-```python
+<CodeGroup>
+
+```python Python
 import timeit
 
 start_time = timeit.default_timer()
@@ -70,6 +72,8 @@ dataset_loadtime = timeit.default_timer() - start_time
 
 ```
 
+</CodeGroup>
+
 ## Model loading and quantization
 
 Next, we load the quantized model. Quantization is a technique that reduces the
@@ -81,7 +85,9 @@ This step is crucial as it enables us to work with a large language model within
 the memory constraints of our hardware, making the fine-tuning process more
 accessible and efficient.
 
-```python
+<CodeGroup>
+
+````python Python
 start_time = timeit.default_timer()
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments, BitsAndBytesConfig
@@ -109,7 +115,7 @@ model = AutoModelForCausalLM.from_pretrained(
 
 model_loadtime = timeit.default_timer() - start_time
 
-```
+</CodeGroup>
 
 ## Pirate text generation dataset preparation
 
@@ -141,7 +147,9 @@ then saved as a new dataset.
   - Combines the transformed sets into a new `DatasetDict` named
     `pirate_dataset`
 
-```python
+<CodeGroup>
+
+```python Python
 from transformers import pipeline
 import datasets
 
@@ -190,16 +198,26 @@ pirate_dataset = datasets.DatasetDict({
     'test': pirate_test
 })
 
-```
+````
 
-```python
+</CodeGroup>
+
+<CodeGroup>
+
+```python Python
 pirate_dataset['train'].to_pandas().head()
 ```
 
-```python
+</CodeGroup>
+
+<CodeGroup>
+
+```python Python
 import torch
 torch.cuda.empty_cache()
 ```
+
+</CodeGroup>
 
 ## Model sanity check
 
@@ -214,7 +232,9 @@ understanding shifts after fine-tuning on legal data.
 
 Note that the output is truncated because of us setting `max_new_tokens=100`
 
-```python
+<CodeGroup>
+
+```python Python
 start_time = timeit.default_timer()
 input_text = "<|user>What does 'inheritance' mean?\n<|assistant|>\n"
 
@@ -227,13 +247,18 @@ model_check_loadtime = timeit.default_timer() - start_time
 
 ```
 
+</CodeGroup>
 ### Sample output
 
-```
+<CodeGroup>
+
+```bash Output
 Inheritance is a mechanism by which one class acquires the properties and behaviors of another class. In object-oriented programming, inheritance allows a new class to inherit the properties and methods of an existing class, known as the parent or base class. This can be useful for code reuse and creating a hierarchy of classes.
 
 For example, let's say we have a base class called "Vehicle" that has properties like "make" and "model". We can create a subclass called "Car" that
 ```
+
+</CodeGroup>
 
 ## Training setup
 
@@ -250,7 +275,9 @@ This setup allows us to enhance specific aspects of the model's performance
 without retraining the entire model from scratch, saving computational resources
 and time.
 
-```python
+<CodeGroup>
+
+```python Python
 start_time = timeit.default_timer()
 def formatting_prompts_func(example):
     output_texts = []
@@ -306,6 +333,8 @@ training_setup_loadtime = timeit.default_timer() - start_time
 
 ```
 
+</CodeGroup>
+
 ## Training process
 
 With all the preparations complete, we now start the training process. The model
@@ -316,13 +345,17 @@ We'll monitor the training loss over time, which should decrease as the model
 improves its performance on the task. After training, we'll save the fine-tuned
 model for future use.
 
-```python
+<CodeGroup>
+
+```python Python
 start_time = timeit.default_timer()
 # Start training
 trainer.train()
 training_time = timeit.default_timer() - start_time
 
 ```
+
+</CodeGroup>
 
 ## Saving the fine-tuned model
 
@@ -336,10 +369,14 @@ or continue fine-tuning it in the future. It's a critical step in the machine
 learning workflow, preserving the knowledge our model has acquired through the
 training process.
 
-```python
+<CodeGroup>
+
+```python Python
 model.save_pretrained("./results")
 tokenizer.save_pretrained("./results")
 ```
+
+</CodeGroup>
 
 ### Persisting the model to Hugging Face
 
@@ -360,15 +397,19 @@ other projects. This step is essential for reproducibility and for contributing
 to the broader NLP community.
 
 <Note>
-Check with your own legal counsel before pushing models to Huggingface Hub.
+  Check with your own legal counsel before pushing models to Huggingface Hub.
 </Note>
 
-```python
+<CodeGroup>
+
+```python Python
 from google.colab import userdata
 
 model.push_to_hub("rawkintrevo/granite-3.0-2b-instruct-pirate",
                   token= userdata.get('HF_TOKEN'))
 ```
+
+</CodeGroup>
 
 ## Loading the fine-tuned model
 
@@ -381,13 +422,17 @@ making it efficient for deployment scenarios. We'll show how to load both the
 model and the tokenizer, ensuring that we have all the components necessary for
 text generation.
 
-```python
+<CodeGroup>
+
+```python Python
 # you would uncomment the next 3 lines to load in a new notebook
 # from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # model = AutoModelForCausalLM.from_pretrained("./results")
 # tokenizer = AutoTokenizer.from_pretrained("./results")
 ```
+
+</CodeGroup>
 
 ### Loading the model from Hugging Face
 
@@ -412,9 +457,13 @@ This capability is particularly useful in production environments, where you
 might need to dynamically load or update models based on specific requirements
 or performance metrics.
 
-```python
+<CodeGroup>
+
+```python Python
 # model = AutoModelForCausalLM.from_pretrained("rawkintrevo/granite-3.0-2b-instruct-pirate")
 ```
+
+</CodeGroup>
 
 ## Evaluation
 
@@ -427,7 +476,9 @@ This step demonstrates the power of transfer learning and domain-specific
 fine-tuning in natural language processing, showing how we can adapt a
 general-purpose language model to specialized tasks.
 
-```python
+<CodeGroup>
+
+```python Python
 input_text = "<|user>What does 'inheritance' mean?\n<|assistant|>\n"
 inputs = tokenizer(input_text, return_tensors="pt").to("cuda")
 stop_token = "<|endoftext|>"
@@ -436,12 +487,17 @@ outputs = model.generate(**inputs, max_new_tokens=500, eos_token_id=stop_token_i
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
 
+</CodeGroup>
 ### Sample output
 
-```
+<CodeGroup>
+
+```bash Output
 Ahoy, matey! 'Inheritance' be a term used in the world of programming, where a new class be created from an existing class, inheritin' its properties and methods. This be like a young pirate learnin' the ways of the sea from a seasoned sailor. The new class can add its own properties and methods, but it must still follow the rules of the parent class. This be like a young pirate learnin' the ways of the sea, but also learnin' how to be a captain, followin' the rules of the sea but also addin' their own rules for their own crew. This be a powerful tool for programmers, allowin' them to create new classes with ease and efficiency. So, hoist the sails, mateys, and let's set sail on this new adventure!
 
 ```
+
+</CodeGroup>
 
 ## Execution times and performance metrics
 
@@ -468,18 +524,26 @@ Additionally, we'll look at the training loss over time, which gives us a
 quantitative measure of how well our model learned from the legal dataset. This
 metric helps us gauge the effectiveness of our fine-tuning process.
 
-```python
+<CodeGroup>
+
+```python Python
 print(f"Model Load Time: {model_loadtime} seconds")
 print(f"Model Sanity Check Time: {model_check_loadtime} seconds")
 print(f"Training Setup Time: {training_setup_loadtime} seconds")
 print(f"Training Time: {training_time} seconds ({training_time/60} minutes)")
 ```
 
+</CodeGroup>
+
 ### Sample output
 
-```
+<CodeGroup>
+
+```bash Output
 Model Load Time: 64.40367837800022 seconds
 Model Sanity Check Time: 9.231385502000194 seconds
 Training Setup Time: 4.85179586599952 seconds
 Training Time: 4826.068798849 seconds (80.43447998081666 minutes)
 ```
+
+</CodeGroup>

@@ -1,7 +1,7 @@
 ---
-title: 'Granite Code'
-description: 'The Granite Code model family are decoder-only models designed for code generative tasks, trained with code written in 116 programming languages.'
-icon: 'code'
+title: "Granite Code"
+description: "The Granite Code model family are decoder-only models designed for code generative tasks, trained with code written in 116 programming languages."
+icon: "code"
 ---
 
 <CardGroup cols={2}>
@@ -36,11 +36,7 @@ icon: 'code'
   >
     Guide for local setup
   </Card>
-  <Card
-    title="Coding assistant"
-    icon="code"
-    href="/use-cases/coding-assistant"
-  >
+  <Card title="Coding assistant" icon="code" href="/use-cases/coding-assistant">
     watsonx Code Assistant
   </Card>
   <Card
@@ -128,12 +124,16 @@ Here, we share sample prompts to get started. Please expect these templates and 
 
 We recommend using Granite code models with the following prompt template - without a system prompt:
 
-```
+<CodeGroup>
+
+```bash Prompt
 Question:
 {PROMPT}
 
 Answer:
 ```
+
+</CodeGroup>
 
 Note that there are two newlines between the end of the prompt and a newline after the Answer.
 
@@ -141,29 +141,38 @@ You can try with and without and use what works best. Unlike language models, th
 
 ### Basic example
 
-```
+<CodeGroup>
+
+```bash Prompt
 Question:
 Write a code to find the maximum value in a list of numbers.
 
 Answer:
 ```
 
+</CodeGroup>
+
 Expected output of the basic example:
 
-````
-```python
+<CodeGroup>
+
+```python Python
 def find_max(numbers):
     max_value = numbers[0]
     for num in numbers:
         if num > max_value:
             max_value = num
     return max_value
-```<|endoftext|>
-````
+<|endoftext|>
+```
+
+</CodeGroup>
 
 Example with system prompt - please note that the system prompt is optional:
 
-```
+<CodeGroup>
+
+```bash Prompt
 System:
 "You are an intelligent AI programming assistant, utilizing a Granite code language model developed by IBM. Your primary function is to assist users in programming tasks, including code generation, code explanation, code fixing, generating unit tests, generating documentation, application modernization, vulnerability detection, function calling, code translation, and all sorts of other software engineering tasks."
 
@@ -173,25 +182,34 @@ Question:
 Answer:
 ```
 
+</CodeGroup>
+
 ### Code generation
 
 As Granite code models are useful in a variety of software development scenarios, we show you some of the most typical in this section.
 
 Python function example:
 
-```
+<CodeGroup>
+
+```python Python
+
 Question:
 Write a python function to find the first repeated character in a given string.
 
 Answer:
 ```
 
+</CodeGroup>
+
 Expected response from model for python function example:
 
-````
+<CodeGroup>
+
+```python Python
+
 To find the first repeated character in a given string, we can use a dictionary to store the frequency of each character in the string. We can iterate through the string and for each character, we can check if it's already in the dictionary. If it is, we can return the character as the first repeated character. If it's not, we can add it to the dictionary with a frequency of 1.
 
-```python
 def first_repeated_character(string):
     char_freq = {}
     for char in string:
@@ -200,12 +218,16 @@ def first_repeated_character(string):
         else:
             char_freq[char] = 1
     return None
-```<|endoftext|>
-````
+<|endoftext|>
+```
+
+</CodeGroup>
 
 Python Code to test response from model:
 
-```python
+<CodeGroup>
+
+```python Python
 def first_repeated_character(string):
         char_freq = {}
         for char in string:
@@ -221,11 +243,15 @@ result = first_repeated_character(input_string)
 print(f"The first repeated character in '{input_string}' is: {result}")
 ```
 
+</CodeGroup>
+
 ### Code explanation
 
 Example that requests the explanation of a code function in Python:
 
-```
+<CodeGroup>
+
+```python Python
 Please explain the following Python function:
 
 def find_max(numbers):
@@ -239,26 +265,37 @@ def find_max(numbers):
 Answer:
 ```
 
+</CodeGroup>
+
 Expected response from model:
 
-```
+<CodeGroup>
+
+```bash Response
 The function `find_max` takes a list of numbers as input and returns the maximum value in the list. It initializes the `max_value` variable to the first element of the list. Then, it iterates over each element in the list using a for loop. For each element, it checks if it is greater than the current `max_value`. If it is, the `max_value` is updated to the new maximum value. Finally, the function returns the maximum value
 ```
+
+</CodeGroup>
 
 ### Code fixing
 
 Example that asks the model to identify a bug in a line of Python code. The prompt also asks the model to return a function that fixes this bug:
 
-```
+<CodeGroup>
+
+```bash Prompt
 Question:
 Please, identify the bug in this code snippet: """print("Hello World.")""" and recommend an updated function that fixes the bug.
 
 Answer:
 ```
 
+</CodeGroup>
 Expected response from model:
 
-```
+<CodeGroup>
+
+```bash Output
 The bug in the code snippet is that the closing quotation mark is missing after the word "World". To fix this bug, you can update the function as follows:
 
 def print_hello_world():
@@ -267,11 +304,15 @@ def print_hello_world():
 By adding the missing closing quotation mark, the bug is resolved, and the function will correctly print "Hello World."<|endoftext|>
 ```
 
+</CodeGroup>
+
 ### Code translation
 
 Example that asks the model to translate a function from Python to Java.
 
-```
+<CodeGroup>
+
+```python Python
 Question:
 Please translate a Python method that finds the maximum value in a list of numbers to Java:
 def find_max(numbers):
@@ -284,9 +325,13 @@ def find_max(numbers):
 Answer:
 ```
 
+</CodeGroup>
+
 Expected response from model:
 
-```
+<CodeGroup>
+
+```java Java
 Here's the Java equivalent of the Python method:
 
 public static int findMax(int[] numbers) {
@@ -302,20 +347,28 @@ public static int findMax(int[] numbers) {
 In this Java method, we declare an integer variable called maxValue and initialize it with the first element of the numbers array. Then, we iterate over each element in the numbers array
 ```
 
+</CodeGroup>
+
 ### Math reasoning
 
 Example to solve a math reasoning problem.
 
-```
+<CodeGroup>
+
+```bash Prompt
 Question:
 Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?
 
 Answer:
 ```
 
+</CodeGroup>
+
 Expected response from model:
 
-```
+<CodeGroup>
+
+```bash Output
 Natalia sold 48 clips in April.
 In May, she sold half as many clips as in April, so she sold 48/2 = 24 clips.
 Altogether, Natalia sold 48 + 24 = 72 clips in April and May.
@@ -323,11 +376,15 @@ Altogether, Natalia sold 48 + 24 = 72 clips in April and May.
 The answer is: 72<|endoftext|>
 ```
 
+</CodeGroup>
+
 ### Function calling
 
 Example that asks the model to choose a function that solves a task. Note that the first part of the question is a custom system prompt.
 
-```
+<CodeGroup>
+
+```bash Prompt
 Question:
 You are an expert in composing functions. You are given a question and a set of possible functions.
 Based on the question, you will need to make one or more function/tool calls to achieve the purpose.
@@ -344,17 +401,25 @@ Question: What's the current weather in New York?
 Answer:
 ```
 
+</CodeGroup>
+
 Expected response from model:
 
-```
+<CodeGroup>
+
+```bash Response
 [get_current_weather(location="New York")]<|endoftext|>
 ```
+
+</CodeGroup>
 
 ### Code completion
 
 Example that asks the model to complete an assert statement. A function for that assert statement is also provided as part of the prompt:
 
-```
+<CodeGroup>
+
+```python Python
 Question:
 Based on the given Python code, which may contain errors, complete the assert statement with the output when executing the code on the given test case. Do NOT output any extra information, even if the function is incorrect or incomplete. Output "# done" after the assertion.
 
@@ -371,12 +436,18 @@ assert f({}, {'foo': 'bar'}) ==
 Answer:
 ```
 
+</CodeGroup>
+
 Expected response from model:
 
-```
+<CodeGroup>
+
+```bash Response
 {'foo': ['bar']}
 # done<|endoftext|>
 ```
+
+</CodeGroup>
 
 ## Avoiding common issues
 
