@@ -1,0 +1,28 @@
+---
+title: "BeeAI Requirement Agent"
+description: "Create a BeeAI Requirement Agent."
+icon: "bee"
+---
+
+The [BeeAI Agent Framework](https://github.com/i-am-bee/bee-agent-framework) makes it easy to build scalable agent-based workflows with your model of choice.
+
+This recipe shows how to create a BeeAI Requirement Agent, a declarative AI agent that combines language models, tools, and execution requirements to create predictable, controlled behavior across different LLMs including Granite.
+
+Building agents that work reliably across multiple LLMs is difficult. Most agents are tightly tuned to specific models, with rigid prompts that cause models to misinterpret instructions, skip tools, or hallucinate facts. The BeeAI Requirement Agent provides a declarative framework for designing agents that strikes a balance between flexibility and control. It allows for agent behavior that is both predictable and adaptable, without the complexity and limitations of more rigid systems. The core concept behind the Requirement Agent is that everything is treated as a tool — including data retrieval, web search, reasoning, and generating final answers. This modular structure ensures valid responses with structured outputs and helps eliminate parsing errors.
+
+<CardGroup cols={2}>
+  <Card
+    title="Get started"
+    icon="github"
+    href="https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/notebooks/agents_colab.ipynb"
+  >
+    Explore sample code in a GitHub repo
+  </Card>
+  <Card
+    title="Try it out"
+    icon="/granite/docs/images/icons8-google-colab.svg"
+    href="https://colab.research.google.com/github/i-am-bee/beeai-framework/blob/main/python/examples/notebooks/agents_colab.ipynb"
+  >
+    Execute sample code in Colab
+  </Card>
+</CardGroup>
