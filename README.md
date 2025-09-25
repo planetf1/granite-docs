@@ -100,6 +100,11 @@ This template includes the correct file structure, configurations, and a sample 
 - Keep sentences short and clear
 - Add code blocks for commands and examples
 
+### Mintlify documentation guide
+
+Mintlify doc site has a lot of tips and tricks to help with documentation.  
+You can check it out here: [Documentation guide](https://www.mintlify.com/docs)
+
 ---
 
 🙌 Thank you for contributing! Your improvements help make our documentation more useful and accessible.
