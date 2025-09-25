@@ -44,12 +44,16 @@ Pandas dataframes are required in the preprocessing and forecasting pipeline
 components. We simply read the csv into a pandas dataframe, making sure to
 format the timestamp column properly.
 
-```python
+<CodeGroup>
+
+```python Python
 data = pd.read_csv(
   dataset_path,
   parse_dates=["date"],
 )
 ```
+
+</CodeGroup>
 
 ## Data preparation
 
@@ -61,7 +65,9 @@ preprocessor, enabling scaling (normalization) of the data. Then we use the
 preprocessor to extract train, validation, and test datasets from the original
 data.
 
-```python
+<CodeGroup>
+
+```python Python
 tsp = TimeSeriesPreprocessor(
   id_columns=[],
   timestamp_column="date"
@@ -76,6 +82,8 @@ tsp = TimeSeriesPreprocessor(
 dset_train, dset_valid, dset_test = get_datasets(tsp, data, split_config={"train": 0.6, "test": 0.2})
 ```
 
+</CodeGroup>
+
 ## Loading the pretrained granite time series model
 
 Here we load the model using `from_pretrained` but pass some extra configuration
@@ -83,7 +91,9 @@ arguments. Note the presence of "decoder_mode" and the other index related
 arguments. The TimeSeriesPreprocessor provides some helper functions to make
 passing these parameters easier.
 
-```python
+<CodeGroup>
+
+```python Python
 model = TinyTimeMixerForPrediction.from_pretrained(
   "ibm-granite/granite-timeseries-ttm-r2",
   num_input_channels=tsp.num_input_channels,
@@ -96,6 +106,8 @@ for param in model.backbone.parameters():
   param.requires_grad = False
 ```
 
+</CodeGroup>
+
 The key here is the "mix-channel" decoder mode. This enables the decoder to
 consider inter-channel dependencies.
 
@@ -104,7 +116,9 @@ consider inter-channel dependencies.
 We create a Hugging Face Trainer, passing the train and validation datasets that
 were created earlier. The first step is to define the training arguments:
 
-```python
+<CodeGroup>
+
+```python Python
 finetune_forecast_args = TrainingArguments(
   output_dir="train_output",
   overwrite_output_dir=True,
@@ -126,12 +140,16 @@ finetune_forecast_args = TrainingArguments(
 )
 ```
 
+</CodeGroup>
+
 Many of the arguments above, e.g., learning rate, batch size, are dataset
 specific and will need to be adjusted for your specific use case. Next we define
 the callbacks. We add early stopping, which stops training when no improvement
 is seen, and a tracking callback, which reports training time statistics.
 
-```python
+<CodeGroup>
+
+```python Python
 early_stopping_callback = EarlyStoppingCallback(
   early_stopping_patience=10,  # Number of epochs with no improvement after which to stop
   early_stopping_threshold=0.0,  # Minimum improvement required to consider as improvement
@@ -139,11 +157,15 @@ early_stopping_callback = EarlyStoppingCallback(
 tracking_callback = TrackingCallback()
 ```
 
+</CodeGroup>
+
 Next we create the optimizer and the learning rate scheduler. We use AdamW as
 the optimizer and the 1cycle learning rate policy which adapts the learning rate
 quickly.
 
-```python
+<CodeGroup>
+
+```python Python
 optimizer = AdamW(finetune_forecast_model.parameters(), lr=learning_rate)
 scheduler = OneCycleLR(
   optimizer,
@@ -153,9 +175,13 @@ scheduler = OneCycleLR(
 )
 ```
 
+</CodeGroup>
+
 Finally, we construct the trainer, using the components we created above:
 
-```python
+<CodeGroup>
+
+```python Python
 finetune_forecast_trainer = Trainer(
   model=model,
   args=finetune_forecast_args,
@@ -167,15 +193,21 @@ finetune_forecast_trainer = Trainer(
 finetune_forecast_trainer.train()
 ```
 
+</CodeGroup>
+
 ## Evaluating the fine-tuned model
 
 We make use of the trainer to evaluate on the test dataset created earlier. In
 the output of the command below "eval_loss" refers to the mean squared error on
 the normalized test data.
 
-```python
+<CodeGroup>
+
+```python Python
 fewshot_output = finetune_forecast_trainer.evaluate(dset_test)
 ```
+
+</CodeGroup>
 
 A complete notebook for fine-tuning a Granite-TimeSeries TTM model on bike
 sharing data can be found

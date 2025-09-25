@@ -1,7 +1,7 @@
 ---
-title: 'Granite Language'
-description: 'Granite 3.3 models leverage new dense architecture. These models were trained with 12 trillion tokens across 12 languages and 116 programming languages.'
-icon: 'cube'
+title: "Granite Language"
+description: "Granite 3.3 models leverage new dense architecture. These models were trained with 12 trillion tokens across 12 languages and 116 programming languages."
+icon: "cube"
 ---
 
 <CardGroup cols={2}>
@@ -14,7 +14,7 @@ icon: 'cube'
   </Card>
   <Card
     title="Run locally with Ollama"
-    icon="arrow-right"
+    icon="download"
     href="https://ollama.com/library/granite3.3:8b"
   >
     Download and run Granite 3.3 with Ollama
@@ -25,7 +25,7 @@ icon: 'cube'
   <Card
     title="Try Granite"
     icon="cube"
-    href="https://granite-playground.vercel.app/"
+    href="https://www.ibm.com/granite/playground/"
   >
     Model playground
   </Card>
@@ -34,18 +34,19 @@ icon: 'cube'
     icon="robot"
     href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/AI-Agents/Agentic_RAG.ipynb"
   >
-    Use Granite in an agentic RAG pattern to answer complex queries using external information.
+    Use Granite in an agentic RAG pattern to answer complex queries using
+    external information.
   </Card>
   <Card
     title="Entity extraction"
-    icon="extract"
+    icon="sitemap"
     href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Entity-Extraction/entity_extraction.ipynb"
   >
     Extract well-formed entities from unstructured data with Granite.
   </Card>
   <Card
     title="Document summarization"
-    icon="file-text"
+    icon="newspaper"
     href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Summarize/Summarize.ipynb"
   >
     Multi-level abstractive document summarization using Granite.
@@ -61,28 +62,28 @@ Granite 3.3 models feature enhanced reasoning capabilities and support for Fill-
 <CardGroup cols={2}>
   <Card
     title="Granite 3.3 8B Instruct"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
   >
     8B parameter instruction-tuned model
   </Card>
   <Card
     title="Granite 3.3 2B Instruct"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-3.3-2b-instruct"
   >
     2B parameter instruction-tuned model
   </Card>
   <Card
     title="Granite 3.3 8B Base"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-3.3-8b-base"
   >
     8B parameter base model
   </Card>
   <Card
     title="Granite 3.3 2B Base"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-3.3-2b-base"
   >
     2B parameter base model
@@ -118,43 +119,57 @@ Granite 3.3 models feature extended context length and deliver strong performanc
 
 Below, we show a basic example of Granite 3.3 models chat template.
 
-```
+<CodeGroup>
+```bash Template
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
  Today's Date: April 16, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>What is the largest ocean on Earth?<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>The largest ocean on Earth is the Pacific Ocean. It covers an area of about 63,800,000 square miles (165,200,000 square kilometers).<|end_of_text|>
 ```
-
+</CodeGroup>
 Use the following code example to reproduce this output.
 
-```python
+<CodeGroup>
+```python Python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
 model_path = "ibm-granite/granite-3.3-8b-instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
+
 # change input text as desired
+
 chat = [
-    { "role": "user", "content": "What is the largest ocean on Earth?"},
+{ "role": "user", "content": "What is the largest ocean on Earth?"},
 ]
 
 chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
-input_tokens = tokenizer(chat, return_tensors="pt").to(device)
-# generate output tokens
-output = model.generate(**input_tokens,
-                        max_new_tokens=150)
-# decode output tokens into text
-output = tokenizer.batch_decode(output)
-# print output
-print(output[0])
-```
 
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
+# generate output tokens
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=150)
+
+# decode output tokens into text
+
+output = tokenizer.batch_decode(output)
+
+# print output
+
+print(output[0])
+
+````
+</CodeGroup>
 ## Granite 3.3 inference examples
 
 ### Basic examples
@@ -165,9 +180,11 @@ In this section, we provide basic examples for a variety of inference tasks.
 
 This example demonstrates how to summarize an interview transcript.
 
-```
+<CodeGroup>
+```bash Transcript
+
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
+Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>Summarize a fragament of an interview transcript. In this interview, an NBC reporter interviews Simone Biles about her participation in Paris 2024 Olimpic games.
 Your response should only include the answer. Do not provide any further explanation.
 Speaker 1 (00:00):
@@ -237,15 +254,21 @@ Simone (02:11):
 Oh, absolutely. And I don't think we got to recognize it enough because the award ceremony happened so fast. They're trying to break down the set and move in the next event that's going to be there. But we all recognized it and we were really excited about it.
 Summary:<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>Simone Biles, in an NBC interview, discusses her successful participation in the Paris 2024 Olympic Games. Her expectations were to win gold for Team USA and place in the top three in all-around, which she achieved with a gold on Vault and silver on Floor. Biles emphasizes her pride in her performances and credits her self-care, including therapy, for her success. She asserts that her success is self-defined and acknowledges her impact on young gymnasts, though she expects a clearer understanding of it post-retirement. Biles addresses the pressure of representation, stating "pressure is privilege," and recalls the significance of three Black athletes standing together on the podium, though she feels it was rushed.<|end_of_text|>
-```
+
+````
+
+</CodeGroup>
 
 #### Text classification
 
 This example demonstrates a classification task for movie reviews. The user query includes classification examples to improve the model's response accuracy.
 
-```
+<CodeGroup>
+
+```bash Classify
+
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
+Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>Classify the sentiment of the movie reviews as positive or negative.
 Your response should only include the answer. Do not provide any further explanation.
 
@@ -256,7 +279,7 @@ Sentiment:
 positive
 
 Review:
-It's a shame because I love Little Women and Lady Bird. Barbie did not serve.  It's a long ramble about how matriarchy is perfect and patriarchy is stupid. I agree with the latter, but the execution is just awful. Mattel's CEO and corporate people started as a mockery of men having all the top positions in a company; as the movie goes, they're just there at the back of your mind, and it's an unpleasant experience because they did nothing after. There were so many unnecessary scenes that could have been meaningful. For example, what's the scene where Allan fights other Kens for? I'm also surprised that there were no gay Barbies and Kens. And I thought this was supposed to "break" gender norms. So many seeds were planted at once, but none reached their full potential.
+It's a shame because I love Little Women and Lady Bird. Barbie did not serve. It's a long ramble about how matriarchy is perfect and patriarchy is stupid. I agree with the latter, but the execution is just awful. Mattel's CEO and corporate people started as a mockery of men having all the top positions in a company; as the movie goes, they're just there at the back of your mind, and it's an unpleasant experience because they did nothing after. There were so many unnecessary scenes that could have been meaningful. For example, what's the scene where Allan fights other Kens for? I'm also surprised that there were no gay Barbies and Kens. And I thought this was supposed to "break" gender norms. So many seeds were planted at once, but none reached their full potential.
 Sentiment:
 negative
 
@@ -266,15 +289,21 @@ Russell Crowe's new action movie Land of Bad can't break the star's recent strea
 Despite the Land of Bad cast including big names like Crowe and two of the Hemsworths, the action film has failed to impress critics, currently sitting at 52% fresh on Rotten Tomatoes on 24 reviews, becoming the fifth straight Crowe-starring film to be certified rotten by the review aggregator.
 Sentiment:<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>negative<|end_of_text|>
+
 ```
+
+</CodeGroup>
 
 #### Text extraction
 
 This example demonstrates how to extract certain information from a set of documents with a similar structural pattern.
 
-```
+<CodeGroup>
+
+```bash Extraction
+
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
+Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>Extract the Line Of Credit Facility Maximum Borrowing Capacity from the 10K sentences.
 Your response should only include the answer. Do not provide any further explanation.
 
@@ -293,22 +322,31 @@ $2.525B
 We prepared our impairment test as of October 1, 2022 and determined that the fair values of each of our reporting units exceeded net book value by more than 50%. Among our reporting units, the narrowest difference between the calculated fair value and net book value was in our Principal Markets segment's Canada reporting unit, whose calculated fair value exceeded its net book value by 53%. Future developments related to macroeconomic factors, including increases to the discount rate used, or changes to other inputs and assumptions, including revenue growth, could reduce the fair value of this and/or other reporting units and lead to impairment. There were no goodwill impairment losses recorded for the nine months ended December 31, 2022. Cumulatively, the Company has recorded $469 million in goodwill impairment charges within its former EMEA ($293 million) and current United States ($176 million) reporting units. Revolving Credit Agreement In October 2021, we entered into a $3.15 billion multi-currency revolving credit agreement (the "Revolving Credit Agreement") for our future liquidity needs. The Revolving Credit Agreement expires, unless extended, in October 2026. Interest rates on borrowings under the Revolving Credit Agreement are based on prevailing market interest rates, plus a margin, as further described in the Revolving Credit Agreement. The total expense recorded by the Company for the Revolving Credit Agreement was not material in any of the periods presented. We may voluntarily prepay borrowings under the Revolving Credit Agreement without premium or penalty, subject to customary "breakage" costs. The Revolving Credit Agreement includes certain customary mandatory prepayment provisions. Interest on Debt Interest expense for the three and nine months ended December 31, 2022 was $27 million and $65 million, compared to $18 million and $50 million for the three and nine months ended December 31, 2021. Most of the interest for the pre-Separation period presented in the historical Consolidated Income Statement reflects the allocation of interest expense associated with debt issued by IBM from which a portion of the proceeds benefited Kyndryl.
 Line Of Credit Facility Maximum Borrowing Capacity:<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>$3.15B<|end_of_text|>
+
 ```
+
+</CodeGroup>
 
 #### Text translation
 
 Granite 3.3 models also support tasks in multiple languages. This is a basic example of how to use the models to translate text from English to Spanish.
 
-```
+<CodeGroup>
+
+```bash Translate
+
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
+Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>Please translate the following list of greetings from English to Spanish.
 
 Morning!, how are things?, hello, it's good to see you, what's up?
 
 Please only output the translation, and nothing else.<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>¡Buenos días!, ¿cómo estás?, hola, bueno es verte, ¿qué tal?<|end_of_text|>
+
 ```
+
+</CodeGroup>
 
 Granite 3.3 models support text translation as well as other multilingual tasks in English, German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese (Simplified).
 
@@ -318,9 +356,12 @@ In this section, we demonstrate how to use the chat template to leverage the adv
 
 #### Control the response length
 
-```
+<CodeGroup>
+
+```bash Examples
+
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
+Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
 <|start_of_role|>user<|end_of_role|>Give me a list of wildflowers from Colorado<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>Here are some wildflowers native to Colorado:
 
@@ -341,15 +382,24 @@ In this section, we demonstrate how to use the chat template to leverage the adv
 15. Firecracker Penstemon (Penstemon eatonii)
 
 These wildflowers are known for their beauty and are characteristic of Colorado's diverse landscapes, from meadows to mountain slopes.<|end_of_text|>
+
 ```
 
+</CodeGroup>
+
 <Note>
-The `length` annotation can be added to the assistant response to control the response's length. The annotation will only influence the immediate next generation of the assistant role. The supported values are `short` and `long`. A `short` value guides the model to generate a direct response, while a `long` value encourages a more subtle response.
+  The `length` annotation can be added to the assistant response to control the
+  response's length. The annotation will only influence the immediate next
+  generation of the assistant role. The supported values are `short` and `long`.
+  A `short` value guides the model to generate a direct response, while a `long`
+  value encourages a more subtle response.
 </Note>
 
 Use the following code example to reproduce the previous output.
 
-```python
+<CodeGroup>
+
+```python Python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -375,11 +425,15 @@ output= tokenizer.batch_decode(output)
 print(output[0])
 ```
 
+</CodeGroup>
+
 #### Thinking capability
 
 This example demonstrates the application of Granite 3.3 models' thinking capabilities to a math problem.
 
-```
+<CodeGroup>
+
+```bash Thinking
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
  Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.
 Respond to every user query in a comprehensive and detailed way. You can write down your thoughts and reasoning process before responding. In the thought process, engage in a comprehensive cycle of analysis, summarization, exploration, reassessment, reflection, backtracing, and iteration to develop well-considered thinking process. In the response section, based on various attempts, explorations, and reflections from the thoughts section, systematically present the final solution that you deem correct. The response should summarize the thought process. Write your thoughts between <think></think> and write your response between <response></response> for each user query.<|end_of_text|>
@@ -434,14 +488,19 @@ Add the legs from all animals:
 The total number of legs for all the animals is \( \boxed{58} \).</response><|end_of_text|>
 ```
 
+</CodeGroup>
+
 <Note>
-- To activate this feature you must use the system prompt for reasoning tasks.
-- Note that thoughts appear between the tags `<think>` and `</think>`, and the final response between `<response>` and `</response>`.
+  - To activate this feature you must use the system prompt for reasoning tasks.
+  - Note that thoughts appear between the tags `<think>` and `</think>`, and the
+  final response between `<response>` and `</response>`.
 </Note>
 
 Use the following code example to reproduce the outputs for both reasoning tasks. To reproduce the second task, simply update the user prompt.
 
-```python
+<CodeGroup>
+
+```python Python
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 import torch
 
@@ -472,11 +531,15 @@ output = tokenizer.batch_decode(output)
 print(output[0])
 ```
 
+</CodeGroup>
+
 #### Function-calling
 
 This example demonstrates Granite 3.3 models ability to perform tool calls.
 
-```
+<CodeGroup>
+
+```bash Function-calling
 <|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
  Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful assistant with access to the following tools. When a tool is required to answer the user's query, respond only with <|tool_call|> followed by a JSON list of tools used. If a tool does not exist in the provided list of tools, notify the user that you do not have the ability to fulfill the request.<|end_of_text|>
 <|start_of_role|>available_tools<|end_of_role|>[
@@ -504,19 +567,24 @@ This example demonstrates Granite 3.3 models ability to perform tool calls.
 <|start of role|>tool_response<|end of role|>{"temp": 20.5, "unit": "C"}<|end of text|>
 ```
 
+</CodeGroup>
+
 <Note>
-Consider the following points to build promts for function-calling tasks:
+Consider the following points to build prompts for function-calling tasks:
 
 - Use the system prompt for function-calling tasks to obtain the best performance out of Granite 3.3 models.
 - Use `available_tools` turn type to provide the list of tools to the model.
 - Tools are provided to the model as a list of dictionaries, with each dictionary representing a tool. While the model has been trained to understand various dictionary structures for tools, we recommend building your prompts as shown in this example. In this approach, each tool is represented by a dictionary that includes the tool's name, description, and required arguments.
 - The format of the assistant responses containing function calls should be pre-pended by a `<|tool_call|>` token.
 - Use `tool_response` turn type to feed back to the model the external system execution of a tool call.
+
 </Note>
 
 Use the following code example to nearly reproduce the previous output.
 
-```python
+<CodeGroup>
+
+```python Python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -563,9 +631,13 @@ output = tokenizer.batch_decode(output)
 print(output[0])
 ```
 
+</CodeGroup>
+
 After obtaining a tool call from the `assistant` and executing it via an external system, you could feed the execution's result back to the model by updating the chat history as follows:
 
-```python
+<CodeGroup>
+
+```python Python
 chat=[
     {"role": "user", "content": "What's the current weather in New York?"},
     {"role": "assistant", "content": "<|tool_call|>[{\"name\": \"get_current_weather\", \"arguments\": {\"location\": \"New York\"}}]"},
@@ -573,15 +645,21 @@ chat=[
 ]
 ```
 
+</CodeGroup>
+
 #### FIM for a coding task
 
 This example demonstrates how to use Granite 3.3 models for a FIM code completion task.
 
-```
+<CodeGroup>
+
+```python Python
 <fim_prefix>def print_hello_world():<fim_suffix><fim_middle>
 
     print("Hello, World!")
 ```
+
+</CodeGroup>
 
 <Note>
 Consider the following points to build prompts for FIM coding tasks:
@@ -590,11 +668,14 @@ Consider the following points to build prompts for FIM coding tasks:
 - Prepend code after the missing part with the tag `<fim_suffix>`
 - End your prompt with the tag `<fim_middle>` to indicate to the model something is missing in the code snippet.
 - Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
+
 </Note>
 
 Use the following code example to reproduce the previous output.
 
-```python
+<CodeGroup>
+
+```python Python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -615,6 +696,8 @@ output = model.generate(inputs["input_ids"].to(device), attention_mask=inputs["a
 answer = tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
 print(answer)
 ```
+
+</CodeGroup>
 
 ## Backward compatibility
 
@@ -641,7 +724,9 @@ We strongly recommend that developers use the `apply_chat_template` function to 
 
 In the following example, we load the template for RAG inference with annotations to moderate `length` and `originality`. The list of documents and desired annotations have been previously rendered. The final model prompt is saved in `input_text` variable. You can take this example as baseline to build wrappers for libraries that do no suppot `kwargs`.
 
-```python
+<CodeGroup>
+
+```python Python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -667,11 +752,19 @@ answer = tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special
 print(answer)
 ```
 
+</CodeGroup>
 The execution of this script returns the assistant's output below:
 
+<CodeGroup>
+
+```bash Text
+RAG stands for Retrieval-Augmented Generation. It's a method
+that enhances generative AI models by providing them with information
+retrieval skills, allowing them to access and utilize external data or context
+during the generation process.
 ```
-RAG stands for Retrieval-Augmented Generation. It's a method that enhances generative AI models by providing them with information retrieval skills, allowing them to access and utilize external data or context during the generation process.
-```
+
+</CodeGroup>
 
 ## Inference Tips
 

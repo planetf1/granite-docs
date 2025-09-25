@@ -1,7 +1,7 @@
 ---
-title: 'Granite Embedding'
-description: 'The Granite Embedding collection delivers high-performance sentence-transformer models optimized for retrieval, generating precise embeddings for seamless comparison.'
-icon: 'vector-square'
+title: "Granite Embedding"
+description: "The Granite Embedding collection delivers high-performance sentence-transformer models optimized for retrieval, generating precise embeddings for seamless comparison."
+icon: "vector-square"
 ---
 
 <CardGroup cols={1}>
@@ -13,16 +13,6 @@ icon: 'vector-square'
     View the full model card on Hugging Face
   </Card>
 </CardGroup>
-
-## Table of contents
-
-1. [Overview](#overview)
-1. [Model cards](#model-cards)
-1. [Run locally with Ollama](#run-locally-with-ollama)
-1. [Examples](#examples)
-   1. [Granite Embedding with sentence transformers](#granite-embedding-with-sentence-transformers)
-   1. [Granite Embedding with Hugging Face transformers](#granite-embedding-with-hugging-face-transformers)
-   1. [Granite Embedding with LangChain](#granite-embedding-with-langchain)
 
 ## Overview
 
@@ -37,28 +27,28 @@ Looking ahead, the Granite Embedding series is gearing up to introduce sparse em
 <CardGroup cols={2}>
   <Card
     title="Granite Embedding 125m English"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-125m-english"
   >
     View model on Hugging Face
   </Card>
   <Card
     title="Granite Embedding 30m English"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-30m-english"
   >
     View model on Hugging Face
   </Card>
   <Card
     title="Granite Embedding 107m Multilingual"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-107m-multilingual"
   >
     View model on Hugging Face
   </Card>
   <Card
     title="Granite Embedding 278m Multilingual"
-    icon="hdd"
+    icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-278m-multilingual"
   >
     View model on Hugging Face
@@ -94,13 +84,19 @@ This is a simple example of how to use granite-embedding-30m-english model with 
 
 First, install the sentence transformers library
 
-```python
+<CodeGroup>
+
+```python Python
 pip install sentence_transformers
 ```
 
+</CodeGroup>
+
 The model can then be used to encode pairs of text and find the similarity between their representations
 
-```python
+<CodeGroup>
+
+```python Python
 from sentence_transformers import SentenceTransformer, util
 
 model_path = "ibm-granite/granite-embedding-30m-english"
@@ -123,7 +119,10 @@ passage_embeddings = model.encode(input_passages)
 
 # calculate cosine similarity
 print(util.cos_sim(query_embeddings, passage_embeddings))
+
 ```
+
+</CodeGroup>
 
 ### Granite Embedding with Hugging Face transformers
 
@@ -131,13 +130,19 @@ This is a simple example of how to use the granite-embedding-30m-english model w
 
 First, install the required libraries
 
-```python
+<CodeGroup>
+
+```python Python
 pip install transformers torch
 ```
 
+</CodeGroup>
+
 The model can then be used to encode pairs of text
 
-```python
+<CodeGroup>
+
+```python Python
 import torch
 from transformers import AutoModel, AutoTokenizer
 
@@ -167,13 +172,16 @@ with torch.no_grad():
 query_embeddings = torch.nn.functional.normalize(query_embeddings, dim=1)
 ```
 
+</CodeGroup>
 ### Granite Embedding with LangChain
 
 This is how you could use our models for Retrieval using IBM LangChain.
 
 First, install LangChain dependencies
 
-```python
+<CodeGroup>
+
+```python Python
 pip install git+https://github.com/ibm-granite-community/utils \
 #     "langchain_community<0.3.0" \
 #     langchain-huggingface \
@@ -182,12 +190,16 @@ pip install git+https://github.com/ibm-granite-community/utils \
 #     wget
 ```
 
+</CodeGroup>
+
 The below recipe, with granite-embedding-30m-english model, shows how to:
 
 - **Setup an database:** how to setup a local Milvus VectorDB, process the corpus to produce indexable documents, and ingest those documents using an embedding model.
 - **Retrieve relevant passages from the database:** how to use an embedding of the query to retrieve semantically similar passages.
 
-```python
+<CodeGroup>
+
+```python Python
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_milvus import Milvus
 from langchain.document_loaders import TextLoader
@@ -223,3 +235,5 @@ query = "What did the president say about Ketanji Brown Jackson"
 docs = vector_db.similarity_search(query)
 print(docs[0].page_content)
 ```
+
+</CodeGroup>

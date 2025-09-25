@@ -15,37 +15,74 @@ Get started with IBM Granite:
   </Step>
 
   <Step title="Pull Granite">
-    Run the following command to download Granite: ```bash ollama pull
-    granite3.3 ```
+    Run the following command to download Granite: 
+    <CodeGroup>
+    ```bash Bash
+    
+    ollama pull granite3.3
+
+    ```
+    </CodeGroup>
+
   </Step>
 
   <Step title="Start chatting">
-    Start a conversation with Granite: ```bash ollama run granite3.3 ```
+    Start a conversation with Granite: 
+    <CodeGroup>
+    
+    ```bash Bash
+    ollama run granite3.3 
+    
+    ```
+    </CodeGroup>
+
   </Step>
 </Steps>
 
 ## Model families
 
 <CardGroup cols={2}>
-  <Card title="Language models" icon="cube" href="/granite/docs/models/granite">
-    General-purpose language models for text generation and understanding
-  </Card>
 
-  <Card title="Code models" icon="code" href="/granite/docs/models/code">
-    Specialized models for code generation and programming assistance
-  </Card>
+<Card title="Language models" icon="cube" href="/granite/docs/models/granite">
+  General-purpose language models for text generation and understanding
+</Card>
 
-  <Card title="Vision models" icon="eye" href="/granite/docs/models/vision">
-    Multimodal models that understand both text and images
-  </Card>
+<Card title="Vision models" icon="eye" href="/granite/docs/models/vision">
+  Multimodal models that understand both text and images
+</Card>
 
-  <Card
-    title="Guardian models"
-    icon="shield-check"
-    href="/granite/docs/models/guardian"
-  >
-    Safety models for content moderation and risk detection
-  </Card>
+<Card
+  title="Speech models"
+  icon="microphone"
+  href="/granite/docs/models/speech"
+>
+  Specialized model designed for English automatic speech recognition (ASR)
+</Card>
+<Card
+  title="Guardian models"
+  icon="shield-check"
+  href="/granite/docs/models/guardian"
+>
+  Safety models for content moderation and risk detection
+</Card>
+<Card
+  title="Embedding models"
+  icon="vector-square"
+  href="/granite/docs/models/embedding"
+>
+  Embedding models optimized for retrieval, producing accurate embeddings
+</Card>
+<Card
+  title="Time series models"
+  icon="chart-line"
+  href="/granite/docs/models/time-series"
+>
+  Compact models for Multivariate Time-Series Forecasting
+</Card>
+<Card title="Code models" icon="code" href="/granite/docs/models/code">
+  Specialized models for code generation and programming assistance
+</Card>
+
 </CardGroup>
 
 ## Community and support
