@@ -1,6 +1,6 @@
 # Contribute to the docs
 
-Please follow this guide to contribute to the [Granite documentation site](www.ibm.com/granite/docs).
+Please follow this guide to contribute to the [Granite documentation site](https://github.com/ibm-granite/docs).
 
 ---
 
@@ -11,12 +11,13 @@ Our documentation is built with Markdown and MDX. You can embed components and i
 #### Clone the documentation repo
 
 ```bash
-git clone git@github.com:ibm-granite/docs.git
+git clone https://github.com/ibm-granite/docs.git
 ```
 
 #### Pull the latest changes
 
 ```bash
+cd docs
 git checkout main
 git pull origin main
 ```
@@ -44,7 +45,7 @@ For API docs, we have created a tool that works with a Python library and automa
 
 ```bash
 git add .
-git commit -m "feat: add guide for new contributors"
+git commit -m "<description of update>"
 ```
 
 #### Push your branch
@@ -55,11 +56,9 @@ git push origin feature/add-new-page
 
 #### Open a pull request
 
-1. Go to GitHub and open a PR to `main`.
-2. Fill in the PR template with:
+The response to your push request will tell you how to open a PR. Fill in the PR request with:
    - Summary of your changes
-   - Motivation for the change
-   - Any linked issues
+   - Linked issues (create issues if there aren't any to match)
 
 #### Review process
 
