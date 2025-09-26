@@ -127,6 +127,9 @@
             "group": "Agentic AI Cookbook",
             "pages": [
               "granite/docs/use-cases/granite-bee",
+              "granite/docs/use-cases/beeai-basics",
+              "granite/docs/use-cases/beeai-workflows",
+              "granite/docs/use-cases/beeai-requirement-agent",
               "granite/docs/use-cases/travel-planner"
             ]
           },
