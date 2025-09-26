@@ -6,50 +6,35 @@ icon: "cube"
 
 <CardGroup cols={2}>
   <Card
-    title="Model card"
+    title="View model cards"
     icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
+    href="https://huggingface.co/collections/ibm-granite/granite-40-language-models-6811a18b820ef362d9e5a82c"
   >
-    View the full model card on Hugging Face
+    View model details on Hugging Face
   </Card>
   <Card
-    title="Run locally with Ollama"
-    icon="download"
-    href="https://ollama.com/library/granite3.3:8b"
+    title="Try our Granite Agents"
+    icon="cube"
+    href="https://www.ibm.com/granite/playground/"
   >
-    Download and run Granite 3.3 with Ollama
+    Leverage Granite to search the web and write research reports
   </Card>
 </CardGroup>
 
 <CardGroup cols={2}>
   <Card
-    title="Try Granite"
+    title="Experiment with Granite Locally"
+    icon="download"
+    href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac"
+  >
+    Download and run Granite locally with Ollama
+  </Card>
+  <Card
+    title="Get cooking with Granite!"
     icon="cube"
-    href="https://www.ibm.com/granite/playground/"
+    href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks"
   >
-    Model playground
-  </Card>
-  <Card
-    title="Agentic RAG"
-    icon="robot"
-    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/AI-Agents/Agentic_RAG.ipynb"
-  >
-    Use Granite in an agentic RAG pattern to answer complex queries using
-    external information.
-  </Card>
-  <Card
-    title="Entity extraction"
-    icon="sitemap"
-    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Entity-Extraction/entity_extraction.ipynb"
-  >
-    Extract well-formed entities from unstructured data with Granite.
-  </Card>
-  <Card
-    title="Document summarization"
-    icon="newspaper"
-    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Summarize/Summarize.ipynb"
-  >
-    Multi-level abstractive document summarization using Granite.
+    Check out these recipes to start using Granite
   </Card>
 </CardGroup>
 
@@ -57,63 +42,147 @@ icon: "cube"
 
 Granite 3.3 models feature enhanced reasoning capabilities and support for Fill-in-the-Middle (FIM) code completion. They are built on a foundation of open-source instruction datasets with permissive licenses, alongside internally curated synthetic datasets tailored for long-context problem-solving. These models preserve the key strengths of previous Granite versions, including support for a 128K context length, strong performance in retrieval-augmented generation (RAG) and function calling, and controls for response length and originality. Granite 3.3 also delivers competitive results across general, enterprise, and safety benchmarks. Released as open source, the models are available under the Apache 2.0 license.
 
-## Model cards
+// TABLE
+// BLOG SLINK
 
-<CardGroup cols={2}>
-  <Card
-    title="Granite 3.3 8B Instruct"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
-  >
-    8B parameter instruction-tuned model
-  </Card>
-  <Card
-    title="Granite 3.3 2B Instruct"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-2b-instruct"
-  >
-    2B parameter instruction-tuned model
-  </Card>
-  <Card
-    title="Granite 3.3 8B Base"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-8b-base"
-  >
-    8B parameter base model
-  </Card>
-  <Card
-    title="Granite 3.3 2B Base"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-2b-base"
-  >
-    2B parameter base model
-  </Card>
-</CardGroup>
+## Inference Examples
+### Basic Inference
 
-## Run locally with Ollama
+<CodeGroup>
+```javascript Transformers
+console.log("Hello World");
+```
 
-[Learn more](https://ollama.com/blog/ibm-granite) about Granite 3.3 on Ollama.
+```python watsonx.ai
+print('Hello World!')
+```
 
-<CardGroup cols={2}>
-  <Card
-    title="Granite 3.3 8B Instruct"
-    icon="download"
-    href="https://ollama.com/library/granite3.3:8b"
-  >
-    Download the 8B model for Ollama
-  </Card>
-  <Card
-    title="Granite 3.3 2B Instruct"
-    icon="download"
-    href="https://ollama.com/library/granite3.3:2b"
-  >
-    Download the 2B model for Ollama
-  </Card>
-</CardGroup>
+```bash Ollama
+print('Hello World!')
+```
 
-## Granite 3.3 highlights
+```python OpenAI API
+print('Hello World!')
+```
 
-Granite 3.3 models feature extended context length and deliver strong performance across tasks such as retrieval-augmented generation (RAG), function calling, and reasoning. They retain key capabilities from earlier versions—such as response length control and originality. Additionally, Granite 3.3 introduces fill-in-the-middle (FIM) support for code completion and improves the clarity of model reasoning by separating intermediate thoughts from final answers.
+```python Raw Prompt
+print('Hello World!')
+```
+</CodeGroup>
+
+Text text text
+
+### FIM
+
+<CodeGroup>
+```javascript Transformers
+console.log("Hello World");
+```
+
+```python watsonx.ai
+print('Hello World!')
+```
+
+```bash Ollama
+print('Hello World!')
+```
+
+```python OpenAI API
+print('Hello World!')
+```
+
+```python Raw Prompt
+print('Hello World!')
+```
+</CodeGroup>
+
+Text text text
+
+
+### RAG
+
+<CodeGroup>
+```javascript Transformers
+console.log("Hello World");
+```
+
+```python watsonx.ai
+print('Hello World!')
+```
+
+```bash Ollama
+print('Hello World!')
+```
+
+```python OpenAI API
+print('Hello World!')
+```
+
+```python Raw Prompt
+print('Hello World!')
+```
+</CodeGroup>
+
+Text text text
+
+### Tool calling
+
+<CodeGroup>
+```javascript Transformers
+console.log("Hello World");
+```
+
+```python watsonx.ai
+print('Hello World!')
+```
+
+```bash Ollama
+print('Hello World!')
+```
+
+```python OpenAI API
+print('Hello World!')
+```
+
+```python Raw Prompt
+print('Hello World!')
+```
+</CodeGroup>
+
+Text text text
+
+### JSON output
+
+<CodeGroup>
+```javascript Transformers
+console.log("Hello World");
+```
+
+```python watsonx.ai
+print('Hello World!')
+```
+
+```bash Ollama
+print('Hello World!')
+```
+
+```python OpenAI API
+print('Hello World!')
+```
+
+```python Raw Prompt
+print('Hello World!')
+```
+</CodeGroup>
+
+Text text text
+
+## Backward Compatibility
+Text text text
+
+____
+
+
 
 ## Basic chat template example
 
@@ -170,6 +239,7 @@ print(output[0])
 
 ````
 </CodeGroup>
+
 ## Granite 3.3 inference examples
 
 ### Basic examples
@@ -773,3 +843,4 @@ during the generation process.
 - Reduce explanation length. If the explanations provided by the model are too long, update the instruction to make it clear there should be no additional explanations.
 - Fix run-on sentences/responses. If the model is generating run-on sentences/responses, try reducing the max tokens output parameter or adding line breaks or spaces as stop token(s). This should lead the model to stop generating the output after generating these tokens.
 - For prompts that include in-context examples, consider using the example labels as a stop token so the model stops generation after providing the answer.
+

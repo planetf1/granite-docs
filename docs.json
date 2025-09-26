@@ -35,8 +35,7 @@
               "granite/docs/models/speech",
               "granite/docs/models/guardian",
               "granite/docs/models/embedding",
-              "granite/docs/models/time-series",
-              "granite/docs/models/code"
+              "granite/docs/models/time-series"
             ]
           },
           {

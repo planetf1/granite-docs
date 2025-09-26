@@ -44,26 +44,13 @@ systemctl --user status ollama
 
 ## 2. Download Granite Models
 
-Ollama supports a range of IBM Granite models. Larger models provide better results but require more resources.
+Ollama supports a range of [IBM Granite models](https://ollama.com/ibm). Larger models provide better results but require more resources.
 
-Example models:
 
-- `granite3.3:8b`
-- `granite3.3:2b`
-- `granite3.2:8b`
-- `granite3.2:2b`
-- `granite3.2-vision:2b`
-- `granite3.1-guardian:2b`
-- `granite3.1-guardian:8b`
-- `granite3.1-moe:1b`
-- `granite3.1-moe:3b`
-- `granite-code:20b`
-- `granite-code:3b`
-
-To download Granite 3.3 (8b variant):
+To download Granite 4:
 
 ```bash
-ollama pull granite3.3:8b
+ollama pull granite4
 ```
 
 ---
@@ -73,10 +60,10 @@ ollama pull granite3.3:8b
 To start chatting with Granite:
 
 ```bash
-ollama run granite3.3:8b
+ollama run granite4
 ```
 
-If you want to use a different variant, replace the model name (e.g., `granite3.3:2b`).
+If you want to use a different variant, replace the model name (e.g., `granite4`).
 
 ---
 
@@ -90,7 +77,6 @@ For longer conversations, you can adjust it by setting:
 /set parameter num_ctx <desired_context_length>
 ```
 
-The largest supported context for Granite 3.1 models is `131072` (128k).
 
 </Note>
 
@@ -102,7 +88,7 @@ You can also interact with Granite programmatically using Ollama’s OpenAI-comp
 
 ```bash
 curl -X POST http://localhost:11434/v1/chat/completions   -H "Content-Type: application/json"   -d '{
-        "model": "granite3.3:8b",
+        "model": "granite4",
         "messages": [{"role": "user", "content": "How are you today?"}]
       }'
 ```
