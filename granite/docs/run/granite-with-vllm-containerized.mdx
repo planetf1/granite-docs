@@ -23,7 +23,7 @@ In this guide, we'll use [vLLM](https://docs.vllm.ai/en/latest/) running inside 
 docker pull vllm/vllm-openai:latest
 ```
 
-_(For stability, you may pin a version tag, e.g., `vllm/vllm-openai:v0.5.4`.)_
+_(For stability, you may pin a version tag, e.g., `vllm/vllm-openai:v0.10.2`. Granite models require `vllm` version 0.10.2 and above.)_
 
 ---
 
@@ -32,14 +32,14 @@ _(For stability, you may pin a version tag, e.g., `vllm/vllm-openai:v0.5.4`.)_
 Run the container with your Hugging Face cache mounted:
 
 ```sh
-docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-3.1-8b-instruct
+docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-4.0-h-small
 ```
 
 <Note>
 You can pre-download the model into `~/.cache/huggingface` using:
 
 ```sh
-huggingface-cli download ibm-granite/granite-3.1-8b-instruct
+huggingface-cli download ibm-granite/granite-4.0-h-small
 ```
 
 If not pre-downloaded, the model will be fetched automatically when vLLM starts and cached in the mounted directory.
@@ -52,9 +52,13 @@ If not pre-downloaded, the model will be fetched automatically when vLLM starts 
 
 ```sh
 curl -X POST http://localhost:8000/v1/chat/completions   -H "Content-Type: application/json"   -d '{
-        "model": "ibm-granite/granite-3.1-8b-instruct",
+        "model": "ibm-granite/granite-4.0-h-small",
         "messages": [
           {"role": "user", "content": "How are you today?"}
         ]
       }'
 ```
+
+## 4. Enabling tool calling and other extended capabilities
+
+To run vllm with the Granite models and enabling capabilities such as tool calling, use the additional parameters specified in the vLLM documentation [here](https://docs.vllm.ai/en/v0.9.2/features/tool_calling.html?h=#ibm-granite) as part of the `docker run` command share in Section 2. 
