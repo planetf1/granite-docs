@@ -52,7 +52,64 @@ console.log("Hello World");
 ```
 
 ```python watsonx.ai
-print('Hello World!')
+### This snippet assumes watsonx.ai access. 
+### If not already setup, follow the guide here: 
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+    "apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+    raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {access_token}",
+}
+
+body = {
+    "messages": [
+        {
+            "role": "user", 
+            "content": "What is the largest ocean on Earth?"
+        }
+    ],
+    "project_id": WX_PROJECT_ID,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```bash Ollama
@@ -60,7 +117,45 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-print('Hello World!')
+### This snippet assumes access to an OpenAI compatible endpoint 
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+body = {
+    "messages": [
+        {
+            "role": "user", 
+            "content": "What is the largest ocean on Earth?"
+        }
+    ],
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20
+}
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```python Raw Prompt
@@ -78,7 +173,70 @@ console.log("Hello World");
 ```
 
 ```python watsonx.ai
-print('Hello World!')
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+    "apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+    raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {access_token}",
+}
+
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|>"""
+
+chat = [
+    { "role": "user", "content": prompt},
+]
+
+body = {
+    "messages": chat,
+    "project_id": WX_PROJECT_ID,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```bash Ollama
@@ -86,7 +244,51 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-print('Hello World!')
+### This snippet assumes access to an OpenAI compatible endpoint 
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|>"""
+
+chat = [
+    { "role": "user", "content": prompt},
+]
+
+body = {
+    "messages": chat,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```python Raw Prompt
@@ -105,7 +307,85 @@ console.log("Hello World");
 ```
 
 ```python watsonx.ai
-print('Hello World!')
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+    "apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+    raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {access_token}",
+}
+
+chat=[
+    {"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+]
+
+documents=[
+    {
+        "doc_id": "1",
+        "title": "Bridget Jones: The Edge of Reason (2004)",
+        "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+        "source": ""
+    },
+    {
+        "doc_id": "2",
+        "title": "Bridget Jones's Baby (2016)",
+        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+        "source": ""
+    },
+    {
+        "doc_id": "3",
+        "title": "Bridget Jones's Diary (2001)",
+        "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+        "source": ""
+    },
+]
+
+body = {
+    "messages": chat,
+    "chat_template_kwargs": {"documents": documents},
+    "project_id": WX_PROJECT_ID,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```bash Ollama
@@ -113,7 +393,70 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-print('Hello World!')
+### This snippet assumes access to an OpenAI compatible endpoint 
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+chat=[
+    {"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+]
+
+documents=[
+    {
+        "doc_id": "1",
+        "title": "Bridget Jones: The Edge of Reason (2004)",
+        "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+        "source": ""
+    },
+    {
+        "doc_id": "2",
+        "title": "Bridget Jones's Baby (2016)",
+        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+        "source": ""
+    },
+    {
+        "doc_id": "3",
+        "title": "Bridget Jones's Diary (2001)",
+        "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+        "source": ""
+    },
+]
+
+body = {
+    "messages": chat,
+    "chat_template_kwargs": {"documents": documents},
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+# note: chat_template_kwargs is an additional parameter
+# exposed by libraries such as vllm and not part of the 
+# original OpenAI Chat Completions parameter specification.
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```python Raw Prompt
@@ -131,7 +474,100 @@ console.log("Hello World");
 ```
 
 ```python watsonx.ai
-print('Hello World!')
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+    "apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+    raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {access_token}",
+}
+
+chat = [
+    {"role": "user", "content": "What's the current weather in New York?"}
+]
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "description": "The city and state, e.g. San Francisco, CA",
+                        "type": "string",
+                    },
+                },
+                "required": ["location"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": {
+                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                        "type": "string",
+                    },
+                },
+            },
+        },
+    },
+]
+
+body = {
+    "messages": chat,
+    "tools": tools,
+    "project_id": WX_PROJECT_ID,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```bash Ollama
@@ -139,7 +575,80 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-print('Hello World!')
+### This snippet assumes access to an OpenAI compatible endpoint 
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+chat = [
+    {"role": "user", "content": "What's the current weather in New York?"}
+]
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "description": "The city and state, e.g. San Francisco, CA",
+                        "type": "string",
+                    },
+                },
+                "required": ["location"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": {
+                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                        "type": "string",
+                    },
+                },
+            },
+        },
+    },
+]
+
+body = {
+    "messages": chat,
+    "tools": tools,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```python Raw Prompt
@@ -157,7 +666,70 @@ console.log("Hello World");
 ```
 
 ```python watsonx.ai
-print('Hello World!')
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+    "apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+    raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {access_token}",
+}
+
+chat = [
+    {
+        "role": "system",
+        "content": 'You are a helpful assistant that answers in JSON. Here\'s the json schema you must adhere to:\n<schema>\n{"title": "LeisureActivityBooking", "type": "object", "properties": {"activityID": {"title": "Activity ID", "type": "string"}, "participantInfo": {"title": "Participant Info", "type": "object", "properties": {"participantName": {"title": "Participant Name", "type": "string"}, "age": {"title": "Age", "type": "integer"}}, "required": ["participantName", "age"]}, "activityDate": {"title": "Activity Date", "type": "string", "format": "date"}, "equipmentNeeded": {"title": "Equipment Needed", "type": "array", "items": {"type": "string"}}}, "required": ["activityID", "participantInfo", "activityDate"]}\n</schema>\n',
+    },
+    {
+        "role": "user",
+        "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water.",
+    },
+]
+
+body = {
+    "messages": chat,
+    "project_id": WX_PROJECT_ID,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```bash Ollama
@@ -165,7 +737,51 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-print('Hello World!')
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+chat = [
+    {
+        "role": "system",
+        "content": 'You are a helpful assistant that answers in JSON. Here\'s the json schema you must adhere to:\n<schema>\n{"title": "LeisureActivityBooking", "type": "object", "properties": {"activityID": {"title": "Activity ID", "type": "string"}, "participantInfo": {"title": "Participant Info", "type": "object", "properties": {"participantName": {"title": "Participant Name", "type": "string"}, "age": {"title": "Age", "type": "integer"}}, "required": ["participantName", "age"]}, "activityDate": {"title": "Activity Date", "type": "string", "format": "date"}, "equipmentNeeded": {"title": "Equipment Needed", "type": "array", "items": {"type": "string"}}}, "required": ["activityID", "participantInfo", "activityDate"]}\n</schema>\n',
+    },
+    {
+        "role": "user",
+        "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water.",
+    },
+]
+
+body = {
+    "messages": chat,
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20,
+    "response_format": {"type": "json_object"},
+}
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
 ```
 
 ```python Raw Prompt
