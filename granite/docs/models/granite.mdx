@@ -1,6 +1,6 @@
 ---
 title: "Granite Language"
-description: "Granite 3.3 models leverage new dense architecture. These models were trained with 12 trillion tokens across 12 languages and 116 programming languages."
+description: ""
 icon: "cube"
 ---
 
@@ -40,10 +40,103 @@ icon: "cube"
 
 ## Overview
 
-Text Text
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
 
+[Granite 4 Release Blog](https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models)
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        <br />
+      </th>
+      <th width="130">
+        <img src="../images/granite-images/small.png" alt="Granite Small" 
+        width="80"/>
+        Granite-H-Small
+      </th>
+      <th width="130">
+        <img src="../images/granite-images/small.png" alt="Granite Tiny" 
+        width="50"/>
+        <br />
+        Granite-H-Tiny
+      </th>
+      <th width="130">
+        <img src="../images/granite-images/small.png" alt="Granite Micro" 
+        width="25"/>
+        <br />
+        Granite-H-Micro
+      </th>
+      <th width="130">
+        <img src="../images/granite-images/small.png" alt="Granite Micro" 
+        width="25"/>
+        <br />
+        Granite-Micro
+      </th>
+    </tr>
+
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Architecture Type**</td>
+      <td>Hybrid, Mixture of Experts</td>
+      <td>Hybrid, Mixture of Experts</td>
+      <td>Hybrid, Dense</td>
+      <td>Traditional, Dense</td>
+    </tr>
+    <tr>
+      <td>**Model Size**</td>
+      <td>
+        32B total parameters <br />
+        9B activated parameters
+      </td>
+      <td>
+        7B total parameters <br />
+        1B activated parameters
+      </td>
+      <td>3B total parameters</td>
+      <td>3B total parameters</td>
+    </tr>
+    <tr>
+      <td>**Intended Use**</td>
+      <td>Workhorse model for key enterprise tasks like RAG and agents</td>
+      <td>
+        Designed for low latency, edge, and local applications, and as a
+        building block to perform key tasks (like function calling) quickly
+        within agentic workflows
+      </td>
+      <td>
+        Designed for low latency, edge, and local applications, and as a
+        building block to perform key tasks (like function calling) quickly
+        within agentic workflows{" "}
+      </td>
+      <td>
+        Alternative option for users when Mamba2 support is not yet optimized
+        (e.g. llama.cpD, PEFT, etc)
+      </td>
+    </tr>
+    <tr>
+      <td>**Estimated Memory Requirements**</td>
+      <td>33 GB</td>
+      <td>8 GB</td>
+      <td>4 GB</td>
+      <td>9 GB</td>
+    </tr>
+    <tr>
+      <td>**Example Hardware**</td>
+      <td>NVIDIA L4OS</td>
+      <td>RTX 3060 12GB</td>
+      <td>Raspberry-Pi 8GB</td>
+      <td>RTX 3060 12GB</td>
+    </tr>
+  </tbody>
+</table>
+<Note>
+Model deployment specifications: `8-bit`, `128K context length`, and `batch=1`.
+</Note>
 
 ## Inference Examples
+
 ### Basic Inference
 
 <CodeGroup>
@@ -52,8 +145,8 @@ console.log("Hello World");
 ```
 
 ```python watsonx.ai
-### This snippet assumes watsonx.ai access. 
-### If not already setup, follow the guide here: 
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
 ### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
 
 import requests
@@ -88,7 +181,7 @@ headers = {
 body = {
     "messages": [
         {
-            "role": "user", 
+            "role": "user",
             "content": "What is the largest ocean on Earth?"
         }
     ],
@@ -117,7 +210,7 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-### This snippet assumes access to an OpenAI compatible endpoint 
+### This snippet assumes access to an OpenAI compatible endpoint
 ### If not already setup, an example setup can be achieved
 ### through vllm. Follow the guide here:
 ### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
@@ -135,7 +228,7 @@ headers = {
 body = {
     "messages": [
         {
-            "role": "user", 
+            "role": "user",
             "content": "What is the largest ocean on Earth?"
         }
     ],
@@ -161,6 +254,7 @@ print(json.dumps(data, indent=4))
 ```python Raw Prompt
 print('Hello World!')
 ```
+
 </CodeGroup>
 
 Text text text
@@ -244,7 +338,7 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-### This snippet assumes access to an OpenAI compatible endpoint 
+### This snippet assumes access to an OpenAI compatible endpoint
 ### If not already setup, an example setup can be achieved
 ### through vllm. Follow the guide here:
 ### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
@@ -294,10 +388,10 @@ print(json.dumps(data, indent=4))
 ```python Raw Prompt
 print('Hello World!')
 ```
+
 </CodeGroup>
 
 Text text text
-
 
 ### RAG
 
@@ -393,7 +487,7 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-### This snippet assumes access to an OpenAI compatible endpoint 
+### This snippet assumes access to an OpenAI compatible endpoint
 ### If not already setup, an example setup can be achieved
 ### through vllm. Follow the guide here:
 ### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
@@ -444,7 +538,7 @@ body = {
 }
 
 # note: chat_template_kwargs is an additional parameter
-# exposed by libraries such as vllm and not part of the 
+# exposed by libraries such as vllm and not part of the
 # original OpenAI Chat Completions parameter specification.
 
 
@@ -462,6 +556,7 @@ print(json.dumps(data, indent=4))
 ```python Raw Prompt
 print('Hello World!')
 ```
+
 </CodeGroup>
 
 Text text text
@@ -575,7 +670,7 @@ print('Hello World!')
 ```
 
 ```python OpenAI API
-### This snippet assumes access to an OpenAI compatible endpoint 
+### This snippet assumes access to an OpenAI compatible endpoint
 ### If not already setup, an example setup can be achieved
 ### through vllm. Follow the guide here:
 ### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
@@ -654,6 +749,7 @@ print(json.dumps(data, indent=4))
 ```python Raw Prompt
 print('Hello World!')
 ```
+
 </CodeGroup>
 
 Text text text
@@ -787,11 +883,11 @@ print(json.dumps(data, indent=4))
 ```python Raw Prompt
 print('Hello World!')
 ```
+
 </CodeGroup>
 
 Text text text
 
 ## Backward Compatibility
-Text text text
 
-____
+Text text text
