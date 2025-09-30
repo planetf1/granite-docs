@@ -22,12 +22,6 @@
         "tab": "Docs",
         "groups": [
           {
-            "group": "Introduction",
-            "pages": [
-              "granite/docs/index"
-            ]
-          },
-          {
             "group": "Models",
             "pages": [
               "granite/docs/models/granite",
@@ -65,7 +59,7 @@
           {
             "group": "Responsible AI",
             "pages": [
-              "granite/docs/responsible-ai/index"
+              "https://www.ibm.com/granite/trust"
             ]
           }
         ]
