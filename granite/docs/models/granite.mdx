@@ -137,11 +137,85 @@ Model deployment specifications: `8-bit`, `128K context length`, and `batch=1`.
 
 ## Inference Examples
 
-### Basic Inference
+### Tool calling
 
 <CodeGroup>
-```javascript Transformers
-console.log("Hello World");
+```python Transformers
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+device = "cuda"
+# model_path = ""
+model_path = "ibm-granite/granite-4.0-micro"
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+# drop device_map if running on CPU
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model.eval()
+
+chat=[
+    {"role": "user", "content": "What's the current weather in New York?"},
+    {"role": "assistant", 
+     "content": "", 
+     "tool_calls": [
+         {
+             "function": {
+                 "name": "get_current_weather",
+                 "arguments": {"city": "New York"}
+             }
+         }
+     ]
+    },
+    {"role": "tool", "content": "New York is sunny with a temperature of 30°C."},
+    {"role": "user", "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"}
+]
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location" : {
+                        "description": "The city and state, e.g. San Francisco, CA",
+                        "type": "string",
+                        },
+                },
+                "required" : ["location"]
+            }
+        } 
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker" : {
+                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                        "type": "string",
+                        },
+                }
+            }
+        } 
+    }
+]
+    
+chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, tools=tools)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=100)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
 ```
 
 ```python watsonx.ai
@@ -178,141 +252,49 @@ headers = {
     "Authorization": f"Bearer {access_token}",
 }
 
-body = {
-    "messages": [
-        {
-            "role": "user",
-            "content": "What is the largest ocean on Earth?"
-        }
-    ],
-    "project_id": WX_PROJECT_ID,
-    "model_id": "ibm/granite-4-h-small",
-    "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20
-}
-
-
-# STEP 3: Execute call to the chat endpoint in watsonx.ai
-response = requests.post(url, headers=headers, json=body)
-
-if response.status_code != 200:
-    raise Exception("Non-200 response: " + str(response.text))
-
-data = response.json()
-
-print(json.dumps(data, indent=4))
-```
-
-```bash Ollama
-print('Hello World!')
-```
-
-```python OpenAI API
-### This snippet assumes access to an OpenAI compatible endpoint
-### If not already setup, an example setup can be achieved
-### through vllm. Follow the guide here:
-### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
-
-import requests
-import json
-
-# STEP 1: Setup call to the OpenAI compatible endpoint
-url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
-headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-body = {
-    "messages": [
-        {
-            "role": "user",
-            "content": "What is the largest ocean on Earth?"
-        }
-    ],
-    "model_id": "ibm/granite-4.0-h-small",
-    "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20
-}
-
-
-# STEP 2: Execute call to the chat endpoint
-response = requests.post(url, headers=headers, json=body)
-
-if response.status_code != 200:
-    raise Exception("Non-200 response: " + str(response.text))
-
-data = response.json()
-
-print(json.dumps(data, indent=4))
-```
-
-```python Raw Prompt
-print('Hello World!')
-```
-
-</CodeGroup>
-
-Text text text
-
-### FIM
-
-<CodeGroup>
-```javascript Transformers
-console.log("Hello World");
-```
-
-```python watsonx.ai
-### This snippet assumes watsonx.ai access.
-### If not already setup, follow the guide here:
-### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
-
-import requests
-import json
-
-WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
-WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
-
-# STEP 1: Retrieve bearer token using WX_API_KEY
-token_url = "https://iam.cloud.ibm.com/oidc/token"
-token_data = {
-    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
-    "apikey": WX_API_KEY,
-}
-token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
-
-token_response = requests.post(token_url, data=token_data, headers=token_headers)
-if token_response.status_code != 200:
-    raise Exception("Failed to retrieve token: " + token_response.text)
-
-access_token = token_response.json()["access_token"]
-
-
-# STEP 2: Setup call to the chat endpoint in watsonx.ai
-url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
-headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {access_token}",
-}
-
-prompt = """<|fim_prefix|>
-def fibonacci(n):
-    result =
-<|fim_suffix|>
-    return result
-<|fim_middle|>"""
-
 chat = [
-    { "role": "user", "content": prompt},
+    {"role": "user", "content": "What's the current weather in New York?"}
+]
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "description": "The city and state, e.g. San Francisco, CA",
+                        "type": "string",
+                    },
+                },
+                "required": ["location"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": {
+                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                        "type": "string",
+                    },
+                },
+            },
+        },
+    },
 ]
 
 body = {
     "messages": chat,
+    "tools": tools,
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
@@ -333,10 +315,6 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-```bash Ollama
-print('Hello World!')
-```
-
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
 ### If not already setup, an example setup can be achieved
@@ -353,26 +331,55 @@ headers = {
     "Content-Type": "application/json",
 }
 
-prompt = """<|fim_prefix|>
-def fibonacci(n):
-    result =
-<|fim_suffix|>
-    return result
-<|fim_middle|>"""
-
 chat = [
-    { "role": "user", "content": prompt},
+    {"role": "user", "content": "What's the current weather in New York?"}
+]
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "description": "The city and state, e.g. San Francisco, CA",
+                        "type": "string",
+                    },
+                },
+                "required": ["location"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": {
+                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                        "type": "string",
+                    },
+                },
+            },
+        },
+    },
 ]
 
 body = {
     "messages": chat,
+    "tools": tools,
     "model_id": "ibm/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
     "top_k": 20,
 }
-
 
 # STEP 2: Execute call to the chat endpoint
 response = requests.post(url, headers=headers, json=body)
@@ -385,19 +392,93 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-```python Raw Prompt
-print('Hello World!')
+```text Chat Template
+<|start_of_role|>system<|end_of_role|>You are a helpful assistant with access to the following tools. You may call one or more tools to assist with the user query.
+
+You are provided with function signatures within <tools></tools> XML tags:
+<tools>
+{"type": "function", "function": {"name": "get_current_weather", "description": "Get the current weather", "parameters": {"type": "object", "properties": {"location": {"description": "The city and state, e.g. San Francisco, CA", "type": "string"}}, "required": ["location"]}}}
+{"type": "function", "function": {"name": "get_stock_price", "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.", "parameters": {"type": "object", "properties": {"ticker": {"description": "The stock ticker symbol, e.g. AAPL for Apple Inc.", "type": "string"}}}}}
+</tools>
+
+For each tool call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:
+<tool_call>
+{"name": <function-name>, "arguments": <args-json-object>}
+</tool_call>. If a tool does not exist in the provided list of tools, notify the user that you do not have the ability to fulfill the request.<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>What's the current weather in New York?<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|><tool_call>
+{"name": "get_current_weather", "arguments": {"city": "New York"}}
+</tool_call><|end_of_text|>
+<|start_of_role|>user<|end_of_role|>
+<tool_response>
+New York is sunny with a temperature of 30°C.
+</tool_response><|end_of_text|>
+<|start_of_role|>user<|end_of_role|>OK, Now tell me what's the weather like in Bengaluru at this moment?<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|><tool_call>
+{"name": "get_current_weather", "arguments": {"city": "Bengaluru"}}
+</tool_call><|end_of_text|>
 ```
 
 </CodeGroup>
 
-Text text text
+Consider the following points to build promts for tool-calling tasks:
+
+* When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See the *Chat Template Design* section for more information about system prompt design in tool-calling scenarios.
+* Please follow OpenAI's function [definition schema](https://platform.openai.com/docs/guides/function-calling?api-mode=responses#defining-functions) to define tools.
+* Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to the *Chat Template Design* section for examples.
+* The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please, refer to the *Chat Template Design* section for examples.
 
 ### RAG
 
 <CodeGroup>
 ```javascript Transformers
-console.log("Hello World");
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+device = "cuda"
+model_path = "ibm-granite/granite-4.0-h-tiny" 
+
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+# drop device_map if running on CPU
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model.eval()
+
+chat=[
+    {"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+]
+
+documents=[
+    {
+        "doc_id": 1,
+        "title": "Bridget Jones: The Edge of Reason (2004)",
+        "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+        "source": ""
+    },
+    {
+        "doc_id": 2,
+        "title": "Bridget Jones's Baby (2016)",
+        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+        "source": ""
+    },
+    {
+        "doc_id": 3,
+        "title": "Bridget Jones's Diary (2001)",
+        "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+        "source": ""
+    },
+]
+
+chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, documents=documents)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=800)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
 ```
 
 ```python watsonx.ai
@@ -480,10 +561,6 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
-```bash Ollama
-print('Hello World!')
 ```
 
 ```python OpenAI API
@@ -553,19 +630,184 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-```python Raw Prompt
-print('Hello World!')
+```text Chat Template
+<|start_of_role|>system<|end_of_role|>You are a helpful assistant with access to the following documents. You may use one or more documents to assist with the user query.
+
+You are given a list of documents within <documents></documents> XML tags:
+<documents>
+{"doc_id": 1, "title": "Bridget Jones: The Edge of Reason (2004)", "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.", "source": ""}
+{"doc_id": 2, "title": "Bridget Jones's Baby (2016)", "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.", "source": ""}
+{"doc_id": 3, "title": "Bridget Jones's Diary (2001)", "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.", "source": ""}
+</documents>
+
+Write the response to the user's input by strictly aligning with the facts in the provided documents. If the information needed to answer the question is not available in the documents, inform the user that the question cannot be answered based on the available data.<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response.<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>The first Bridget Jones's movie, "Bridget Jones's Diary" (2001), is about a thirty-something British woman named Bridget Jones who is trying to keep her love life in order while also dealing with her job as a publisher. She attends a Christmas party with her parents, where they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive emails. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.<|end_of_text|>
 ```
 
 </CodeGroup>
 
-Text text text
+Consider the following points to build promts for RAG tasks:
 
-### Tool calling
+* The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please, refert to *Chat Template Design* section for further details.
+* Documents are provided to the model as a list of dictionaries, with each dictionary representing a document. We recommend formatting documents as follows:
+```
+{
+    "doc_id": 1,
+    "title": "History Document Title",
+    "text": "From the early 12th century, French builders developed the Gothic style, marked by the use of rib vaults, pointed arches, flying buttresses, and large stained glass windows. It was used mainly in churches and cathedrals, and continued in use until the 16th century in much of Europe. Classic examples of Gothic architecture include Chartres Cathedral and Reims Cathedral in France as well as Salisbury Cathedral in England. Stained glass became a crucial element in the design of churches, which continued to use extensive wall-paintings, now almost all lost.",
+    "source": ""
+}
+```
+
+### Basic Inference
 
 <CodeGroup>
-```javascript Transformers
-console.log("Hello World");
+
+```python watsonx.ai
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+    "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+    "apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+    raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {access_token}",
+}
+
+body = {
+    "messages": [
+        {
+            "role": "user",
+            "content": "What is the largest ocean on Earth?"
+        }
+    ],
+    "project_id": WX_PROJECT_ID,
+    "model_id": "ibm/granite-4-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```python OpenAI API
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+body = {
+    "messages": [
+        {
+            "role": "user",
+            "content": "What is the largest ocean on Earth?"
+        }
+    ],
+    "model_id": "ibm/granite-4.0-h-small",
+    "max_completion_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "top_k": 20
+}
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+    raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+</CodeGroup>
+
+
+### FIM
+
+<CodeGroup>
+```python Transformers
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+device = "cuda"
+# model_path = ""
+model_path = "ibm-granite/granite-4.0-micro"
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+
+# drop device_map if running on CPU
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model.eval()
+
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|>"""
+
+chat = [
+    { "role": "user", "content": prompt},
+]
+
+chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=50)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
 ```
 
 ```python watsonx.ai
@@ -602,49 +844,19 @@ headers = {
     "Authorization": f"Bearer {access_token}",
 }
 
-chat = [
-    {"role": "user", "content": "What's the current weather in New York?"}
-]
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|>"""
 
-tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "get_current_weather",
-            "description": "Get the current weather",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "location": {
-                        "description": "The city and state, e.g. San Francisco, CA",
-                        "type": "string",
-                    },
-                },
-                "required": ["location"],
-            },
-        },
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "get_stock_price",
-            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "ticker": {
-                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
-                        "type": "string",
-                    },
-                },
-            },
-        },
-    },
+chat = [
+    { "role": "user", "content": prompt},
 ]
 
 body = {
     "messages": chat,
-    "tools": tools,
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
@@ -665,10 +877,6 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-```bash Ollama
-print('Hello World!')
-```
-
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
 ### If not already setup, an example setup can be achieved
@@ -685,55 +893,26 @@ headers = {
     "Content-Type": "application/json",
 }
 
-chat = [
-    {"role": "user", "content": "What's the current weather in New York?"}
-]
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|>"""
 
-tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "get_current_weather",
-            "description": "Get the current weather",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "location": {
-                        "description": "The city and state, e.g. San Francisco, CA",
-                        "type": "string",
-                    },
-                },
-                "required": ["location"],
-            },
-        },
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "get_stock_price",
-            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "ticker": {
-                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
-                        "type": "string",
-                    },
-                },
-            },
-        },
-    },
+chat = [
+    { "role": "user", "content": prompt},
 ]
 
 body = {
     "messages": chat,
-    "tools": tools,
     "model_id": "ibm/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
     "top_k": 20,
 }
+
 
 # STEP 2: Execute call to the chat endpoint
 response = requests.post(url, headers=headers, json=body)
@@ -746,19 +925,70 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-```python Raw Prompt
-print('Hello World!')
+```text Chat Template
+<|start_of_role|>user<|end_of_role|><|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|><|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+<|end_of_text|>
 ```
 
 </CodeGroup>
 
-Text text text
+Consider the following points to build prompts for FIM coding tasks:
+
+* The tags supported for fill-in-the-middle (FIM) code completion are: `<|fim_prefix|>`, `<|fim_middle|>`, and `<|fim_suffix|>`. Make sure to use the correct FIM tags when using Granite 4.0 models for FIM code completions.
+* Prepend code before the missing part with the tag `<|fim_prefix|>`
+* Prepend code after the missing part with the tag `<|fim_suffix|>`
+* End your prompt with the tag `<|fim_middle|>` to indicate to the model something is missing in the code snippet.
+* Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
+
 
 ### JSON output
 
 <CodeGroup>
-```javascript Transformers
-console.log("Hello World");
+```python Transformers
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+device = "cuda"
+model_path = "ibm-granite/granite-4.0-h-tiny" 
+
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+# drop device_map if running on CPU
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model.eval()
+
+chat = [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{\"title\": \"LeisureActivityBooking\", \"type\": \"object\", \"properties\": {\"activityID\": {\"title\": \"Activity ID\", \"type\": \"string\"}, \"participantInfo\": {\"title\": \"Participant Info\", \"type\": \"object\", \"properties\": {\"participantName\": {\"title\": \"Participant Name\", \"type\": \"string\"}, \"age\": {\"title\": \"Age\", \"type\": \"integer\"}}, \"required\": [\"participantName\", \"age\"]}, \"activityDate\": {\"title\": \"Activity Date\", \"type\": \"string\", \"format\": \"date\"}, \"equipmentNeeded\": {\"title\": \"Equipment Needed\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"activityID\", \"participantInfo\", \"activityDate\"]}\n</schema>\n"
+    },
+    {
+      "role": "user",
+      "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water."
+    }
+  ]
+
+chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=200)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
 ```
 
 ```python watsonx.ai
@@ -826,10 +1056,6 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
-```bash Ollama
-print('Hello World!')
 ```
 
 ```python OpenAI API
@@ -880,14 +1106,24 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-```python Raw Prompt
-print('Hello World!')
+```text Chat Template
+<|start_of_role|>system<|end_of_role|>You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:
+<schema>
+{"title": "LeisureActivityBooking", "type": "object", "properties": {"activityID": {"title": "Activity ID", "type": "string"}, "participantInfo": {"title": "Participant Info", "type": "object", "properties": {"participantName": {"title": "Participant Name", "type": "string"}, "age": {"title": "Age", "type": "integer"}}, "required": ["participantName", "age"]}, "activityDate": {"title": "Activity Date", "type": "string", "format": "date"}, "equipmentNeeded": {"title": "Equipment Needed", "type": "array", "items": {"type": "string"}}}, "required": ["activityID", "participantInfo", "activityDate"]}
+</schema>
+<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water.<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>{"activityID": "KAYAK-0423", "participantInfo": {"participantName": "Jamie Patterson", "age": 27}, "activityDate": "2023-04-15", "equipmentNeeded": ["kayak", "paddle", "safety vest"]}<|end_of_text|>
 ```
 
 </CodeGroup>
 
-Text text text
 
 ## Backward Compatibility
+Prompt templates designed for basic inference tasks should remain compatible with Granite 4.0 models. However, more complex templates may require a migration process. To take full advantage of Granite 4.0 models, please refer to this prompt engineering guide to create new templates or migrating existing ones.
 
-Text text text
+Some points to consider while migrating templates are:
+
+* The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to the *Chat Template Design* section for more details.
+* Controls for `length` and `originality` have been deprecated, they are no longer supported in this version.
+
