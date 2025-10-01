@@ -50,13 +50,6 @@
             ]
           },
           {
-            "group": "Fine-tuning",
-            "pages": [
-              "granite/docs/fine-tune/granite",
-              "granite/docs/fine-tune/time-series"
-            ]
-          },
-          {
             "group": "Responsible AI",
             "pages": [
               "https://www.ibm.com/granite/trust"
@@ -77,6 +70,8 @@
           {
             "group": "Granite Language Cookbook",
             "pages": [
+              "granite/docs/use-cases/prompt-engineering",
+              "granite/docs/fine-tune/granite",
               "granite/docs/use-cases/summarize",
               "granite/docs/use-cases/langchain-rag",
               "granite/docs/use-cases/contract-analysis",
@@ -105,6 +100,7 @@
           {
             "group": "Granite Time Series Cookbook",
             "pages": [
+              "granite/docs/fine-tune/time-series",
               "granite/docs/use-cases/forecast-energy-demand",
               "granite/docs/use-cases/forecast-bike-rentals"
             ]
