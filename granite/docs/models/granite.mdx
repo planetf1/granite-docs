@@ -146,7 +146,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
 # model_path = ""
-model_path = "ibm-granite/granite-4.0-micro"
+model_path = "ibm-granite/granite-4.0-h-small"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 # drop device_map if running on CPU
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
@@ -253,7 +253,30 @@ headers = {
 }
 
 chat = [
-    {"role": "user", "content": "What's the current weather in New York?"}
+    {"role": "user", "content": "What's the current weather in New York?"},
+    {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+            {
+                "id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad",
+                "type": "function",
+                "function": {
+                    "name": "get_current_weather",
+                    "arguments": "{\"city\": \"New York\"}"
+                }
+            }
+        ]
+    },
+    {
+        "role": "tool",
+        "content": "New York is sunny with a temperature of 30°C.",
+        "tool_call_id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad"
+    },
+    {
+        "role": "user",
+        "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"
+    }
 ]
 
 tools = [
@@ -332,7 +355,30 @@ headers = {
 }
 
 chat = [
-    {"role": "user", "content": "What's the current weather in New York?"}
+    {"role": "user", "content": "What's the current weather in New York?"},
+    {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+            {
+                "id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad",
+                "type": "function",
+                "function": {
+                    "name": "get_current_weather",
+                    "arguments": "{\"city\": \"New York\"}"
+                }
+            }
+        ]
+    },
+    {
+        "role": "tool",
+        "content": "New York is sunny with a temperature of 30°C.",
+        "tool_call_id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad"
+    },
+    {
+        "role": "user",
+        "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"
+    }
 ]
 
 tools = [
@@ -374,7 +420,7 @@ tools = [
 body = {
     "messages": chat,
     "tools": tools,
-    "model_id": "ibm/granite-4.0-h-small",
+    "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
@@ -436,7 +482,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-tiny" 
+model_path = "ibm-granite/granite-4.0-h-small" 
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 # drop device_map if running on CPU
@@ -607,7 +653,7 @@ documents=[
 body = {
     "messages": chat,
     "chat_template_kwargs": {"documents": documents},
-    "model_id": "ibm/granite-4.0-h-small",
+    "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
@@ -748,7 +794,7 @@ body = {
             "content": "What is the largest ocean on Earth?"
         }
     ],
-    "model_id": "ibm/granite-4.0-h-small",
+    "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
@@ -779,7 +825,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
 # model_path = ""
-model_path = "ibm-granite/granite-4.0-micro"
+model_path = "ibm-granite/granite-4.0-h-small"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 # drop device_map if running on CPU
@@ -906,7 +952,7 @@ chat = [
 
 body = {
     "messages": chat,
-    "model_id": "ibm/granite-4.0-h-small",
+    "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
@@ -960,7 +1006,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-tiny" 
+model_path = "ibm-granite/granite-4.0-h-small" 
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 # drop device_map if running on CPU
@@ -1087,7 +1133,7 @@ chat = [
 
 body = {
     "messages": chat,
-    "model_id": "ibm/granite-4.0-h-small",
+    "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0.7,
     "top_p": 0.95,
