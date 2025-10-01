@@ -1,5 +1,5 @@
 ---
-title: "Granite Language"
+title: "Granite 4.0"
 description: ""
 icon: "cube"
 ---
@@ -42,7 +42,7 @@ icon: "cube"
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
 
-[Granite 4 Release Blog](https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models)
+[Granite 4.0 Release Blog](https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models)
 
 <table>
   <thead>
@@ -145,78 +145,90 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
+
 # model_path = ""
+
 model_path = "ibm-granite/granite-4.0-h-small"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat=[
-    {"role": "user", "content": "What's the current weather in New York?"},
-    {"role": "assistant", 
-     "content": "", 
-     "tool_calls": [
-         {
-             "function": {
-                 "name": "get_current_weather",
-                 "arguments": {"city": "New York"}
-             }
-         }
-     ]
-    },
-    {"role": "tool", "content": "New York is sunny with a temperature of 30°C."},
-    {"role": "user", "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"}
+{"role": "user", "content": "What's the current weather in New York?"},
+{"role": "assistant",
+"content": "",
+"tool_calls": [
+{
+"function": {
+"name": "get_current_weather",
+"arguments": {"city": "New York"}
+}
+}
+]
+},
+{"role": "tool", "content": "New York is sunny with a temperature of 30°C."},
+{"role": "user", "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"}
 ]
 
 tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "get_current_weather",
-            "description": "Get the current weather",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "location" : {
-                        "description": "The city and state, e.g. San Francisco, CA",
-                        "type": "string",
-                        },
-                },
-                "required" : ["location"]
-            }
-        } 
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "get_stock_price",
-            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "ticker" : {
-                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
-                        "type": "string",
-                        },
-                }
-            }
-        } 
-    }
+{
+"type": "function",
+"function": {
+"name": "get_current_weather",
+"description": "Get the current weather",
+"parameters": {
+"type": "object",
+"properties": {
+"location" : {
+"description": "The city and state, e.g. San Francisco, CA",
+"type": "string",
+},
+},
+"required" : ["location"]
+}
+}
+},
+{
+"type": "function",
+"function": {
+"name": "get_stock_price",
+"description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+"parameters": {
+"type": "object",
+"properties": {
+"ticker" : {
+"description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+"type": "string",
+},
+}
+}
+}
+}
 ]
-    
+
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, tools=tools)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=100)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=100)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
-```
+
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -336,7 +348,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -469,10 +481,10 @@ New York is sunny with a temperature of 30°C.
 
 Consider the following points to build promts for tool-calling tasks:
 
-* When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See the *Chat Template Design* section for more information about system prompt design in tool-calling scenarios.
-* Please follow OpenAI's function [definition schema](https://platform.openai.com/docs/guides/function-calling?api-mode=responses#defining-functions) to define tools.
-* Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to the *Chat Template Design* section for examples.
-* The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please, refer to the *Chat Template Design* section for examples.
+- When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See the _Chat Template Design_ section for more information about system prompt design in tool-calling scenarios.
+- Please follow OpenAI's function [definition schema](https://platform.openai.com/docs/guides/function-calling?api-mode=responses#defining-functions) to define tools.
+- Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to the _Chat Template Design_ section for examples.
+- The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please, refer to the _Chat Template Design_ section for examples.
 
 ### RAG
 
@@ -482,50 +494,60 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-small" 
+model_path = "ibm-granite/granite-4.0-h-small"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat=[
-    {"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+{"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
 ]
 
 documents=[
-    {
-        "doc_id": 1,
-        "title": "Bridget Jones: The Edge of Reason (2004)",
-        "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
-        "source": ""
-    },
-    {
-        "doc_id": 2,
-        "title": "Bridget Jones's Baby (2016)",
-        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
-        "source": ""
-    },
-    {
-        "doc_id": 3,
-        "title": "Bridget Jones's Diary (2001)",
-        "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
-        "source": ""
-    },
+{
+"doc_id": 1,
+"title": "Bridget Jones: The Edge of Reason (2004)",
+"text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+"source": ""
+},
+{
+"doc_id": 2,
+"title": "Bridget Jones's Baby (2016)",
+"text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+"source": ""
+},
+{
+"doc_id": 3,
+"title": "Bridget Jones's Diary (2001)",
+"text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+"source": ""
+},
 ]
 
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, documents=documents)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=800)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=800)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
-```
+
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -607,7 +629,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -695,8 +717,9 @@ Write the response to the user's input by strictly aligning with the facts in th
 
 Consider the following points to build promts for RAG tasks:
 
-* The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please, refert to *Chat Template Design* section for further details.
-* Documents are provided to the model as a list of dictionaries, with each dictionary representing a document. We recommend formatting documents as follows:
+- The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please, refert to _Chat Template Design_ section for further details.
+- Documents are provided to the model as a list of dictionaries, with each dictionary representing a document. We recommend formatting documents as follows:
+
 ```
 {
     "doc_id": 1,
@@ -815,7 +838,6 @@ print(json.dumps(data, indent=4))
 
 </CodeGroup>
 
-
 ### FIM
 
 <CodeGroup>
@@ -824,37 +846,48 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
+
 # model_path = ""
+
 model_path = "ibm-granite/granite-4.0-h-small"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 prompt = """<|fim_prefix|>
 def fibonacci(n):
-    result =
+result =
 <|fim_suffix|>
-    return result
+return result
 <|fim_middle|>"""
 
 chat = [
-    { "role": "user", "content": prompt},
+{ "role": "user", "content": prompt},
 ]
 
 chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=50)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=50)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
-```
+
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -921,7 +954,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -991,12 +1024,11 @@ def fibonacci(n):
 
 Consider the following points to build prompts for FIM coding tasks:
 
-* The tags supported for fill-in-the-middle (FIM) code completion are: `<|fim_prefix|>`, `<|fim_middle|>`, and `<|fim_suffix|>`. Make sure to use the correct FIM tags when using Granite 4.0 models for FIM code completions.
-* Prepend code before the missing part with the tag `<|fim_prefix|>`
-* Prepend code after the missing part with the tag `<|fim_suffix|>`
-* End your prompt with the tag `<|fim_middle|>` to indicate to the model something is missing in the code snippet.
-* Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
-
+- The tags supported for fill-in-the-middle (FIM) code completion are: `<|fim_prefix|>`, `<|fim_middle|>`, and `<|fim_suffix|>`. Make sure to use the correct FIM tags when using Granite 4.0 models for FIM code completions.
+- Prepend code before the missing part with the tag `<|fim_prefix|>`
+- Prepend code after the missing part with the tag `<|fim_suffix|>`
+- End your prompt with the tag `<|fim_middle|>` to indicate to the model something is missing in the code snippet.
+- Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
 
 ### JSON output
 
@@ -1006,36 +1038,46 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-small" 
+model_path = "ibm-granite/granite-4.0-h-small"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat = [
-    {
-      "role": "system",
-      "content": "You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{\"title\": \"LeisureActivityBooking\", \"type\": \"object\", \"properties\": {\"activityID\": {\"title\": \"Activity ID\", \"type\": \"string\"}, \"participantInfo\": {\"title\": \"Participant Info\", \"type\": \"object\", \"properties\": {\"participantName\": {\"title\": \"Participant Name\", \"type\": \"string\"}, \"age\": {\"title\": \"Age\", \"type\": \"integer\"}}, \"required\": [\"participantName\", \"age\"]}, \"activityDate\": {\"title\": \"Activity Date\", \"type\": \"string\", \"format\": \"date\"}, \"equipmentNeeded\": {\"title\": \"Equipment Needed\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"activityID\", \"participantInfo\", \"activityDate\"]}\n</schema>\n"
-    },
-    {
-      "role": "user",
-      "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water."
-    }
-  ]
+{
+"role": "system",
+"content": "You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{\"title\": \"LeisureActivityBooking\", \"type\": \"object\", \"properties\": {\"activityID\": {\"title\": \"Activity ID\", \"type\": \"string\"}, \"participantInfo\": {\"title\": \"Participant Info\", \"type\": \"object\", \"properties\": {\"participantName\": {\"title\": \"Participant Name\", \"type\": \"string\"}, \"age\": {\"title\": \"Age\", \"type\": \"integer\"}}, \"required\": [\"participantName\", \"age\"]}, \"activityDate\": {\"title\": \"Activity Date\", \"type\": \"string\", \"format\": \"date\"}, \"equipmentNeeded\": {\"title\": \"Equipment Needed\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"activityID\", \"participantInfo\", \"activityDate\"]}\n</schema>\n"
+},
+{
+"role": "user",
+"content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water."
+}
+]
 
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=200)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=200)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
-```
+
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -1102,7 +1144,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -1164,12 +1206,11 @@ print(json.dumps(data, indent=4))
 
 </CodeGroup>
 
-
 ## Backward Compatibility
+
 Prompt templates designed for basic inference tasks should remain compatible with Granite 4.0 models. However, more complex templates may require a migration process. To take full advantage of Granite 4.0 models, please refer to this prompt engineering guide to create new templates or migrating existing ones.
 
 Some points to consider while migrating templates are:
 
-* The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to the *Chat Template Design* section for more details.
-* Controls for `length` and `originality` have been deprecated, they are no longer supported in this version.
-
+- The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to the _Chat Template Design_ section for more details.
+- Controls for `length` and `originality` have been deprecated, they are no longer supported in this version.
