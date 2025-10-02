@@ -1,150 +1,160 @@
 ---
-title: "Granite Language"
-description: "Granite 3.3 models leverage new dense architecture. These models were trained with 12 trillion tokens across 12 languages and 116 programming languages."
+title: "Granite 4.0"
+description: ""
 icon: "cube"
 ---
 
 <CardGroup cols={2}>
-  <Card
-    title="Model card"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
-  >
-    View the full model card on Hugging Face
-  </Card>
-  <Card
-    title="Run locally with Ollama"
-    icon="download"
-    href="https://ollama.com/library/granite3.3:8b"
-  >
-    Download and run Granite 3.3 with Ollama
-  </Card>
+<Card
+title="View model cards"
+icon="arrow-right"
+href="https://huggingface.co/collections/ibm-granite/granite-40-language-models-6811a18b820ef362d9e5a82c"
+>
+View model details on Hugging Face
+</Card>
+<Card
+title="Try our Granite Agents"
+icon="cube"
+href="https://www.ibm.com/granite/playground/"
+>
+Leverage Granite to search the web and write research reports
+</Card>
 </CardGroup>
 
 <CardGroup cols={2}>
-  <Card
-    title="Try Granite"
-    icon="cube"
-    href="https://www.ibm.com/granite/playground/"
-  >
-    Model playground
-  </Card>
-  <Card
-    title="Agentic RAG"
-    icon="robot"
-    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/AI-Agents/Agentic_RAG.ipynb"
-  >
-    Use Granite in an agentic RAG pattern to answer complex queries using
-    external information.
-  </Card>
-  <Card
-    title="Entity extraction"
-    icon="sitemap"
-    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Entity-Extraction/entity_extraction.ipynb"
-  >
-    Extract well-formed entities from unstructured data with Granite.
-  </Card>
-  <Card
-    title="Document summarization"
-    icon="newspaper"
-    href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/Summarize/Summarize.ipynb"
-  >
-    Multi-level abstractive document summarization using Granite.
-  </Card>
+<Card
+title="Experiment with Granite Locally"
+icon="download"
+href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac"
+>
+Download and run Granite locally with Ollama
+</Card>
+<Card
+title="Get cooking with Granite!"
+icon="cube"
+href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks"
+>
+Check out these recipes to start using Granite
+</Card>
 </CardGroup>
 
 ## Overview
+Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture-of-Experts (MoE) strategy in select models, delivering more than 70% lower memory requirements and 2x faster inference speeds compared to similar models, particularly in multi-session and long-context scenarios. The models deliver strong performance across benchmarks, with Granite 4.0 Small achieving industry-leading results in key agentic tasks like instruction following and function calling. These efficiencies make the models well-suited for a wide range of use cases like retrieval-augmented generation (RAG), multi-agent workflows, and edge deployments. Granite 4.0 is released under Apache 2.0, cryptographically signed for authenticity, and the first open model family certified under ISO 42001.
 
-Granite 3.3 models feature enhanced reasoning capabilities and support for Fill-in-the-Middle (FIM) code completion. They are built on a foundation of open-source instruction datasets with permissive licenses, alongside internally curated synthetic datasets tailored for long-context problem-solving. These models preserve the key strengths of previous Granite versions, including support for a 128K context length, strong performance in retrieval-augmented generation (RAG) and function calling, and controls for response length and originality. Granite 3.3 also delivers competitive results across general, enterprise, and safety benchmarks. Released as open source, the models are available under the Apache 2.0 license.
+<a href="https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models" style={{ color:"#0F62FE"}}>
+Granite 4.0 Release Blog
+</a>
 
-## Model cards
+<table>
+<thead>
+<tr>
+    <th>
+    <br />
+    </th>
+    <th width="130">
+    <img src="../images/granite-images/small.png" alt="Granite Small" 
+    width="80"/>
+    Granite-H-Small
+    </th>
+    <th width="130">
+    <img src="../images/granite-images/small.png" alt="Granite Tiny" 
+    width="50"/>
+    <br />
+    Granite-H-Tiny
+    </th>
+    <th width="130">
+    <img src="../images/granite-images/small.png" alt="Granite Micro" 
+    width="25"/>
+    <br />
+    Granite-H-Micro
+    </th>
+    <th width="130">
+    <img src="../images/granite-images/small.png" alt="Granite Micro" 
+    width="25"/>
+    <br />
+    Granite-Micro
+    </th>
+</tr>
 
-<CardGroup cols={2}>
-  <Card
-    title="Granite 3.3 8B Instruct"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-8b-instruct"
-  >
-    8B parameter instruction-tuned model
-  </Card>
-  <Card
-    title="Granite 3.3 2B Instruct"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-2b-instruct"
-  >
-    2B parameter instruction-tuned model
-  </Card>
-  <Card
-    title="Granite 3.3 8B Base"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-8b-base"
-  >
-    8B parameter base model
-  </Card>
-  <Card
-    title="Granite 3.3 2B Base"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-3.3-2b-base"
-  >
-    2B parameter base model
-  </Card>
-</CardGroup>
+</thead>
+<tbody>
+<tr>
+    <td>**Architecture Type**</td>
+    <td>Hybrid, Mixture of Experts</td>
+    <td>Hybrid, Mixture of Experts</td>
+    <td>Hybrid, Dense</td>
+    <td>Traditional, Dense</td>
+</tr>
+<tr>
+    <td>**Model Size**</td>
+    <td>
+    32B total parameters <br />
+    9B activated parameters
+    </td>
+    <td>
+    7B total parameters <br />
+    1B activated parameters
+    </td>
+    <td>3B total parameters</td>
+    <td>3B total parameters</td>
+</tr>
+<tr>
+    <td>**Intended Use**</td>
+    <td>Workhorse model for key enterprise tasks like RAG and agents</td>
+    <td>
+    Designed for low latency, edge, and local applications, and as a
+    building block to perform key tasks (like function calling) quickly
+    within agentic workflows
+    </td>
+    <td>
+    Designed for low latency, edge, and local applications, and as a
+    building block to perform key tasks (like function calling) quickly
+    within agentic workflows{" "}
+    </td>
+    <td>
+    Alternative option for users when Mamba2 support is not yet optimized
+    (e.g. llama.cpD, PEFT, etc)
+    </td>
+</tr>
+<tr>
+    <td>**Memory Requirements (8-bit)**</td>
+    <td>33 GB</td>
+    <td>8 GB</td>
+    <td>4 GB</td>
+    <td>9 GB</td>
+</tr>
+<tr>
+    <td>**Example Hardware**</td>
+    <td>NVIDIA L4OS</td>
+    <td>RTX 3060 12GB</td>
+    <td>Raspberry-Pi 8GB</td>
+    <td>RTX 3060 12GB</td>
+</tr>
+</tbody>
+</table>
+<Note>
+Model deployment specifications: `8-bit`, `128K context length`, and `batch=1`.
+</Note>
 
-## Run locally with Ollama
+## Inference Examples
 
-[Learn more](https://ollama.com/blog/ibm-granite) about Granite 3.3 on Ollama.
 
-<CardGroup cols={2}>
-  <Card
-    title="Granite 3.3 8B Instruct"
-    icon="download"
-    href="https://ollama.com/library/granite3.3:8b"
-  >
-    Download the 8B model for Ollama
-  </Card>
-  <Card
-    title="Granite 3.3 2B Instruct"
-    icon="download"
-    href="https://ollama.com/library/granite3.3:2b"
-  >
-    Download the 2B model for Ollama
-  </Card>
-</CardGroup>
-
-## Granite 3.3 highlights
-
-Granite 3.3 models feature extended context length and deliver strong performance across tasks such as retrieval-augmented generation (RAG), function calling, and reasoning. They retain key capabilities from earlier versions—such as response length control and originality. Additionally, Granite 3.3 introduces fill-in-the-middle (FIM) support for code completion and improves the clarity of model reasoning by separating intermediate thoughts from final answers.
-
-## Basic chat template example
-
-Below, we show a basic example of Granite 3.3 models chat template.
+### Basic Inference
 
 <CodeGroup>
-```bash Template
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 16, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>What is the largest ocean on Earth?<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|>The largest ocean on Earth is the Pacific Ocean. It covers an area of about 63,800,000 square miles (165,200,000 square kilometers).<|end_of_text|>
-```
-</CodeGroup>
-Use the following code example to reproduce this output.
-
-<CodeGroup>
-```python Python
+```python transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-3.3-8b-instruct"
+model_path = "ibm-granite/granite-4.0-h-tiny" 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 # drop device_map if running on CPU
-
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 # change input text as desired
-
 chat = [
 { "role": "user", "content": "What is the largest ocean on Earth?"},
 ]
@@ -152,624 +162,1049 @@ chat = [
 chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
-
-input_tokens = tokenizer(chat, return_tensors="pt").to(device)
-
-# generate output tokens
-
-output = model.generate(\*\*input_tokens,
-max_new_tokens=150)
-
-# decode output tokens into text
-
-output = tokenizer.batch_decode(output)
-
-# print output
-
-print(output[0])
-
-````
-</CodeGroup>
-## Granite 3.3 inference examples
-
-### Basic examples
-
-In this section, we provide basic examples for a variety of inference tasks.
-
-#### Summarization
-
-This example demonstrates how to summarize an interview transcript.
-
-<CodeGroup>
-```bash Transcript
-
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
-Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>Summarize a fragament of an interview transcript. In this interview, an NBC reporter interviews Simone Biles about her participation in Paris 2024 Olimpic games.
-Your response should only include the answer. Do not provide any further explanation.
-Speaker 1 (00:00):
-Simone, congratulations.
-
-Simone (00:02):
-Thank you.
-
-Speaker 1 (00:02):
-The last several years have been all about our expectations, what we thought you would do, what we thought the team would do. What were your expectations coming here?
-
-Simone (00:10):
-My expectations or at least the team's expectation was to go out there and win gold for Team USA, and we did just that. And after that, my expectation was go to all-around, see if you can place top three, see what happens. And then after that, everything else was a cherry on top. So Vault, gold. Floor, silver. I'm not mad.
-
-Speaker 1 (00:28):
-Are you proud of yourself?
-
-Simone (00:30):
-Yes. I'm very proud of myself for how I held it together all of those competition days, all throughout those routines. It's very rigorous for however many days we compete in a row. So I'm very proud of my performances.
-
-Speaker 1 (00:41):
-And you've been all about self-care.
-
-Simone (00:42):
-Yes.
-
-Speaker 1 (00:43):
-Did it work?
-
-Simone (00:44):
-Yes. No, most definitely. I've been seeing my therapist a lot while I've been here in Paris, so I owe a lot to her.
-
-Speaker 1 (00:53):
-I don't mean to make you do my job, but if you had to write the headlines of these games telling your story, what would it be?
-
-Simone (01:02):
-I would say my success is defined by what I make it.
-
-Speaker 1 (01:09):
-I like that.
-
-Simone (01:09):
-Yeah.
-
-Speaker 1 (01:10):
-I like that. I might use that.
-
-Simone (01:11):
-Okay. Good.
-
-Speaker 1 (01:13):
-You also inspired a lot of people along the way. Have you ever sat back and really thought about what you have contributed to this sport?
-
-Simone (01:22):
-I think the impact that I've made, I definitely see, because I see all of those little girls cheering for me, supporting me on Instagram, on TikTok, all of the outlets. So I do understand the impact that I've made. But to fully understand the depth of it, I think it'll take one day whenever I retire, and then I look back at the career and everything that I've done to evolve the sport.
-
-Speaker 1 (01:42):
-I mean, we've seen celebrities in the stands. We've seen young gymnasts looking up at you. It's been quite a ride. I mean, it's a lot of pressure on you, I would think. How have you dealt with it?
-
-Simone (01:53):
-Yes. It's a lot of pressure, but pressure is privilege. So I'm just super excited to represent the United States every time I get the opportunity.
-
-Speaker 1 (02:00):
-There have been so many moments. One that struck me was watching three Black athletes together on the podium. When that was happening, did you recognize the significance of it?
-
-Simone (02:11):
-Oh, absolutely. And I don't think we got to recognize it enough because the award ceremony happened so fast. They're trying to break down the set and move in the next event that's going to be there. But we all recognized it and we were really excited about it.
-Summary:<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|>Simone Biles, in an NBC interview, discusses her successful participation in the Paris 2024 Olympic Games. Her expectations were to win gold for Team USA and place in the top three in all-around, which she achieved with a gold on Vault and silver on Floor. Biles emphasizes her pride in her performances and credits her self-care, including therapy, for her success. She asserts that her success is self-defined and acknowledges her impact on young gymnasts, though she expects a clearer understanding of it post-retirement. Biles addresses the pressure of representation, stating "pressure is privilege," and recalls the significance of three Black athletes standing together on the podium, though she feels it was rushed.<|end_of_text|>
-
-````
-
-</CodeGroup>
-
-#### Text classification
-
-This example demonstrates a classification task for movie reviews. The user query includes classification examples to improve the model's response accuracy.
-
-<CodeGroup>
-
-```bash Classify
-
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
-Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>Classify the sentiment of the movie reviews as positive or negative.
-Your response should only include the answer. Do not provide any further explanation.
-
-Here are some examples, complete the last one:
-Review:
-Oh, where do I even begin? Barbie 2023 is a tour de force that has left me utterly captivated, enchanted, and spellbound. Every moment of this cinematic marvel was nothing short of pure excellence, deserving nothing less than a perfect 10 out of 10 rating!
-Sentiment:
-positive
-
-Review:
-It's a shame because I love Little Women and Lady Bird. Barbie did not serve. It's a long ramble about how matriarchy is perfect and patriarchy is stupid. I agree with the latter, but the execution is just awful. Mattel's CEO and corporate people started as a mockery of men having all the top positions in a company; as the movie goes, they're just there at the back of your mind, and it's an unpleasant experience because they did nothing after. There were so many unnecessary scenes that could have been meaningful. For example, what's the scene where Allan fights other Kens for? I'm also surprised that there were no gay Barbies and Kens. And I thought this was supposed to "break" gender norms. So many seeds were planted at once, but none reached their full potential.
-Sentiment:
-negative
-
-Review:
-Russell Crowe's new action movie Land of Bad can't break the star's recent streak of poor Rotten Tomatoes ratings. Co-starring Liam and Luke Hemsworth, Crowe's latest action effort concerns a special ops mission in the Philippines that goes wrong, leading to a harrowing fight for survival. Crowe plays Reaper, a drone pilot who must guide a group of outnumbered and stranded soldiers back to safety.
-
-Despite the Land of Bad cast including big names like Crowe and two of the Hemsworths, the action film has failed to impress critics, currently sitting at 52% fresh on Rotten Tomatoes on 24 reviews, becoming the fifth straight Crowe-starring film to be certified rotten by the review aggregator.
-Sentiment:<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|>negative<|end_of_text|>
-
-```
-
-</CodeGroup>
-
-#### Text extraction
-
-This example demonstrates how to extract certain information from a set of documents with a similar structural pattern.
-
-<CodeGroup>
-
-```bash Extraction
-
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
-Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>Extract the Line Of Credit Facility Maximum Borrowing Capacity from the 10K sentences.
-Your response should only include the answer. Do not provide any further explanation.
-
-Here are some examples, complete the last one:
-10K Sentence:
-The credit agreement also provides that up to $500 million in commitments may be used for letters of credit.
-Line Of Credit Facility Maximum Borrowing Capacity:
-$500M
-
-10K Sentence:
-In March 2020, we upsized the Credit Agreement by $100 million, which matures July 2023, to $2.525 billion.
-Line Of Credit Facility Maximum Borrowing Capacity:
-$2.525B
-
-10K Sentence:
-We prepared our impairment test as of October 1, 2022 and determined that the fair values of each of our reporting units exceeded net book value by more than 50%. Among our reporting units, the narrowest difference between the calculated fair value and net book value was in our Principal Markets segment's Canada reporting unit, whose calculated fair value exceeded its net book value by 53%. Future developments related to macroeconomic factors, including increases to the discount rate used, or changes to other inputs and assumptions, including revenue growth, could reduce the fair value of this and/or other reporting units and lead to impairment. There were no goodwill impairment losses recorded for the nine months ended December 31, 2022. Cumulatively, the Company has recorded $469 million in goodwill impairment charges within its former EMEA ($293 million) and current United States ($176 million) reporting units. Revolving Credit Agreement In October 2021, we entered into a $3.15 billion multi-currency revolving credit agreement (the "Revolving Credit Agreement") for our future liquidity needs. The Revolving Credit Agreement expires, unless extended, in October 2026. Interest rates on borrowings under the Revolving Credit Agreement are based on prevailing market interest rates, plus a margin, as further described in the Revolving Credit Agreement. The total expense recorded by the Company for the Revolving Credit Agreement was not material in any of the periods presented. We may voluntarily prepay borrowings under the Revolving Credit Agreement without premium or penalty, subject to customary "breakage" costs. The Revolving Credit Agreement includes certain customary mandatory prepayment provisions. Interest on Debt Interest expense for the three and nine months ended December 31, 2022 was $27 million and $65 million, compared to $18 million and $50 million for the three and nine months ended December 31, 2021. Most of the interest for the pre-Separation period presented in the historical Consolidated Income Statement reflects the allocation of interest expense associated with debt issued by IBM from which a portion of the proceeds benefited Kyndryl.
-Line Of Credit Facility Maximum Borrowing Capacity:<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|>$3.15B<|end_of_text|>
-
-```
-
-</CodeGroup>
-
-#### Text translation
-
-Granite 3.3 models also support tasks in multiple languages. This is a basic example of how to use the models to translate text from English to Spanish.
-
-<CodeGroup>
-
-```bash Translate
-
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
-Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>Please translate the following list of greetings from English to Spanish.
-
-Morning!, how are things?, hello, it's good to see you, what's up?
-
-Please only output the translation, and nothing else.<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|>¡Buenos días!, ¿cómo estás?, hola, bueno es verte, ¿qué tal?<|end_of_text|>
-
-```
-
-</CodeGroup>
-
-Granite 3.3 models support text translation as well as other multilingual tasks in English, German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese (Simplified).
-
-### Advanced examples
-
-In this section, we demonstrate how to use the chat template to leverage the advanced features supported by Granite 3.3 models.
-
-#### Control the response length
-
-<CodeGroup>
-
-```bash Examples
-
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
-Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>Give me a list of wildflowers from Colorado<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|>Here are some wildflowers native to Colorado:
-
-1. Indian Paintbrush (Castilleja spp.)
-2. Blue Columbine (Aquilegia coerulea)
-3. Prairie Coneshell (Clysia ambigula)
-4. Rocky Mountain Iris (Iris missiwi)
-5. Western Wallflower (Erysimum capitatum)
-6. Prairie Smoke (Geum triflorum)
-7. Foothills Penstemon (Penstemon utahensis)
-8. Showy Goldenrod (Solidago speciosa)
-9. Alkaline Lupine (Lupinus subcarnosus)
-10. Western Wood Lily (Lilium philadelphicum)
-11. Colorado Bicolor Larkspur (Delphinium columbarium)
-12. Purple Coneflower (Echinacea purpurea)
-13. Rocky Mountain Bee Plant (Cleome saxatica)
-14. Indian Blanket Flower (Gaillardia pulchella)
-15. Firecracker Penstemon (Penstemon eatonii)
-
-These wildflowers are known for their beauty and are characteristic of Colorado's diverse landscapes, from meadows to mountain slopes.<|end_of_text|>
-
-```
-
-</CodeGroup>
-
-<Note>
-  The `length` annotation can be added to the assistant response to control the
-  response's length. The annotation will only influence the immediate next
-  generation of the assistant role. The supported values are `short` and `long`.
-  A `short` value guides the model to generate a direct response, while a `long`
-  value encourages a more subtle response.
-</Note>
-
-Use the following code example to reproduce the previous output.
-
-<CodeGroup>
-
-```python Python
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-device = "cuda"
-model_path = "ibm-granite/granite-3.3-8b-instruct"
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-
-# drop device_map if running on CPU
-model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
-model.eval()
-
-chat = [{"role":"user","content":"Give me a list of wildflowers from Colorado"}]
-controls = {"length":"short"}
-chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, controls=controls)
-
-# tokenize the text
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
-output= model.generate(**input_tokens, max_new_tokens=800)
+output = model.generate(**input_tokens, 
+                    max_new_tokens=150)
 # decode output tokens into text
-output= tokenizer.batch_decode(output)
-# Print output
-print(output[0])
-```
-
-</CodeGroup>
-
-#### Thinking capability
-
-This example demonstrates the application of Granite 3.3 models' thinking capabilities to a math problem.
-
-<CodeGroup>
-
-```bash Thinking
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful AI assistant.
-Respond to every user query in a comprehensive and detailed way. You can write down your thoughts and reasoning process before responding. In the thought process, engage in a comprehensive cycle of analysis, summarization, exploration, reassessment, reflection, backtracing, and iteration to develop well-considered thinking process. In the response section, based on various attempts, explorations, and reflections from the thoughts section, systematically present the final solution that you deem correct. The response should summarize the thought process. Write your thoughts between <think></think> and write your response between <response></response> for each user query.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>A farmer has 10 cows, 5 chickens, and 2 horses. If we count all the animals' legs together, how many legs are there in total?<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|><think>To solve this problem, we need to calculate the total number of legs for all the animals combined. We'll do this by considering each type of animal separately and then summing up the total number of legs.
-
-1. **Cows**: Each cow has 4 legs. The farmer has 10 cows. Therefore, the total number of legs from cows is:
-   \[
-   10 \text{ cows} \times 4 \text{ legs/cow} = 40 \text{ legs}
-   \]
-
-2. **Chickens**: Each chicken has 2 legs. The farmer has 5 chickens. Therefore, the total number of legs from chickens is:
-   \[
-   5 \text{ chickens} \times 2 \text{ legs/chicken} = 10 \text{ legs}
-   \]
-
-3. **Horses**: Each horse has 4 legs. The farmer has 2 horses. Therefore, the total number of legs from horses is:
-   \[
-   2 \text{ horses} \times 4 \text{ legs/horse} = 8 \text{ legs}
-   \]
-
-Finally, we sum up all the legs from each type of animal to find the total number of legs:
-\[
-40 \text{ (cow legs)} + 10 \text{ (chicken legs)} + 8 \text{ (horse legs)} = 58 \text{ legs}
-\]
-
-Thus, the total number of legs for all the animals is 58.</think><response>### Step-by-step Calculation:
-
-1. **Cows**:
-   - Each cow has 4 legs.
-   - Total cows = 10
-   - Total legs from cows = \(10 \times 4 = 40\) legs
-
-2. **Chickens**:
-   - Each chicken has 2 legs.
-   - Total chickens = 5
-   - Total legs from chickens = \(5 \times 2 = 10\) legs
-
-3. **Horses**:
-   - Each horse has 4 legs.
-   - Total horses = 2
-   - Total legs from horses = \(2 \times 4 = 8\) legs
-
-### Total Legs:
-
-Add the legs from all animals:
-\[
-40 \text{ (cow legs)} + 10 \text{ (chicken legs)} + 8 \text{ (horse legs)} = 58 \text{ legs}
-\]
-
-### Conclusion:
-The total number of legs for all the animals is \( \boxed{58} \).</response><|end_of_text|>
-```
-
-</CodeGroup>
-
-<Note>
-  - To activate this feature you must use the system prompt for reasoning tasks.
-  - Note that thoughts appear between the tags `<think>` and `</think>`, and the
-  final response between `<response>` and `</response>`.
-</Note>
-
-Use the following code example to reproduce the outputs for both reasoning tasks. To reproduce the second task, simply update the user prompt.
-
-<CodeGroup>
-
-```python Python
-from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
-import torch
-
-model_path="ibm-granite/granite-3.3-8b-instruct"
-device="cuda"
-
-# drop device_map if running on CPU
-model = AutoModelForCausalLM.from_pretrained(
-        model_path,
-        device_map=device,
-        torch_dtype=torch.bfloat16,
-    )
-tokenizer = AutoTokenizer.from_pretrained(
-        model_path
-)
-
-conv = [{"role": "user", "content":"A farmer has 10 cows, 5 chickens, and 2 horses. If we count all the animals' legs together, how many legs are there in total?"}] # Update the value of content as needed.
-
-input_ids = tokenizer.apply_chat_template(conv, return_tensors="pt", thinking=True, return_dict=True, add_generation_prompt=True).to(device)
-
-set_seed(42)
-output = model.generate(
-    **input_ids,
-    max_new_tokens=8192,
-)
-
 output = tokenizer.batch_decode(output)
+
 print(output[0])
 ```
 
-</CodeGroup>
+```python watsonx.ai
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
 
-#### Function-calling
+import requests
+import json
 
-This example demonstrates Granite 3.3 models ability to perform tool calls.
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-<CodeGroup>
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+"grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+"apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
-```bash Function-calling
-<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. You are a helpful assistant with access to the following tools. When a tool is required to answer the user's query, respond only with <|tool_call|> followed by a JSON list of tools used. If a tool does not exist in the provided list of tools, notify the user that you do not have the ability to fulfill the request.<|end_of_text|>
-<|start_of_role|>available_tools<|end_of_role|>[
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+"Authorization": f"Bearer {access_token}",
+}
+
+body = {
+"messages": [
     {
-        "name": "get_current_weather",
-        "description": "Get the current weather",
-        "arguments": {
-            "location": {
-                "description": "The city and state, e.g. San Francisco, CA"
-            }
-        }
-    },
-    {
-        "name": "get_stock_price",
-        "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
-        "arguments": {
-            "ticker": {
-                "description": "The stock ticker symbol, e.g. AAPL for Apple Inc."
-            }
-        }
+        "role": "user",
+        "content": "What is the largest ocean on Earth?"
     }
-]<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>What's the current weather in New York?<|end_of_text|>
-<|start_of_role|>assistant<|end_of_role|><|tool_call|>[{"name": "get_current_weather", "arguments": {"location": "New York"}}]<|end_of_text|>
-<|start of role|>tool_response<|end of role|>{"temp": 20.5, "unit": "C"}<|end of text|>
+],
+"project_id": WX_PROJECT_ID,
+"model_id": "ibm/granite-4-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```python OpenAI API
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+}
+
+body = {
+"messages": [
+    {
+        "role": "user",
+        "content": "What is the largest ocean on Earth?"
+    }
+],
+"model_id": "ibm-granite/granite-4.0-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20
+}
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```text Chat Template
+<|start_of_role|>user<|end_of_role|>What is the largest ocean on Earth?<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>The largest ocean on Earth is the Pacific Ocean. It covers an area of about 63.8 million square miles (165.25 million square kilometers), which is more than twice the size of the second-largest ocean, the Atlantic Ocean. The Pacific Ocean lies between the Americas to the east and Asia and Australia to the west.<|end_of_text|>
 ```
 
 </CodeGroup>
 
-<Note>
-Consider the following points to build prompts for function-calling tasks:
 
-- Use the system prompt for function-calling tasks to obtain the best performance out of Granite 3.3 models.
-- Use `available_tools` turn type to provide the list of tools to the model.
-- Tools are provided to the model as a list of dictionaries, with each dictionary representing a tool. While the model has been trained to understand various dictionary structures for tools, we recommend building your prompts as shown in this example. In this approach, each tool is represented by a dictionary that includes the tool's name, description, and required arguments.
-- The format of the assistant responses containing function calls should be pre-pended by a `<|tool_call|>` token.
-- Use `tool_response` turn type to feed back to the model the external system execution of a tool call.
-
-</Note>
-
-Use the following code example to nearly reproduce the previous output.
+### Tool calling
 
 <CodeGroup>
-
-```python Python
+```python Transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-3.3-8b-instruct"
+# model_path = ""
+model_path = "ibm-granite/granite-4.0-micro"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
-
 # drop device_map if running on CPU
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat=[
-    {"role": "user", "content": "What's the current weather in New York?"}
+    {"role": "user", "content": "What's the current weather in New York?"},
+    {"role": "assistant", 
+     "content": "", 
+     "tool_calls": [
+         {
+             "function": {
+                 "name": "get_current_weather",
+                 "arguments": {"city": "New York"}
+             }
+         }
+     ]
+    },
+    {"role": "tool", "content": "New York is sunny with a temperature of 30°C."},
+    {"role": "user", "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"}
 ]
 
 tools = [
     {
-        "name": "get_current_weather",
-        "description": "Get the current weather",
-        "arguments": {
-            "location" : {"description": "The city and state, e.g. San Francisco, CA"}
-        }
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location" : {
+                        "description": "The city and state, e.g. San Francisco, CA",
+                        "type": "string",
+                        },
+                },
+                "required" : ["location"]
+            }
+        } 
     },
     {
-        "name": "get_stock_price",
-        "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
-        "arguments": {
-            "ticker": {"description": "The stock ticker symbol, e.g. AAPL for Apple Inc."}
-        }
-
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker" : {
+                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                        "type": "string",
+                        },
+                }
+            }
+        } 
     }
 ]
-
+    
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, tools=tools)
 
 # tokenize the text
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
-output = model.generate(**input_tokens,
+output = model.generate(**input_tokens, 
                         max_new_tokens=100)
 # decode output tokens into text
 output = tokenizer.batch_decode(output)
 # print output
 print(output[0])
-```
+````
 
-</CodeGroup>
+```python watsonx.ai
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
 
-After obtaining a tool call from the `assistant` and executing it via an external system, you could feed the execution's result back to the model by updating the chat history as follows:
+import requests
+import json
 
-<CodeGroup>
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-```python Python
-chat=[
-    {"role": "user", "content": "What's the current weather in New York?"},
-    {"role": "assistant", "content": "<|tool_call|>[{\"name\": \"get_current_weather\", \"arguments\": {\"location\": \"New York\"}}]"},
-    {"role": "tool_response", "content":"{"temp": 20.5, "unit": "C"}"} # This result is obtained by executing the tool call via an external system.
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+"grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+"apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+"Authorization": f"Bearer {access_token}",
+}
+
+chat = [
+{"role": "user", "content": "What's the current weather in New York?"},
+{
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+        {
+            "id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad",
+            "type": "function",
+            "function": {
+                "name": "get_current_weather",
+                "arguments": "{\"city\": \"New York\"}"
+            }
+        }
+    ]
+},
+{
+    "role": "tool",
+    "content": "New York is sunny with a temperature of 30°C.",
+    "tool_call_id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad"
+},
+{
+    "role": "user",
+    "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"
+}
 ]
+
+tools = [
+{
+    "type": "function",
+    "function": {
+        "name": "get_current_weather",
+        "description": "Get the current weather",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "description": "The city and state, e.g. San Francisco, CA",
+                    "type": "string",
+                },
+            },
+            "required": ["location"],
+        },
+    },
+},
+{
+    "type": "function",
+    "function": {
+        "name": "get_stock_price",
+        "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "ticker": {
+                    "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                    "type": "string",
+                },
+            },
+        },
+    },
+},
+]
+
+body = {
+"messages": chat,
+"tools": tools,
+"project_id": WX_PROJECT_ID,
+"model_id": "ibm/granite-4-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+````
+
+```python OpenAI API
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+}
+
+chat = [
+{"role": "user", "content": "What's the current weather in New York?"},
+{
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+        {
+            "id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad",
+            "type": "function",
+            "function": {
+                "name": "get_current_weather",
+                "arguments": "{\"city\": \"New York\"}"
+            }
+        }
+    ]
+},
+{
+    "role": "tool",
+    "content": "New York is sunny with a temperature of 30°C.",
+    "tool_call_id": "chatcmpl-tool-a5ecf628c4fd4be3995cadb1ba13c8ad"
+},
+{
+    "role": "user",
+    "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"
+}
+]
+
+tools = [
+{
+    "type": "function",
+    "function": {
+        "name": "get_current_weather",
+        "description": "Get the current weather",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "description": "The city and state, e.g. San Francisco, CA",
+                    "type": "string",
+                },
+            },
+            "required": ["location"],
+        },
+    },
+},
+{
+    "type": "function",
+    "function": {
+        "name": "get_stock_price",
+        "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "ticker": {
+                    "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+                    "type": "string",
+                },
+            },
+        },
+    },
+},
+]
+
+body = {
+"messages": chat,
+"tools": tools,
+"model_id": "ibm-granite/granite-4.0-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```text Chat Template
+<|start_of_role|>system<|end_of_role|>You are a helpful assistant with access to the following tools. You may call one or more tools to assist with the user query.
+
+You are provided with function signatures within <tools></tools> XML tags:
+<tools>
+{"type": "function", "function": {"name": "get_current_weather", "description": "Get the current weather", "parameters": {"type": "object", "properties": {"location": {"description": "The city and state, e.g. San Francisco, CA", "type": "string"}}, "required": ["location"]}}}
+{"type": "function", "function": {"name": "get_stock_price", "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.", "parameters": {"type": "object", "properties": {"ticker": {"description": "The stock ticker symbol, e.g. AAPL for Apple Inc.", "type": "string"}}}}}
+</tools>
+
+For each tool call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:
+<tool_call>
+{"name": <function-name>, "arguments": <args-json-object>}
+</tool_call>. If a tool does not exist in the provided list of tools, notify the user that you do not have the ability to fulfill the request.<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>What's the current weather in New York?<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|><tool_call>
+{"name": "get_current_weather", "arguments": {"city": "New York"}}
+</tool_call><|end_of_text|>
+<|start_of_role|>user<|end_of_role|>
+<tool_response>
+New York is sunny with a temperature of 30°C.
+</tool_response><|end_of_text|>
+<|start_of_role|>user<|end_of_role|>OK, Now tell me what's the weather like in Bengaluru at this moment?<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|><tool_call>
+{"name": "get_current_weather", "arguments": {"city": "Bengaluru"}}
+</tool_call><|end_of_text|>
 ```
 
 </CodeGroup>
 
-#### FIM for a coding task
+Consider the following points to build promts for tool-calling tasks:
 
-This example demonstrates how to use Granite 3.3 models for a FIM code completion task.
+- When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See the _Chat Template Design_ section for more information about system prompt design in tool-calling scenarios.
+- Please follow OpenAI's function [definition schema](https://platform.openai.com/docs/guides/function-calling?api-mode=responses#defining-functions) to define tools.
+- Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to the _Chat Template Design_ section for examples.
+- The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please, refer to the _Chat Template Design_ section for examples.
 
-<CodeGroup>
-
-```python Python
-<fim_prefix>def print_hello_world():<fim_suffix><fim_middle>
-
-    print("Hello, World!")
-```
-
-</CodeGroup>
-
-<Note>
-Consider the following points to build prompts for FIM coding tasks:
-
-- Prepend code before the missing part with the tag `<fim_prefix>`
-- Prepend code after the missing part with the tag `<fim_suffix>`
-- End your prompt with the tag `<fim_middle>` to indicate to the model something is missing in the code snippet.
-- Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
-
-</Note>
-
-Use the following code example to reproduce the previous output.
+### RAG
 
 <CodeGroup>
-
-```python Python
+```python Transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-3.3-8b-instruct"
+model_path = "ibm-granite/granite-4.0-h-tiny" 
+
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+# drop device_map if running on CPU
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model.eval()
+
+chat=[
+    {"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+]
+
+documents=[
+    {
+        "doc_id": 1,
+        "title": "Bridget Jones: The Edge of Reason (2004)",
+        "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+        "source": ""
+    },
+    {
+        "doc_id": 2,
+        "title": "Bridget Jones's Baby (2016)",
+        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+        "source": ""
+    },
+    {
+        "doc_id": 3,
+        "title": "Bridget Jones's Diary (2001)",
+        "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+        "source": ""
+    },
+]
+
+chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, documents=documents)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=800)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
+````
+
+```python watsonx.ai
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+"grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+"apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+"Authorization": f"Bearer {access_token}",
+}
+
+chat=[
+{"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+]
+
+documents=[
+{
+    "doc_id": "1",
+    "title": "Bridget Jones: The Edge of Reason (2004)",
+    "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+    "source": ""
+},
+{
+    "doc_id": "2",
+    "title": "Bridget Jones's Baby (2016)",
+    "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+    "source": ""
+},
+{
+    "doc_id": "3",
+    "title": "Bridget Jones's Diary (2001)",
+    "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+    "source": ""
+},
+]
+
+body = {
+"messages": chat,
+"chat_template_kwargs": {"documents": documents},
+"project_id": WX_PROJECT_ID,
+"model_id": "ibm/granite-4-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+````
+
+```python OpenAI API
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+}
+
+chat=[
+{"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+]
+
+documents=[
+{
+    "doc_id": "1",
+    "title": "Bridget Jones: The Edge of Reason (2004)",
+    "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+    "source": ""
+},
+{
+    "doc_id": "2",
+    "title": "Bridget Jones's Baby (2016)",
+    "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+    "source": ""
+},
+{
+    "doc_id": "3",
+    "title": "Bridget Jones's Diary (2001)",
+    "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+    "source": ""
+},
+]
+
+body = {
+"messages": chat,
+"chat_template_kwargs": {"documents": documents},
+"model_id": "ibm-granite/granite-4.0-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+# note: chat_template_kwargs is an additional parameter
+# exposed by libraries such as vllm and not part of the
+# original OpenAI Chat Completions parameter specification.
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```text Chat Template
+<|start_of_role|>system<|end_of_role|>You are a helpful assistant with access to the following documents. You may use one or more documents to assist with the user query.
+
+You are given a list of documents within <documents></documents> XML tags:
+<documents>
+{"doc_id": 1, "title": "Bridget Jones: The Edge of Reason (2004)", "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.", "source": ""}
+{"doc_id": 2, "title": "Bridget Jones's Baby (2016)", "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.", "source": ""}
+{"doc_id": 3, "title": "Bridget Jones's Diary (2001)", "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.", "source": ""}
+</documents>
+
+Write the response to the user's input by strictly aligning with the facts in the provided documents. If the information needed to answer the question is not available in the documents, inform the user that the question cannot be answered based on the available data.<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response.<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>The first Bridget Jones's movie, "Bridget Jones's Diary" (2001), is about a thirty-something British woman named Bridget Jones who is trying to keep her love life in order while also dealing with her job as a publisher. She attends a Christmas party with her parents, where they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive emails. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.<|end_of_text|>
+```
+
+</CodeGroup>
+
+Consider the following points to build promts for RAG tasks:
+
+- The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please, refert to _Chat Template Design_ section for further details.
+- Documents are provided to the model as a list of dictionaries, with each dictionary representing a document. We recommend formatting documents as follows:
+
+```
+{
+"doc_id": 1,
+"title": "History Document Title",
+"text": "From the early 12th century, French builders developed the Gothic style, marked by the use of rib vaults, pointed arches, flying buttresses, and large stained glass windows. It was used mainly in churches and cathedrals, and continued in use until the 16th century in much of Europe. Classic examples of Gothic architecture include Chartres Cathedral and Reims Cathedral in France as well as Salisbury Cathedral in England. Stained glass became a crucial element in the design of churches, which continued to use extensive wall-paintings, now almost all lost.",
+"source": ""
+}
+```
+
+### FIM
+
+<CodeGroup>
+```python Transformers
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+device = "cuda"
+# model_path = ""
+model_path = "ibm-granite/granite-4.0-micro"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 # drop device_map if running on CPU
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
-prefix = """def print_hello_world():"""
-suffix = """"""
-input_text = f'<fim_prefix>{prefix}<fim_suffix>{suffix}<fim_middle>'
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+    result =
+<|fim_suffix|>
+    return result
+<|fim_middle|>"""
 
-inputs = tokenizer(input_text, return_tensors="pt")
-output = model.generate(inputs["input_ids"].to(device), attention_mask=inputs["attention_mask"].to(device), max_new_tokens=100)
-answer = tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-print(answer)
+chat = [
+    { "role": "user", "content": prompt},
+]
+
+chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=50)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
+````
+
+```python watsonx.ai
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+"grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+"apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+"Authorization": f"Bearer {access_token}",
+}
+
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+result =
+<|fim_suffix|>
+return result
+<|fim_middle|>"""
+
+chat = [
+{ "role": "user", "content": prompt},
+]
+
+body = {
+"messages": chat,
+"project_id": WX_PROJECT_ID,
+"model_id": "ibm/granite-4-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+````
+
+```python OpenAI API
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+}
+
+prompt = """<|fim_prefix|>
+def fibonacci(n):
+result =
+<|fim_suffix|>
+return result
+<|fim_middle|>"""
+
+chat = [
+{ "role": "user", "content": prompt},
+]
+
+body = {
+"messages": chat,
+"model_id": "ibm-granite/granite-4.0-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```text Chat Template
+<|start_of_role|>user<|end_of_role|><|fim_prefix|>
+def fibonacci(n):
+result =
+<|fim_suffix|>
+return result
+<|fim_middle|><|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>    if n == 0:
+    return 0
+elif n == 1:
+    return 1
+else:
+    return fibonacci(n-1) + fibonacci(n-2)
+<|end_of_text|>
 ```
 
 </CodeGroup>
 
-## Backward compatibility
+Consider the following points to build prompts for FIM coding tasks:
 
-Prompt templates designed for basic inference tasks should remain compatible with Granite 3.3 models. However, more complex templates may require a migration process. To take full advantage of the new features introduced in Granite 3.3, please refer to this prompt engineering guide for creating new templates or migrating existing ones.
+- The tags supported for fill-in-the-middle (FIM) code completion are: `<|fim_prefix|>`, `<|fim_middle|>`, and `<|fim_suffix|>`. Make sure to use the correct FIM tags when using Granite 4.0 models for FIM code completions.
+- Prepend code before the missing part with the tag `<|fim_prefix|>`
+- Prepend code after the missing part with the tag `<|fim_suffix|>`
+- End your prompt with the tag `<|fim_middle|>` to indicate to the model something is missing in the code snippet.
+- Completion of basic programming concepts (e.g., function, method, conditionals, loops) is covered for various programming languages (e.g., python, c/c++, go, java).
+
+### JSON output
+
+<CodeGroup>
+```python Transformers
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+device = "cuda"
+model_path = "ibm-granite/granite-4.0-h-tiny" 
+
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+# drop device_map if running on CPU
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model.eval()
+
+chat = [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{\"title\": \"LeisureActivityBooking\", \"type\": \"object\", \"properties\": {\"activityID\": {\"title\": \"Activity ID\", \"type\": \"string\"}, \"participantInfo\": {\"title\": \"Participant Info\", \"type\": \"object\", \"properties\": {\"participantName\": {\"title\": \"Participant Name\", \"type\": \"string\"}, \"age\": {\"title\": \"Age\", \"type\": \"integer\"}}, \"required\": [\"participantName\", \"age\"]}, \"activityDate\": {\"title\": \"Activity Date\", \"type\": \"string\", \"format\": \"date\"}, \"equipmentNeeded\": {\"title\": \"Equipment Needed\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"activityID\", \"participantInfo\", \"activityDate\"]}\n</schema>\n"
+    },
+    {
+      "role": "user",
+      "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water."
+    }
+  ]
+
+chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True)
+
+# tokenize the text
+input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+# generate output tokens
+output = model.generate(**input_tokens, 
+                        max_new_tokens=200)
+# decode output tokens into text
+output = tokenizer.batch_decode(output)
+# print output
+print(output[0])
+````
+
+```python watsonx.ai
+### This snippet assumes watsonx.ai access.
+### If not already setup, follow the guide here:
+### https://github.com/ibm-granite-community/granite-kitchen/blob/main/recipes/Getting_Started/Getting_Started_with_WatsonX.ipynb
+
+import requests
+import json
+
+WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
+WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+
+# STEP 1: Retrieve bearer token using WX_API_KEY
+token_url = "https://iam.cloud.ibm.com/oidc/token"
+token_data = {
+"grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+"apikey": WX_API_KEY,
+}
+token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+token_response = requests.post(token_url, data=token_data, headers=token_headers)
+if token_response.status_code != 200:
+raise Exception("Failed to retrieve token: " + token_response.text)
+
+access_token = token_response.json()["access_token"]
+
+
+# STEP 2: Setup call to the chat endpoint in watsonx.ai
+url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/chat?version=2025-10-25"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+"Authorization": f"Bearer {access_token}",
+}
+
+chat = [
+{
+    "role": "system",
+    "content": 'You are a helpful assistant that answers in JSON. Here\'s the json schema you must adhere to:\n<schema>\n{"title": "LeisureActivityBooking", "type": "object", "properties": {"activityID": {"title": "Activity ID", "type": "string"}, "participantInfo": {"title": "Participant Info", "type": "object", "properties": {"participantName": {"title": "Participant Name", "type": "string"}, "age": {"title": "Age", "type": "integer"}}, "required": ["participantName", "age"]}, "activityDate": {"title": "Activity Date", "type": "string", "format": "date"}, "equipmentNeeded": {"title": "Equipment Needed", "type": "array", "items": {"type": "string"}}}, "required": ["activityID", "participantInfo", "activityDate"]}\n</schema>\n',
+},
+{
+    "role": "user",
+    "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water.",
+},
+]
+
+body = {
+"messages": chat,
+"project_id": WX_PROJECT_ID,
+"model_id": "ibm/granite-4-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+}
+
+
+# STEP 3: Execute call to the chat endpoint in watsonx.ai
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+````
+
+```python OpenAI API
+### This snippet assumes access to an OpenAI compatible endpoint
+### If not already setup, an example setup can be achieved
+### through vllm. Follow the guide here:
+### https://www.ibm.com/granite/docs/run/granite-with-vllm-containerized
+
+import requests
+import json
+
+# STEP 1: Setup call to the OpenAI compatible endpoint
+url = "<YOUR OPENAI COMPATIBLE ENDPOINT>/chat/completions"
+headers = {
+"Accept": "application/json",
+"Content-Type": "application/json",
+}
+
+chat = [
+{
+    "role": "system",
+    "content": 'You are a helpful assistant that answers in JSON. Here\'s the json schema you must adhere to:\n<schema>\n{"title": "LeisureActivityBooking", "type": "object", "properties": {"activityID": {"title": "Activity ID", "type": "string"}, "participantInfo": {"title": "Participant Info", "type": "object", "properties": {"participantName": {"title": "Participant Name", "type": "string"}, "age": {"title": "Age", "type": "integer"}}, "required": ["participantName", "age"]}, "activityDate": {"title": "Activity Date", "type": "string", "format": "date"}, "equipmentNeeded": {"title": "Equipment Needed", "type": "array", "items": {"type": "string"}}}, "required": ["activityID", "participantInfo", "activityDate"]}\n</schema>\n',
+},
+{
+    "role": "user",
+    "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water.",
+},
+]
+
+body = {
+"messages": chat,
+"model_id": "ibm-granite/granite-4.0-h-small",
+"max_completion_tokens": 2000,
+"temperature": 0.7,
+"top_p": 0.95,
+"top_k": 20,
+"response_format": {"type": "json_object"},
+}
+
+# STEP 2: Execute call to the chat endpoint
+response = requests.post(url, headers=headers, json=body)
+
+if response.status_code != 200:
+raise Exception("Non-200 response: " + str(response.text))
+
+data = response.json()
+
+print(json.dumps(data, indent=4))
+```
+
+```text Chat Template
+<|start_of_role|>system<|end_of_role|>You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:
+<schema>
+{"title": "LeisureActivityBooking", "type": "object", "properties": {"activityID": {"title": "Activity ID", "type": "string"}, "participantInfo": {"title": "Participant Info", "type": "object", "properties": {"participantName": {"title": "Participant Name", "type": "string"}, "age": {"title": "Age", "type": "integer"}}, "required": ["participantName", "age"]}, "activityDate": {"title": "Activity Date", "type": "string", "format": "date"}, "equipmentNeeded": {"title": "Equipment Needed", "type": "array", "items": {"type": "string"}}}, "required": ["activityID", "participantInfo", "activityDate"]}
+</schema>
+<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water.<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>{"activityID": "KAYAK-0423", "participantInfo": {"participantName": "Jamie Patterson", "age": 27}, "activityDate": "2023-04-15", "equipmentNeeded": ["kayak", "paddle", "safety vest"]}<|end_of_text|>
+```
+
+</CodeGroup>
+
+## Backward Compatibility
+
+Prompt templates designed for basic inference tasks should remain compatible with Granite 4.0 models. However, more complex templates may require a migration process. To take full advantage of Granite 4.0 models, please refer to this prompt engineering guide to create new templates or migrating existing ones.
 
 Some points to consider while migrating templates are:
 
-- **Tool/function calling**
-  - The turn type used to provide the list of tools varies by version. For Granite 3.3, we recommend to use `available_tools`, but `tools` will also work to keep compatibility with previous versions.
-  - Additionally, the token that precedes a tool call in the model's response is `<|tool_call|>` for Granite 3.3 models, and `<tool_call>` for Granite 3.2 and 3.1 models. Please consider these variants to parse tool call outputs from Granite models.
-- **RAG tasks**: In Granite 3.3, each document must be provided in a separate turn. This differs from previous versions, where documents could be passed as a list within a single turn.
-- **Reasoning**: Granite 3.3 models display reasoning outputs with intermediate thoughts clearly separated from the final answer, a capability not supported in Granite 3.2.
-
-## Building prompts with `transformers` library
-
-The `apply_chat_template` function from the `transformers` library automatically applies the basic chat template structure of Granite 3.3 models to your prompts. To build prompts that integrate advanced features via the `apply_chat_template` you must use the appropriate `kwargs`.
-
-- Use `documents`, to pass the list of documents for RAG prompts. This will automatically activate the RAG system prompt.
-- Use `tools`, to pass the list of tools for function-calling tasks. This will automatically activate the function-calling system prompt.
-- Use `thinking`, to make the model reason about its response. This will automatically activate the reasoning system prompt.
-- Use `controls` to pass a `json` indicating what optional annotations should be activated. The respective system prompt extension (if needed) will also be automatically activated.
-
-We strongly recommend that developers use the `apply_chat_template` function to construct their prompts, as it enhances the development experience and minimizes the risk of inference errors caused by manually crafting chat templates. However, you can also load a chat template that incorporates Granite 3.3's advanced features without using this function.
-
-In the following example, we load the template for RAG inference with annotations to moderate `length` and `originality`. The list of documents and desired annotations have been previously rendered. The final model prompt is saved in `input_text` variable. You can take this example as baseline to build wrappers for libraries that do no suppot `kwargs`.
-
-<CodeGroup>
-
-```python Python
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-device = "cuda"
-model_path = "ibm-granite/granite-3.3-8b-instruct"
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-# drop device_map if running on CPU
-model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
-model.eval()
-
-input_text = '''<|start_of_role|>system<|end_of_role|> Knowledge Cutoff Date: April 2024.
- Today's Date: April 12, 2025. You are Granite, developed by IBM. Write the response to the user's input by strictly aligning with the facts in the provided documents. If the information needed to answer the question is not available in the documents, inform the user that the question cannot be answered based on the available data.<|end_of_text|>
-<|start_of_role|>document {"document_id": "doc 0"}<|end_of_role|>
-Dynamic Data: Automatically generate and refine graphs to best fit your domain and ontology needs.<|end_of_text|>
-<|start_of_role|>document {"document_id": "doc 1"}<|end_of_role|>
-RAG, retrieval-augmented generation, is a technique that grants generative artificial intelligence models information retrieval capabilities.<|end_of_text|>
-<|start_of_role|>user<|end_of_role|>What is RAG?<|end_of_text|>
-<|start_of_role|>assistant {"originality": "abstractive"}<|end_of_role|>'''
-
-inputs = tokenizer(input_text, return_tensors="pt")
-output = model.generate(inputs["input_ids"].to(device), attention_mask=inputs["attention_mask"].to(device), max_new_tokens=500)
-answer = tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-print(answer)
-```
-
-</CodeGroup>
-The execution of this script returns the assistant's output below:
-
-<CodeGroup>
-
-```bash Text
-RAG stands for Retrieval-Augmented Generation. It's a method
-that enhances generative AI models by providing them with information
-retrieval skills, allowing them to access and utilize external data or context
-during the generation process.
-```
-
-</CodeGroup>
-
-## Inference Tips
-
-- Verify the Max New Tokens setting. If you see a model response stopping mid-sentence, the max new tokens setting is likely set too low. This is particularly critical in long-context tasks.
-- Avoid pronouns in follow-up questions. For example, do not use "Can you edit it?", instead use "Can you edit the table?".
-- Reduce explanation length. If the explanations provided by the model are too long, update the instruction to make it clear there should be no additional explanations.
-- Fix run-on sentences/responses. If the model is generating run-on sentences/responses, try reducing the max tokens output parameter or adding line breaks or spaces as stop token(s). This should lead the model to stop generating the output after generating these tokens.
-- For prompts that include in-context examples, consider using the example labels as a stop token so the model stops generation after providing the answer.
+- The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to the _Chat Template Design_ section for more details.
+- Controls for `length` and `originality` have been deprecated, they are no longer supported in this version.

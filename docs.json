@@ -22,12 +22,6 @@
         "tab": "Docs",
         "groups": [
           {
-            "group": "Introduction",
-            "pages": [
-              "granite/docs/index"
-            ]
-          },
-          {
             "group": "Models",
             "pages": [
               "granite/docs/models/granite",
@@ -35,8 +29,7 @@
               "granite/docs/models/speech",
               "granite/docs/models/guardian",
               "granite/docs/models/embedding",
-              "granite/docs/models/time-series",
-              "granite/docs/models/code"
+              "granite/docs/models/time-series"
             ]
           },
           {
@@ -57,16 +50,9 @@
             ]
           },
           {
-            "group": "Fine-tuning",
-            "pages": [
-              "granite/docs/fine-tune/granite",
-              "granite/docs/fine-tune/time-series"
-            ]
-          },
-          {
             "group": "Responsible AI",
             "pages": [
-              "granite/docs/responsible-ai/index"
+            "granite/docs/responsible-ai/index"
             ]
           }
         ]
@@ -84,6 +70,8 @@
           {
             "group": "Granite Language Cookbook",
             "pages": [
+              "granite/docs/use-cases/prompt-engineering",
+              "granite/docs/fine-tune/granite",
               "granite/docs/use-cases/summarize",
               "granite/docs/use-cases/langchain-rag",
               "granite/docs/use-cases/contract-analysis",
@@ -112,6 +100,7 @@
           {
             "group": "Granite Time Series Cookbook",
             "pages": [
+              "granite/docs/fine-tune/time-series",
               "granite/docs/use-cases/forecast-energy-demand",
               "granite/docs/use-cases/forecast-bike-rentals"
             ]
