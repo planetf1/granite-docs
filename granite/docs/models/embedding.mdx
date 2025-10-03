@@ -1,6 +1,6 @@
 ---
 title: "Granite Embedding"
-description: "The Granite Embedding collection delivers high-performance sentence-transformer models optimized for retrieval, generating precise embeddings for seamless comparison."
+description: "Granite Embedding models are dense bi-encoder models that are optimized to generate high quality text embeddings."
 icon: "vector-square"
 ---
 
@@ -16,38 +16,61 @@ icon: "vector-square"
 
 ## Overview
 
-The Granite Embedding collection delivers innovative sentence-transformer models purpose-built for retrieval-based applications. Featuring a bi-encoder architecture, these models generate high-quality embeddings for textual inputs such as queries, passages, and documents, enabling seamless comparison through cosine similarity. The Granite Embedding lineup includes granite-embedding-30m-english, granite-embedding-125m-english, granite-embedding-107m-multilingual, and granite-embedding-278m-multilingual, each optimized to ensure strong alignment between query and passage embeddings.
+The Granite Embedding model collection consists of embedding models to generate high-quality text embeddings and a reranker model to improve the relevance and quality of search results or recommendations. The embedding models output vector representations (aka embeddings) of textual inputs such as queries, passages, and documents to capture the semantic meaning of the input text. The primary use cases for these embeddings are in semantic search and retrieval-augmented generation (RAG) applications.
 
-Built on a foundation of carefully curated, permissibly licensed public datasets, the Granite Embedding models set a high standard for performance, achieving state-of-the-art results in their respective weight classes. Developed to meet enterprise-grade expectations, they are crafted transparently in accordance with IBM's AI Ethics principles and offered under the Apache 2.0 license for both research and commercial innovation.
+The reranker model is optional, but useful to further improve the relevance and quality of search results or recommendations. After the initial retrieval of items based on their embeddings, the reranker refines the ranking by considering additional factors and more complex criteria.
 
-Looking ahead, the Granite Embedding series is gearing up to introduce sparse embedding models, designed to reduce computational complexity and enhance memory efficiency, further pushing the boundaries of efficiency and scalability.
+Built on a foundation of carefully curated, permissibly licensed public datasets, the Granite Embedding models set a high standard for performance, achieving state-of-the-art results in their respective weight classes. See the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard) where Granite Embedding ranks in the top 10 amongst models of a similar size (as of 10/2/2025).
+
+Granite Embedding models are released under the Apache 2.0 license, making them freely available for both research and commercial purposes, with full transparency into their training data.
 
 ### Model cards
 
 <CardGroup cols={2}>
   <Card
-    title="Granite Embedding 125m English"
+    title="Granite Embedding English r2"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-embedding-english-r2"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Embedding Small English r2"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-embedding-small-english-r2"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Embedding Reranker English r2"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-embedding-reranker-english-r2"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Embedding 125m English r1"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-125m-english"
   >
     View model on Hugging Face
   </Card>
   <Card
-    title="Granite Embedding 30m English"
+    title="Granite Embedding 30m English r1"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-30m-english"
   >
     View model on Hugging Face
   </Card>
   <Card
-    title="Granite Embedding 107m Multilingual"
+    title="Granite Embedding 107m Multilingual r1"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-107m-multilingual"
   >
     View model on Hugging Face
   </Card>
   <Card
-    title="Granite Embedding 278m Multilingual"
+    title="Granite Embedding 278m Multilingual r1"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-278m-multilingual"
   >

@@ -16,11 +16,13 @@ icon: "chart-line"
 
 ## Overview
 
-Tiny Time Mixer (TTM) and Time Series Pulse (TSPulse) are IBM's family of
+Flowstate, Tiny Time Mixer (TTM), and Time Series Pulse (TSPulse) are IBM's family of
 ultra-lightweight pre-trained models for time series data, with just a few
 million parameters and GPU-free inference. Despite their compact size, these
 models deliver strong performance across forecasting, classification, anomaly
 detection, imputation, and similarity search tasks.
+
+FlowState is a time-scale adjustable foundation model, designed to offer flexible and efficient forecasting across various temporal scales. By integrating a State Space Model (SSM) Encoder with a Functional Basis Decoder, FlowState transitions into a timescale-invariant coefficient space, enabling continuous forecasting adaptable to any sampling rate. This architecture allows for training at one timescale and inference at another, significantly enhancing the utility of training data across diverse temporal structures. FlowState delivers state-of-the-art accuracy in zero-shot forecasting tasks, holding the #3 spot on the [GIFT-Eval leaderboard](https://huggingface.co/spaces/Salesforce/GIFT-Eval) (as of 10/2/2025).
 
 TTM models supports multivariate forecasting via both channel independence and
 channel-mixing approaches. Decoder Channel-Mixing can be enabled during
@@ -39,6 +41,13 @@ downstream tasks.
 ### Model cards
 
 <CardGroup cols={2}>
+  <Card
+    title="Granite Flowstate r1"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-timeseries-flowstate-r1"
+  >
+    View model on Hugging Face
+  </Card>
   <Card
     title="Granite Time Series TSPulse r1"
     icon="arrow-right"
