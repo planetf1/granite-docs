@@ -5,44 +5,48 @@ icon: "cube"
 ---
 
 <CardGroup cols={2}>
-<Card
-title="View model cards"
-icon="arrow-right"
-href="https://huggingface.co/collections/ibm-granite/granite-40-language-models-6811a18b820ef362d9e5a82c"
->
-View model details on Hugging Face
-</Card>
-<Card
-title="Try our Granite Agents"
-icon="cube"
-href="https://www.ibm.com/granite/playground/"
->
-Leverage Granite to search the web and write research reports
-</Card>
+  <Card
+    title="View model cards"
+    icon="arrow-right"
+    href="https://huggingface.co/collections/ibm-granite/granite-40-language-models-6811a18b820ef362d9e5a82c"
+  >
+    View model details on Hugging Face
+  </Card>
+  <Card
+    title="Try our Granite Agents"
+    icon="cube"
+    href="https://www.ibm.com/granite/playground/"
+  >
+    Leverage Granite to search the web and write research reports
+  </Card>
 </CardGroup>
 
 <CardGroup cols={2}>
-<Card
-title="Experiment with Granite Locally"
-icon="download"
-href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac"
->
-Download and run Granite locally with Ollama
-</Card>
-<Card
-title="Get cooking with Granite!"
-icon="cube"
-href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks"
->
-Check out these recipes to start using Granite
-</Card>
+  <Card
+    title="Experiment with Granite Locally"
+    icon="download"
+    href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac"
+  >
+    Download and run Granite locally with Ollama
+  </Card>
+  <Card
+    title="Get cooking with Granite!"
+    icon="cube"
+    href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks"
+  >
+    Check out these recipes to start using Granite
+  </Card>
 </CardGroup>
 
 ## Overview
+
 Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture-of-Experts (MoE) strategy in select models, delivering more than 70% lower memory requirements and 2x faster inference speeds compared to similar models, particularly in multi-session and long-context scenarios. The models deliver strong performance across benchmarks, with Granite 4.0 Small achieving industry-leading results in key agentic tasks like instruction following and function calling. These efficiencies make the models well-suited for a wide range of use cases like retrieval-augmented generation (RAG), multi-agent workflows, and edge deployments. Granite 4.0 is released under Apache 2.0, cryptographically signed for authenticity, and the first open model family certified under ISO 42001.
 
-<a href="https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models" style={{ color:"#0F62FE"}}>
-Granite 4.0 Release Blog
+<a
+  href="https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models"
+  style={{ color: "#0F62FE" }}
+>
+  Granite 4.0 Release Blog
 </a>
 
 <table>
@@ -113,7 +117,7 @@ Granite 4.0 Release Blog
     </td>
     <td>
     Alternative option for users when Mamba2 support is not yet optimized
-    (e.g. llama.cpD, PEFT, etc)
+    (e.g. llama.cpp, PEFT, etc)
     </td>
 </tr>
 <tr>
@@ -138,7 +142,6 @@ Model deployment specifications: `8-bit`, `128K context length`, and `batch=1`.
 
 ## Inference Examples
 
-
 ### Basic Inference
 
 <CodeGroup>
@@ -147,14 +150,16 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-tiny" 
+model_path = "ibm-granite/granite-4.0-h-tiny"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 # change input text as desired
+
 chat = [
 { "role": "user", "content": "What is the largest ocean on Earth?"},
 ]
@@ -162,15 +167,21 @@ chat = [
 chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                    max_new_tokens=150)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=150)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
 
 print(output[0])
-```
+
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -226,7 +237,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -272,7 +283,6 @@ print(json.dumps(data, indent=4))
 
 </CodeGroup>
 
-
 ### Tool calling
 
 <CodeGroup>
@@ -281,77 +291,89 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
+
 # model_path = ""
+
 model_path = "ibm-granite/granite-4.0-micro"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat=[
-    {"role": "user", "content": "What's the current weather in New York?"},
-    {"role": "assistant", 
-     "content": "", 
-     "tool_calls": [
-         {
-             "function": {
-                 "name": "get_current_weather",
-                 "arguments": {"city": "New York"}
-             }
-         }
-     ]
-    },
-    {"role": "tool", "content": "New York is sunny with a temperature of 30°C."},
-    {"role": "user", "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"}
+{"role": "user", "content": "What's the current weather in New York?"},
+{"role": "assistant",
+"content": "",
+"tool_calls": [
+{
+"function": {
+"name": "get_current_weather",
+"arguments": {"city": "New York"}
+}
+}
+]
+},
+{"role": "tool", "content": "New York is sunny with a temperature of 30°C."},
+{"role": "user", "content": "OK, Now tell me what's the weather like in Bengaluru at this moment?"}
 ]
 
 tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "get_current_weather",
-            "description": "Get the current weather",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "location" : {
-                        "description": "The city and state, e.g. San Francisco, CA",
-                        "type": "string",
-                        },
-                },
-                "required" : ["location"]
-            }
-        } 
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "get_stock_price",
-            "description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "ticker" : {
-                        "description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
-                        "type": "string",
-                        },
-                }
-            }
-        } 
-    }
+{
+"type": "function",
+"function": {
+"name": "get_current_weather",
+"description": "Get the current weather",
+"parameters": {
+"type": "object",
+"properties": {
+"location" : {
+"description": "The city and state, e.g. San Francisco, CA",
+"type": "string",
+},
+},
+"required" : ["location"]
+}
+}
+},
+{
+"type": "function",
+"function": {
+"name": "get_stock_price",
+"description": "Retrieves the current stock price for a given ticker symbol. The ticker symbol must be a valid symbol for a publicly traded company on a major US stock exchange like NYSE or NASDAQ. The tool will return the latest trade price in USD. It should be used when the user asks about the current or most recent price of a specific stock. It will not provide any other information about the stock or company.",
+"parameters": {
+"type": "object",
+"properties": {
+"ticker" : {
+"description": "The stock ticker symbol, e.g. AAPL for Apple Inc.",
+"type": "string",
+},
+}
+}
+}
+}
 ]
-    
+
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, tools=tools)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=100)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=100)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
+
 ````
 
 ```python watsonx.ai
@@ -618,49 +640,59 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-tiny" 
+model_path = "ibm-granite/granite-4.0-h-tiny"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat=[
-    {"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
+{"role": "user", "content": "Could you please tell me what the first Bridget Jones's movie is about?, please be brief in your response."}
 ]
 
 documents=[
-    {
-        "doc_id": 1,
-        "title": "Bridget Jones: The Edge of Reason (2004)",
-        "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
-        "source": ""
-    },
-    {
-        "doc_id": 2,
-        "title": "Bridget Jones's Baby (2016)",
-        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
-        "source": ""
-    },
-    {
-        "doc_id": 3,
-        "title": "Bridget Jones's Diary (2001)",
-        "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
-        "source": ""
-    },
+{
+"doc_id": 1,
+"title": "Bridget Jones: The Edge of Reason (2004)",
+"text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.",
+"source": ""
+},
+{
+"doc_id": 2,
+"title": "Bridget Jones's Baby (2016)",
+"text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+"source": ""
+},
+{
+"doc_id": 3,
+"title": "Bridget Jones's Diary (2001)",
+"text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.",
+"source": ""
+},
 ]
 
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, documents=documents)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=800)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=800)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
+
 ````
 
 ```python watsonx.ai
@@ -857,36 +889,47 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
+
 # model_path = ""
+
 model_path = "ibm-granite/granite-4.0-micro"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 prompt = """<|fim_prefix|>
 def fibonacci(n):
-    result =
+result =
 <|fim_suffix|>
-    return result
+return result
 <|fim_middle|>"""
 
 chat = [
-    { "role": "user", "content": prompt},
+{ "role": "user", "content": prompt},
 ]
 
 chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=50)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=50)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
+
 ````
 
 ```python watsonx.ai
@@ -1038,35 +1081,45 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-model_path = "ibm-granite/granite-4.0-h-tiny" 
+model_path = "ibm-granite/granite-4.0-h-tiny"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+
 # drop device_map if running on CPU
+
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
 model.eval()
 
 chat = [
-    {
-      "role": "system",
-      "content": "You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{\"title\": \"LeisureActivityBooking\", \"type\": \"object\", \"properties\": {\"activityID\": {\"title\": \"Activity ID\", \"type\": \"string\"}, \"participantInfo\": {\"title\": \"Participant Info\", \"type\": \"object\", \"properties\": {\"participantName\": {\"title\": \"Participant Name\", \"type\": \"string\"}, \"age\": {\"title\": \"Age\", \"type\": \"integer\"}}, \"required\": [\"participantName\", \"age\"]}, \"activityDate\": {\"title\": \"Activity Date\", \"type\": \"string\", \"format\": \"date\"}, \"equipmentNeeded\": {\"title\": \"Equipment Needed\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"activityID\", \"participantInfo\", \"activityDate\"]}\n</schema>\n"
-    },
-    {
-      "role": "user",
-      "content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water."
-    }
-  ]
+{
+"role": "system",
+"content": "You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{\"title\": \"LeisureActivityBooking\", \"type\": \"object\", \"properties\": {\"activityID\": {\"title\": \"Activity ID\", \"type\": \"string\"}, \"participantInfo\": {\"title\": \"Participant Info\", \"type\": \"object\", \"properties\": {\"participantName\": {\"title\": \"Participant Name\", \"type\": \"string\"}, \"age\": {\"title\": \"Age\", \"type\": \"integer\"}}, \"required\": [\"participantName\", \"age\"]}, \"activityDate\": {\"title\": \"Activity Date\", \"type\": \"string\", \"format\": \"date\"}, \"equipmentNeeded\": {\"title\": \"Equipment Needed\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"activityID\", \"participantInfo\", \"activityDate\"]}\n</schema>\n"
+},
+{
+"role": "user",
+"content": "I'm planning a kayaking trip for my friend's birthday on April 15th, and I need to book it through your leisure activity service. The activity will be for my friend, Jamie Patterson, who is 27 years old. We'll need two kayaks, paddles, and safety vests. The activity ID for this booking is 'KAYAK-0423'. The date we're looking to book the kayaking activity is specifically on the 15th of April, 2023. To summarize, the equipment needed for this adventure includes two kayaks, a pair of paddles, and two safety vests to ensure a safe and enjoyable experience on the water."
+}
+]
 
 chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True)
 
 # tokenize the text
+
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
+
 # generate output tokens
-output = model.generate(**input_tokens, 
-                        max_new_tokens=200)
+
+output = model.generate(\*\*input_tokens,
+max_new_tokens=200)
+
 # decode output tokens into text
+
 output = tokenizer.batch_decode(output)
+
 # print output
+
 print(output[0])
+
 ````
 
 ```python watsonx.ai
