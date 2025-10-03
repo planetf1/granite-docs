@@ -16,7 +16,11 @@ icon: "microphone"
 
 ## Overview
 
-The Granite speech collection offers a robust speech model built by LoRA fine-tuning granite-3.3-8b-instruct. Our granite-speech-3.3-8b model is built for purpose and excels at enterprise tasks focused on automatic speech recognition including English speech-to-text and speech translations from English to identified European languages such as French, Spanish, Italian, German, Portuguese as well as Japanese and Mandarin. Trained on a diverse set of publicly available data and synthetically generated datasets tailored to support the speech translation task, Granite Speech will be fully open sourced and made available under Apache 2.0 license on HuggingFace. For tasks that exclusively involve text-based input, we suggest using our Granite large language models, which are optimized for text-only processing.
+The Granite Speech models are designed for enterprise applications that involve processing speech inputs. In particular, the model is well-suited for English, French, Germain, Spanish, and Portuguese speech-to-text (STT) and speech translations to and from English for the same languages plus English-to-Japanese and English-to-Mandarin.
+
+It leverages a two-pass design for inference: the initial call will prompt the speech model to transcribe audio inputs and following calls will be made to its underlying language model base to process the transcribed text. This separation was a purposeful design choice, isolating transcription from downstream text processing to improve accuracy and flexibility. It proves effective as Granite Speech has continuously held the #2 and #3 spot on the [OpenASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard) (as of 10/2/2025).
+
+Granite Speech is released under the Apache 2.0 license, making it freely available for both research and commercial purposes, with full transparency into its training data.
 
 ### Model cards
 

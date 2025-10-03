@@ -1,6 +1,6 @@
 ---
 title: "Granite Guardian"
-description: "The Granite Guardian models are a robust suite of safeguards designed to detect risks in both prompts and responses, ensuring safe and responsible use with any large language model."
+description: "The Granite Guardian models are a suite of models and LoRA (low-rank adaptation) adapters that evaluate whether a user’s prompt and model’s response adhere to specified safety criteria."
 icon: "shield"
 ---
 
@@ -56,19 +56,15 @@ icon: "shield"
 
 ## Overview
 
-Granite Guardian 3.3 8B is a specialized Granite 3.3 8B model designed to judge if the input prompts and the output responses of an LLM based system meet specified criteria. The model comes pre-baked with certain criteria including but not limited to: jailbreak attempts, profanity, and hallucinations related to tool calls and retrieval augmented generation in agent-based systems. Additionally, the model also allows users to bring their own criteria and tailor the judging behavior to specific use-cases.
+The Granite Guardian models are a family of models and LoRA adapters designed to judge if its input and output meet specified criteria. The model comes pre-baked with certain criteria, but is not limited to: jailbreak attempts, profanity, and hallucinations related to tool calls and RAG (retrieval augmented generation) in agent-based systems. Additionally, the model enables users to bring their own criteria (BYOC) and tailor its judging behavior for their specified use case(s). The Granite Guardian LoRA adapters can be layered atop the Granite Guardian models to tackle more specific, downstream tasks.
 
-This version of Granite Guardian is a hybrid thinking model that allows the user to operate in thinking or non-thinking model. In thinking mode, the model produces detailed reasoning traces though <think> ... </think> and <score> ... </score> tags. In non-thinking mode, the model only produces the judgement score though the <score> ... </score> tags.
+The latest version of the Granite Guardian model enables a thinking or non-thinking modes. In the thinking mode, the model produces detailed reasoning traces with <think> and <score> tags. In the non-thinking mode, the model only produces the judgement score through <score> tags. Since its inception, Granite Guardian has remained in the top 3 on the [LLM-Aggrefact Leaderboard](https://llm-aggrefact.github.io/) (as of 10/2/2025).
 
-It is trained on unique data comprising human annotations and synthetic data informed by internal red-teaming. It outperforms other open-source models in the same space on standard benchmarks.
+The Granite Guardian are enterprise-grade, risk detection models that are applicable across a wide-range of enterprise applications:
 
-Granite Guardian is useful for risk detection use-cases which are applicable across a wide-range of enterprise applications:
-
-Detecting harm-related risks within prompt text, model responses, or conversations (as guardrails). These present fundamentally different use cases as the first assesses user supplied text, the second evaluates model generated text, and the third evaluates the last turn of a conversation.
-
-RAG (retrieval-augmented generation) use-case where the guardian model assesses three key issues: context relevance (whether the retrieved context is relevant to the query), groundedness (whether the response is accurate and faithful to the provided context), and answer relevance (whether the response directly addresses the user’s query).
-
-Function calling risk detection within agentic workflows, where Granite Guardian evaluates intermediate steps for syntactic and semantic hallucinations. This includes assessing the validity of function calls and detecting fabricated information, particularly during query translation.
+- Detecting harm-related risks within prompt text, model responses, or conversations (as guardrails). These present fundamentally different use cases as the first assesses user supplied text, the second evaluates model generated text, and the third evaluates the last turn of a conversation.
+- RAG (retrieval-augmented generation) use-case where the guardian model assesses three key issues: context relevance (whether the retrieved context is relevant to the query), groundedness (whether the response is accurate and faithful to the provided context), and answer relevance (whether the response directly addresses the user’s query).
+- Function calling risk detection within agentic workflows, where Granite Guardian evaluates intermediate steps for syntactic and semantic hallucinations. This includes assessing the validity of function calls and detecting fabricated information, particularly during query translation.
 
 These are enterprise-grade models trained in a transparent manner, and according to IBM’s AI Ethics principles and released with Apache 2.0 license for research and commercial use.
 
@@ -81,6 +77,20 @@ These are enterprise-grade models trained in a transparent manner, and according
     title="Granite Guardian 3.3 8B"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-guardian-3.3-8b"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Guardian 3.2 5b LoRA Harm Categories"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-guardian-3.2-5b-lora-harm-categories"
+  >
+    View model on Hugging Face
+  </Card>
+  <Card
+    title="Granite Guardian 3.2 5b LoRA Harm Correction"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-guardian-3.2-5b-lora-harm-correction"
   >
     View model on Hugging Face
   </Card>
