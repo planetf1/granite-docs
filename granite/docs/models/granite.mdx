@@ -165,7 +165,7 @@ chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
 output = model.generate(**input_tokens, 
-                    max_new_tokens=150)
+                    max_new_tokens=150, temperature=0)
 # decode output tokens into text
 output = tokenizer.batch_decode(output)
 
@@ -211,9 +211,7 @@ body = {
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -248,9 +246,7 @@ body = {
     "messages": [{"role": "user", "content": "What is the largest ocean on Earth?"}],
     "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -347,7 +343,7 @@ chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
 output = model.generate(**input_tokens, 
-                        max_new_tokens=100)
+                        max_new_tokens=100, temperature=0)
 # decode output tokens into text
 output = tokenizer.batch_decode(output)
 # print output
@@ -457,9 +453,7 @@ body = {
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -558,9 +552,7 @@ body = {
     "tools": tools,
     "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 # STEP 2: Execute call to the chat endpoint
@@ -656,7 +648,7 @@ chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
 output = model.generate(**input_tokens, 
-                        max_new_tokens=800)
+                        max_new_tokens=800, temperature=0)
 # decode output tokens into text
 output = tokenizer.batch_decode(output)
 # print output
@@ -731,9 +723,7 @@ body = {
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -797,9 +787,7 @@ body = {
     "chat_template_kwargs": {"documents": documents},
     "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 # note: chat_template_kwargs is an additional parameter
@@ -882,7 +870,7 @@ chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
 output = model.generate(**input_tokens, 
-                        max_new_tokens=50)
+                        max_new_tokens=50, temperature=0)
 # decode output tokens into text
 output = tokenizer.batch_decode(output)
 # print output
@@ -939,9 +927,7 @@ body = {
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -987,9 +973,7 @@ body = {
     "messages": chat,
     "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -1062,7 +1046,7 @@ chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=
 input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 # generate output tokens
 output = model.generate(**input_tokens, 
-                        max_new_tokens=200)
+                        max_new_tokens=200, temperature=0)
 # decode output tokens into text
 output = tokenizer.batch_decode(output)
 # print output
@@ -1119,9 +1103,7 @@ body = {
     "project_id": WX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
 }
 
 
@@ -1167,9 +1149,7 @@ body = {
     "messages": chat,
     "model_id": "ibm-granite/granite-4.0-h-small",
     "max_completion_tokens": 2000,
-    "temperature": 0.7,
-    "top_p": 0.95,
-    "top_k": 20,
+    "temperature": 0,
     "response_format": {"type": "json_object"},
 }
 
