@@ -25,6 +25,7 @@
             "group": "Models",
             "pages": [
               "granite/docs/models/granite",
+              "granite/docs/models/docling",
               "granite/docs/models/vision",
               "granite/docs/models/speech",
               "granite/docs/models/guardian",
