@@ -10,7 +10,7 @@ icon: "eye"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-vision-3.3-2b"
   >
-    View the full model card on Hugging Face
+    View the latest Granite Vision model card on Hugging Face
   </Card>
   <Card
     title="Run locally with Ollama"
@@ -23,33 +23,32 @@ icon: "eye"
 
 <CardGroup cols={2}>
   <Card
-    title="Fine-tune Granite Vision"
-    icon="code"
-    href="https://huggingface.co/learn/cookbook/en/fine_tuning_granite_vision_sft_trl"
+    title="Model card"
+    icon="arrow-right"
+    href="https://huggingface.co/ibm-granite/granite-vision-3.3-2b-embedding"
   >
-    granite-vision-3.2-2b - Fine-tune Granite Vision with the Transformer
-    Reinforcement Learning library (TRL).
+    View the latest Granite Vision Embedding model card on Hugging Face
   </Card>
   <Card
     title="Multimodal RAG"
     icon="robot"
     href="https://github.com/ibm-granite-community/granite-snack-cookbook/blob/main/recipes/RAG/Granite_Multimodal_RAG.ipynb"
   >
-    granite-vision-3.3-2b - Multimodal RAG recipe.
+    Try out this Granite x Docling Multimodal RAG recipe
   </Card>
 </CardGroup>
 
 ## Overview
 
-The Granite Vision models are designed for enterprise applications, specializing in visual document understanding. They are capable of performing a wide range of tasks, including extracting information from tables, charts, diagrams, sketches, and infographics, as well as general image analysis.
+The **Granite Vision** models are designed for enterprise applications, specializing in visual document understanding. They are capable of performing a wide range of tasks, including extracting information from tables, charts, diagrams, sketches, and infographics, as well as general image analysis.
 
-The family of models also includes Granite Vision Embedding, a novel multimodal embedding model for document retrieval. It enables queries on documents containing tables, charts, infographics, and complex layouts. By eliminating the need for text extraction, Vision Embedding simplifies and accelerates retrieval-augmented generation (RAG) pipelines.
+The family of vision models also includes **Granite Vision Embedding**, a novel multimodal embedding model for document retrieval. It enables queries on documents containing tables, charts, infographics, and complex layouts. By eliminating the need for text extraction, Vision Embedding simplifies and accelerates retrieval-augmented generation (RAG) pipelines.
 
-Despite its lightweight architecture, Granite Vision achieves strong performance on standard visual document understanding benchmarks and on the LiveXiv benchmark, which evaluates the model on a continuously updated set of new arXiv papers to prevent data leakage. Granite Vision is currently ranked 2nd on the [OCRBench Leaderboard](https://huggingface.co/spaces/echo840/ocrbench-leaderboard) (as of October 2nd, 2025). Similarly, Granite Vision Embedding achieves top ranks on visual document retrieval benchmarks, currently holding 5th place on the [ViDoRe 2 leaderboard](https://huggingface.co/spaces/vidore/vidore-leaderboard) (as of 10/2/2025).
+Despite its lightweight architecture, Granite Vision achieves strong performance on standard visual document understanding benchmarks and on the LiveXiv benchmark, which continuously evaluates the model on updated sets of arXiv papers to prevent data leakage. Granite Vision is currently ranked 2nd on the [OCRBench Leaderboard](https://huggingface.co/spaces/echo840/ocrbench-leaderboard) (as of 10/2/2025). Similarly, Granite Vision Embedding achieves top ranks on visual document retrieval benchmarks, currently holding 5th place on the [ViDoRe 2 leaderboard](https://huggingface.co/spaces/vidore/vidore-leaderboard) (as of 10/2/2025).
 
 Granite Vision and Vision Embedding are released under the Apache 2.0 license, making them freely available for both research and commercial purposes, with full transparency into their training data.
 
-Paper: [Granite Vision: a lightweight, open-source multimodal model for enterprise Intelligence](https://arxiv.org/abs/2502.09927). Please note that this paper describes Granite Vision 3.2. Granite Vision 3.3 shares most of the technical underpinnings with Granite 3.2, but with several enhancements in terms of new and improved vision encoder, many new high quality datasets for training, and several new experimental capabilities.
+[Granite Vision Paper](https://arxiv.org/abs/2502.09927): _Please note that the paper describes Granite Vision 3.2. However, Granite Vision 3.3 shares most of the technical underpinnings with Granite 3.2, but with several enhancements in terms of new and improved vision encoder, many new high quality datasets for training, and several new experimental capabilities._
 
 ### Model cards
 

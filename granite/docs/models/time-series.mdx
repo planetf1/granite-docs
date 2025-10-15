@@ -8,9 +8,9 @@ icon: "chart-line"
   <Card
     title="Model card"
     icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-timeseries-tspulse-r1"
+    href="https://huggingface.co/ibm-granite/granite-timeseries-flowstate-r1"
   >
-    View the full model card on Hugging Face
+    View the latest Time Series model card on Hugging Face
   </Card>
 </CardGroup>
 
@@ -22,15 +22,15 @@ million parameters and GPU-free inference. Despite their compact size, these
 models deliver strong performance across forecasting, classification, anomaly
 detection, imputation, and similarity search tasks.
 
-FlowState is a time-scale adjustable foundation model, designed to offer flexible and efficient forecasting across various temporal scales. By integrating a State Space Model (SSM) Encoder with a Functional Basis Decoder, FlowState transitions into a timescale-invariant coefficient space, enabling continuous forecasting adaptable to any sampling rate. This architecture allows for training at one timescale and inference at another, significantly enhancing the utility of training data across diverse temporal structures. FlowState delivers state-of-the-art accuracy in zero-shot forecasting tasks, holding the #3 spot on the [GIFT-Eval leaderboard](https://huggingface.co/spaces/Salesforce/GIFT-Eval) (as of 10/2/2025).
+**FlowState** is a time-scale adjustable foundation model, designed to offer flexible and efficient forecasting across various temporal scales. By integrating a State Space Model (SSM) Encoder with a Functional Basis Decoder, FlowState transitions into a timescale-invariant coefficient space, enabling continuous forecasting adaptable to any sampling rate. This architecture allows for training at one timescale and inference at another, significantly enhancing the utility of training data across diverse temporal structures. FlowState delivers state-of-the-art accuracy in zero-shot forecasting tasks, holding the #3 spot on the [GIFT-Eval leaderboard](https://huggingface.co/spaces/Salesforce/GIFT-Eval) (as of 10/2/2025).
 
-TTM models supports multivariate forecasting via both channel independence and
+**TTM** models supports multivariate forecasting via both channel independence and
 channel-mixing approaches. Decoder Channel-Mixing can be enabled during
 fine-tuning for capturing strong channel-correlation patterns across time-series
 variates, a critical capability lacking in other existing approaches. In
 addition, TTM also supports exogenous and categorical data infusion.
 
-TSPulse introduces a novel dual-space masked reconstruction that jointly learns
+**TSPulse** introduces a novel dual-space masked reconstruction that jointly learns
 from time and frequency domains, unifying complementary signals into a shared
 embedding space. A dual-embedding disentanglement mechanism separates
 fine-grained and semantic features, while task-relevant heads are prioritized
@@ -65,6 +65,8 @@ downstream tasks.
 </CardGroup>
 
 ### Try Granite Time Series
+
+Visit the individual model cards of each respective Granite Time Series model for code snippets on how to get started.
 
 <CardGroup cols={2}>
   <Card
