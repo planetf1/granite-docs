@@ -10,15 +10,15 @@ icon: "vector-square"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-embedding-30m-english"
   >
-    View the full model card on Hugging Face
+    View the latest Granite Embedding model card on Hugging Face
   </Card>
 </CardGroup>
 
 ## Overview
 
-The Granite Embedding model collection consists of embedding models to generate high-quality text embeddings and a reranker model to improve the relevance and quality of search results or recommendations. The embedding models output vector representations (aka embeddings) of textual inputs such as queries, passages, and documents to capture the semantic meaning of the input text. The primary use cases for these embeddings are in semantic search and retrieval-augmented generation (RAG) applications.
+The **Granite Embedding** model collection consists of embedding models to generate high-quality text embeddings and a reranker model to improve the relevance and quality of search results or recommendations. The embedding models output vector representations (aka embeddings) of textual inputs such as queries, passages, and documents to capture the semantic meaning of the input text. The primary use cases for these embeddings are in semantic search and retrieval-augmented generation (RAG) applications.
 
-The reranker model is optional, but useful to further improve the relevance and quality of search results or recommendations. After the initial retrieval of items based on their embeddings, the reranker refines the ranking by considering additional factors and more complex criteria.
+The **Granite Embedding Reranker** model is optional, but useful to further improve the relevance and quality of search results or recommendations. After the initial retrieval of items based on their embeddings, the reranker refines the ranking by considering additional factors and more complex criteria.
 
 Built on a foundation of carefully curated, permissibly licensed public datasets, the Granite Embedding models set a high standard for performance, achieving state-of-the-art results in their respective weight classes. See the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard) where Granite Embedding ranks in the top 10 amongst models of a similar size (as of 10/2/2025).
 
@@ -50,7 +50,7 @@ Granite Embedding models are released under the Apache 2.0 license, making them 
   </Card>
 </CardGroup>
 
-### Run locally with Ollama
+### Run the models locally with Ollama
 
 [Learn more](https://ollama.com/blog/ibm-granite) about Granite Embedding r1 models on Ollama.
 
@@ -75,7 +75,7 @@ Granite Embedding models are released under the Apache 2.0 license, making them 
 
 ### Granite Embedding with sentence transformers
 
-This is a simple example of how to use granite-embedding-30m-english model with sentence_transformers.
+This is a simple example of how to use granite-embedding-30m-english model with sentence transformers.
 
 First, install the sentence transformers library
 
@@ -189,8 +189,8 @@ pip install git+https://github.com/ibm-granite-community/utils \
 
 The below recipe, with granite-embedding-30m-english model, shows how to:
 
-- **Setup an database:** how to setup a local Milvus VectorDB, process the corpus to produce indexable documents, and ingest those documents using an embedding model.
-- **Retrieve relevant passages from the database:** how to use an embedding of the query to retrieve semantically similar passages.
+- **Database Setup:** How to setup a local Milvus VectorDB, process the corpus to produce indexable documents, and ingest those documents using an embedding model.
+- **Relevant Passage Retrieval from the Database:** How to use an embedding of the query to retrieve semantically similar passages.
 
 <CodeGroup>
 

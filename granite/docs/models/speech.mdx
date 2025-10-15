@@ -10,13 +10,13 @@ icon: "microphone"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-speech-3.3-8b"
   >
-    View the full model card on Hugging Face
+    View the latest Granite Speech model card on Hugging Face
   </Card>
 </CardGroup>
 
 ## Overview
 
-The Granite Speech models are designed for enterprise applications that involve processing speech inputs. In particular, the model is well-suited for English, French, Germain, Spanish, and Portuguese speech-to-text (STT) and speech translations to and from English for the same languages plus English-to-Japanese and English-to-Mandarin.
+The **Granite Speech** models are designed for enterprise applications that involve processing speech inputs. In particular, the model is well-suited for English, French, Germain, Spanish, and Portuguese speech-to-text (STT) and speech translations to and from English for the same languages, plus English-to-Japanese and English-to-Mandarin.
 
 It leverages a two-pass design for inference: the initial call will prompt the speech model to transcribe audio inputs and following calls will be made to its underlying language model base to process the transcribed text. This separation was a purposeful design choice, isolating transcription from downstream text processing to improve accuracy and flexibility. It proves effective as Granite Speech has continuously held the #2 and #3 spot on the [OpenASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard) (as of 10/2/2025).
 
