@@ -56,9 +56,15 @@ git push origin feature/add-new-page
 
 #### Open a pull request
 
-The response to your push request will tell you how to open a PR. Fill in the PR request with:
+The response to your push request will tell you how to open a PR.
+
+> Important Note: Make sure you open a PR to the branch named ```stage```, NOT ```main```.
+
+Fill in the PR request with:
    - Summary of your changes
    - Linked issues (create issues if there aren't any to match)
+
+
 
 #### Review process
 
