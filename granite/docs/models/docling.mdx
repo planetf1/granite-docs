@@ -1,16 +1,23 @@
 ---
 title: "Granite Docling"
-description: "Granite Docling is a multimodal Image-Text-to-Text model engineered for efficient document conversion."
+description: ""
 icon: "eye"
 ---
 
-<CardGroup cols={1}>
+<CardGroup cols={2}>
   <Card
-    title="Model card"
+    title="Model Collection"
     icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-docling-258M"
+    href="https://huggingface.co/collections/ibm-granite/granite-docling-682b8c766a565487bcb3ca00"
   >
-    View the full Granite Docling model card on Hugging Face
+    View the full Granite Docling collection on Hugging Face
+  </Card>
+  <Card
+    title="Demo"
+    icon="robot"
+    href="https://huggingface.co/spaces/ibm-granite/granite-docling-258M-WebGPU"
+  >
+    Try out the Granite Docling Demo on Hugging Face
   </Card>
 </CardGroup>
 
@@ -21,25 +28,6 @@ The **Granite Docling** model is designed for enterprise applications that invol
 A key feature is its use of DocTags, a purpose-built markup language that separates content from layout while faithfully preserving tables, code blocks, inline and block math, and document hierarchy. This design improves fidelity, minimizes errors in reading order and structure, and makes outputs well-suited for downstream tasks such as retrieval-augmented generation (RAG) and fine-tuning. While optimized for Latin-script documents, it also offers early support for Japanese, Chinese, and Arabic.
 
 Granite Docling is released under the Apache 2.0 license, ensuring it is freely available for both research and commercial use. It complements the open-source Docling library by providing an all-in-one, production-ready alternative for document conversion, with full transparency into its design and training.
-
-### Model cards
-
-<CardGroup cols={2}>
-  <Card
-    title="Granite Docling 258m"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-docling-258M"
-  >
-    View model on Hugging Face
-  </Card>
-  <Card
-    title="Granite Docling 258m mlx"
-    icon="arrow-right"
-    href="https://huggingface.co/ibm-granite/granite-docling-258M-mlx"
-  >
-    View model on Hugging Face
-  </Card>
-</CardGroup>
 
 ## Getting Started
 
