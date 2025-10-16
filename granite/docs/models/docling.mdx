@@ -10,13 +10,13 @@ icon: "eye"
     icon="arrow-right"
     href="https://huggingface.co/ibm-granite/granite-docling-258M"
   >
-    View the full model card on Hugging Face
+    View the full Granite Docling model card on Hugging Face
   </Card>
 </CardGroup>
 
 ## Overview
 
-The Granite Docling model is designed for enterprise applications that involve end-to-end document understanding and conversion. Unlike traditional pipelines that chain together OCR, layout analysis, and post-processing, Docling integrates vision and language into a single compact model (≈ 258M parameters), capable of parsing PDFs, slides, and scanned pages directly into structured, machine-readable formats.
+The **Granite Docling** model is designed for enterprise applications that involve end-to-end document understanding and conversion. Unlike traditional pipelines that chain together OCR, layout analysis, and post-processing, Docling integrates vision and language into a single compact model (≈ 258M parameters), capable of parsing PDFs, slides, and scanned pages directly into structured, machine-readable formats.
 
 A key feature is its use of DocTags, a purpose-built markup language that separates content from layout while faithfully preserving tables, code blocks, inline and block math, and document hierarchy. This design improves fidelity, minimizes errors in reading order and structure, and makes outputs well-suited for downstream tasks such as retrieval-augmented generation (RAG) and fine-tuning. While optimized for Latin-script documents, it also offers early support for Japanese, Chinese, and Arabic.
 
