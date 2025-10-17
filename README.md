@@ -6,7 +6,7 @@ Please follow this guide to contribute to the [Granite documentation site](https
 
 ### 💻 1. Clone repo and add content
 
-Our documentation is built with Markdown and MDX. You can embed components and interactive elements directly into your pages.
+The Granite documentation pages are built with Markdown and MDX. You can embed components and interactive elements directly into your pages.
 
 #### Clone the documentation repo
 
@@ -33,13 +33,23 @@ git checkout -b feature/add-new-page
 - To add a page: create a `.mdx` file in the right directory
 - To update a page: edit the existing `.mdx` file
 
-#### Use the api-mdx tool
-
-For API docs, we have created a tool that works with a Python library and automatically generates Markdown/MDX documentation directly from your codebase. Checkout the tool here: [api-mdx tool](https://github.ibm.com/research-design-tech-experiences/api-mdx)
-
 ---
 
-### ✅ 2. Submitting your changes
+### 📽️ 2. Preview your changes
+
+#### Install Mintlify CLI globally
+```bash
+npm install -g mint
+```
+
+### Run locally
+```bash
+mint dev
+```
+The site will be available at http://localhost:3000.
+
+
+### ✅ 3. Submit your changes
 
 #### Commit your work
 
@@ -75,6 +85,6 @@ Fill in the PR request with:
 
 #### Mintlify documentation guide
 
-Our documentation site is powered by [Mintlify](https://mintlify.com), which offers plenty of helpful tips and tricks for creating great docs.
+The Granite documentation site is powered by [Mintlify](https://mintlify.com), which offers plenty of helpful tips and tricks for creating great docs.
 Explore their resources here: [Mintlify Documentation guide](https://www.mintlify.com/docs)
 
