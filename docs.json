@@ -197,5 +197,10 @@
   },
   "search": {
     "prompt": "Search IBM Granite documentation..."
+  },
+  "seo": {
+    "metatags": {
+      "canonical": "https://www.ibm.com/granite/docs/models/granite"
   }
+}
 }
