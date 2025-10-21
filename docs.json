@@ -7,6 +7,9 @@
     "light": "#c5c5c5",
     "dark": "#000000"
   },
+  "icons": {
+    "library": "lucide"
+  },
   "fonts": {
     "heading": {
       "family": "IBM Plex Sans"
