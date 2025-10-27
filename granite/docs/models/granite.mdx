@@ -80,7 +80,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
       </td>
       <td>Hybrid, Mixture of Experts</td>
       <td>7B total / 1B activated</td>
-      <td>Designed for low latency and local applications, and as a building block to perform key tasks (like function calling) quickly within agentic workflows</td>
+      <td>Designed for low latency and local applications, particularly where the task has long prefill or other scenarios where a MoE model is desired</td>
     </tr>
 
     <tr>
@@ -108,15 +108,6 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
       <td>1.5B</td>
       <td>Ideal models for edge, on-device, and latency-sensitive use cases</td>
     </tr>
-
-    <tr>
-      <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-H-350M <img src="../images/granite-images/small.png" alt="Granite H 350M" width="11"/>
-      </td>
-      <td>Dense, Hybrid</td>
-      <td>350M</td>
-      <td>Ideal models for edge, on-device, and latency-sensitive use cases</td>
-    </tr>
     <tr>
       <td style={{ lineHeight: "1.2" }}>
         Granite-4.0-1B <img src="../images/granite-images/small.png" alt="Granite 1B Hybrid" width="16"/>
@@ -127,10 +118,18 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
     <tr>
       <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-350M <img src="../images/granite-images/small.png" alt="Granite H 350M" width="11"/>
+      </td>
+      <td>Dense, Hybrid</td>
+      <td>350M</td>
+      <td>Similar use cases as Granite-4.0-H-1B, but even smaller and cheaper to run</td>
+    </tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
         Granite-4.0-350M <img src="../images/granite-images/small.png" alt="Granite 350M Hybrid" width="11"/>
       </td>
       <td>Dense, Traditional</td>
-      <td>300M</td>
+      <td>350M</td>
       <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
     </tr>
 
