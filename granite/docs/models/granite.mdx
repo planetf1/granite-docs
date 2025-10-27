@@ -59,15 +59,15 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     <tr>
       <th style={{ width: "140px" }}>Model</th>
       <th style={{ width: "140px" }}>Architecture Type</th>
-      <th style={{ width: "180px" }}>Model Size</th>
+      <th style={{ width: "100px" }}>Model Size</th>
       <th>Intended Use</th>
     </tr>
   </thead>
   <tbody>
 
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite H Small" width="50"/> Granite-4.0-H-Small
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-Small <img src="../images/granite-images/small.png" alt="Granite H Small" width="50"/>
       </td>
       <td>Hybrid, Mixture of Experts</td>
       <td>32B total / 9B activated</td>
@@ -75,17 +75,17 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
 
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite H Tiny" width="30"/> Granite-4.0-H-Tiny
+      <td style={{ lineHeight: "1.2" }}>
+         Granite-4.0-H-Tiny <img src="../images/granite-images/small.png" alt="Granite H Tiny" width="30"/>
       </td>
       <td>Hybrid, Mixture of Experts</td>
       <td>7B total / 1B activated</td>
-      <td>Designed for low latency and local applications, and as a building block to perform key tasks (like function calling) quickly within agentic workflows</td>
+      <td>Designed for low latency and local applications, particularly where the task has long prefill or other scenarios where a MoE model is desired</td>
     </tr>
 
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite H Micro" width="20"/> Granite-4.0-H-Micro
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-Micro <img src="../images/granite-images/small.png" alt="Granite H Micro" width="20"/>
       </td>
       <td>Hybrid, Dense</td>
       <td>3B total</td>
@@ -93,45 +93,43 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
 
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite Micro" width="20"/> Granite-4.0-Micro
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-Micro <img src="../images/granite-images/small.png" alt="Granite Micro" width="20"/>
       </td>
       <td>Traditional, Dense</td>
       <td>3B total</td>
       <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
     </tr>
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite 1B Hybrid" width="16"/> Granite-4.0-1B
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-1B <img src="../images/granite-images/small.png" alt="Granite H 1B" width="16"/>
+      </td>
+      <td>Dense, Hybrid</td>
+      <td>1.5B</td>
+      <td>Ideal models for edge, on-device, and latency-sensitive use cases</td>
+    </tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-1B <img src="../images/granite-images/small.png" alt="Granite 1B Hybrid" width="16"/>
       </td>
       <td>Dense, Traditional</td>
-      <td>2B</td>
+      <td>1B</td>
       <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
     </tr>
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite H 1B" width="16"/> Granite-4.0-H-1B
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-350M <img src="../images/granite-images/small.png" alt="Granite H 350M" width="11"/>
       </td>
       <td>Dense, Hybrid</td>
-      <td>1B</td>
-      <td>Ideal models for edge, on-device, and latency-sensitive use cases</td>
+      <td>350M</td>
+      <td>Similar use cases as Granite-4.0-H-1B, but even smaller and cheaper to run</td>
     </tr>
-
     <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite H 350M" width="13"/> Granite-4.0-H-350M
-      </td>
-      <td>Dense, Hybrid</td>
-      <td>0.3B</td>
-      <td>Ideal models for edge, on-device, and latency-sensitive use cases</td>
-    </tr>
-
-    <tr>
-      <td style={{ verticalAlign: "middle", paddingTop: "2px", paddingBottom: "2px", lineHeight: "1.2" }}>
-        <img src="../images/granite-images/small.png" alt="Granite 350M Hybrid" width="13"/> Granite-4.0-350M
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-350M <img src="../images/granite-images/small.png" alt="Granite 350M Hybrid" width="11"/>
       </td>
       <td>Dense, Traditional</td>
-      <td>0.4B</td>
+      <td>350M</td>
       <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
     </tr>
 
