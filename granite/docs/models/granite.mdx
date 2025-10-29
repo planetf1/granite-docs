@@ -1,22 +1,39 @@
 ---
 title: "Granite 4.0"
+description: ""
 icon: "box"
 ---
 
 <CardGroup cols={2}>
-  <Card title="View model cards" icon="arrow-right" href="https://huggingface.co/collections/ibm-granite/granite-40-language-models-6811a18b820ef362d9e5a82c">
+  <Card
+    title="View model cards"
+    icon="arrow-right"
+    href="https://huggingface.co/collections/ibm-granite/granite-40-language-models-6811a18b820ef362d9e5a82c"
+  >
     View model details on Hugging Face
   </Card>
-  <Card title="Try our Granite agents" icon="cube" href="https://www.ibm.com/granite/playground/">
+  <Card
+    title="Try our Granite agents"
+    icon="cube"
+    href="https://www.ibm.com/granite/playground/"
+  >
     Leverage Granite to search the web and write research reports
   </Card>
 </CardGroup>
 
 <CardGroup cols={2}>
-  <Card title="Experiment with Granite locally" icon="download" href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac">
+  <Card
+    title="Experiment with Granite locally"
+    icon="download"
+    href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac"
+  >
     Download and run Granite locally with Ollama
   </Card>
-  <Card title="Get cooking with Granite!" icon="cube" href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks">
+  <Card
+    title="Get cooking with Granite!"
+    icon="cube"
+    href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks"
+  >
     Check out these recipes to start using Granite
   </Card>
 </CardGroup>
@@ -25,178 +42,100 @@ icon: "box"
 
 Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture-of-Experts (MoE) strategy in select models, delivering more than 70% lower memory requirements and 2x faster inference speeds compared to similar models, particularly in multi-session and long-context scenarios. The models deliver strong performance across benchmarks, with Granite 4.0 Small achieving industry-leading results in key agentic tasks like instruction following and function calling. These efficiencies make the models well-suited for a wide range of use cases like retrieval-augmented generation (RAG), multi-agent workflows, and edge deployments. Granite 4.0 is released under Apache 2.0, cryptographically signed for authenticity, and the first open model family certified under ISO 42001.
 
-<a href="https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models" style={{ color:"#0F62FE" }}>
-Granite 4.0 Release Blog
-
+<a
+  href="https://ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models"
+  style={{ color: "#0F62FE" }}
+>
+  Granite 4.0 Release Blog
 </a>
-
 <br />
-
-<a href="https://huggingface.co/blog/ibm-granite/granite-4-nano" style={{ color:"#0F62FE" }}>
-Granite 4.0 Nano Release Blog
-
+<a
+  href="https://huggingface.co/blog/ibm-granite/granite-4-nano"
+  style={{ color: "#0F62FE" }}
+>
+  Granite 4.0 Nano Release Blog
 </a>
-
-{/* TODO: replace '#' with the actual Nano blog URL when available */}
 
 <table>
-<thead>
-<tr>
-<th style={{ type:"mdxJsxAttributeValueExpression",value:"{ width: \"140px\" }",data:{estree:{type:"Program",start:2178,end:2196,body:[{type:"ExpressionStatement",expression:{type:"ObjectExpression",start:2178,end:2196,loc:{start:{line:63,column:17,offset:2178},end:{line:63,column:35,offset:2196}},properties:[{type:"Property",start:2180,end:2194,loc:{start:{line:63,column:19,offset:2180},end:{line:63,column:33,offset:2194}},method:false,shorthand:false,computed:false,key:{type:"Identifier",start:2180,end:2185,loc:{start:{line:63,column:19,offset:2180},end:{line:63,column:24,offset:2185}},name:"width",range:[2180,2185]},value:{type:"Literal",start:2187,end:2194,loc:{start:{line:63,column:26,offset:2187},end:{line:63,column:33,offset:2194}},value:"140px",raw:"\"140px\"",range:[2187,2194]},kind:"init",range:[2180,2194]}],range:[2178,2196]},start:2178,end:2196,loc:{start:{line:63,column:17,offset:2178},end:{line:63,column:35,offset:2196}},range:[2178,2196]}],sourceType:"module",comments:[],loc:{start:{line:63,column:17,offset:2178},end:{line:63,column:35,offset:2196}},range:[2178,2196]}} }}>
-Model</th>
+  <thead>
+    <tr>
+      <th style={{ width: "140px" }}>Model</th>
+      <th style={{ width: "140px" }}>Architecture Type</th>
+      <th style={{ width: "100px" }}>Model Size</th>
+      <th>Intended Use</th>
+    </tr>
+  </thead>
+  <tbody>
 
- <th style={{ type:"mdxJsxAttributeValueExpression",value:"{ width: \"140px\" }",data:{estree:{type:"Program",start:2226,end:2244,body:[{type:"ExpressionStatement",expression:{type:"ObjectExpression",start:2226,end:2244,loc:{start:{line:64,column:17,offset:2226},end:{line:64,column:35,offset:2244}},properties:[{type:"Property",start:2228,end:2242,loc:{start:{line:64,column:19,offset:2228},end:{line:64,column:33,offset:2242}},method:false,shorthand:false,computed:false,key:{type:"Identifier",start:2228,end:2233,loc:{start:{line:64,column:19,offset:2228},end:{line:64,column:24,offset:2233}},name:"width",range:[2228,2233]},value:{type:"Literal",start:2235,end:2242,loc:{start:{line:64,column:26,offset:2235},end:{line:64,column:33,offset:2242}},value:"140px",raw:"\"140px\"",range:[2235,2242]},kind:"init",range:[2228,2242]}],range:[2226,2244]},start:2226,end:2244,loc:{start:{line:64,column:17,offset:2226},end:{line:64,column:35,offset:2244}},range:[2226,2244]}],sourceType:"module",comments:[],loc:{start:{line:64,column:17,offset:2226},end:{line:64,column:35,offset:2244}},range:[2226,2244]}} }}>
-Architecture Type</th>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-Small <img src="../images/granite-images/small.png" alt="Granite H Small" width="50"/>
+      </td>
+      <td>Hybrid, Mixture of Experts</td>
+      <td>32B total / 9B activated</td>
+      <td>Workhorse model for key enterprise tasks like RAG and agents</td>
+    </tr>
 
- <th style={{ type:"mdxJsxAttributeValueExpression",value:"{ width: \"100px\" }",data:{estree:{type:"Program",start:2286,end:2304,body:[{type:"ExpressionStatement",expression:{type:"ObjectExpression",start:2286,end:2304,loc:{start:{line:65,column:17,offset:2286},end:{line:65,column:35,offset:2304}},properties:[{type:"Property",start:2288,end:2302,loc:{start:{line:65,column:19,offset:2288},end:{line:65,column:33,offset:2302}},method:false,shorthand:false,computed:false,key:{type:"Identifier",start:2288,end:2293,loc:{start:{line:65,column:19,offset:2288},end:{line:65,column:24,offset:2293}},name:"width",range:[2288,2293]},value:{type:"Literal",start:2295,end:2302,loc:{start:{line:65,column:26,offset:2295},end:{line:65,column:33,offset:2302}},value:"100px",raw:"\"100px\"",range:[2295,2302]},kind:"init",range:[2288,2302]}],range:[2286,2304]},start:2286,end:2304,loc:{start:{line:65,column:17,offset:2286},end:{line:65,column:35,offset:2304}},range:[2286,2304]}],sourceType:"module",comments:[],loc:{start:{line:65,column:17,offset:2286},end:{line:65,column:35,offset:2304}},range:[2286,2304]}} }}>
-Model Size</th>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+         Granite-4.0-H-Tiny <img src="../images/granite-images/small.png" alt="Granite H Tiny" width="30"/>
+      </td>
+      <td>Hybrid, Mixture of Experts</td>
+      <td>7B total / 1B activated</td>
+      <td>Designed for low latency and local applications, particularly where the task has long prefill or other scenarios where a MoE model is desired</td>
+    </tr>
 
- <th>
-Intended Use</th>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-Micro <img src="../images/granite-images/small.png" alt="Granite H Micro" width="20"/>
+      </td>
+      <td>Hybrid, Dense</td>
+      <td>3B total</td>
+      <td>Designed for low latency and local applications, and as a building block to perform key tasks (like function calling) quickly within agentic workflows</td>
+    </tr>
 
-</tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-Micro <img src="../images/granite-images/small.png" alt="Granite Micro" width="20"/>
+      </td>
+      <td>Traditional, Dense</td>
+      <td>3B total</td>
+      <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
+    </tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-1B <img src="../images/granite-images/small.png" alt="Granite H 1B" width="16"/>
+      </td>
+      <td>Dense, Hybrid</td>
+      <td>1.5B</td>
+      <td>Ideal models for edge, on-device, and latency-sensitive use cases</td>
+    </tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-1B <img src="../images/granite-images/small.png" alt="Granite 1B Hybrid" width="16"/>
+      </td>
+      <td>Dense, Traditional</td>
+      <td>1B</td>
+      <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
+    </tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-H-350M <img src="../images/granite-images/small.png" alt="Granite H 350M" width="11"/>
+      </td>
+      <td>Dense, Hybrid</td>
+      <td>350M</td>
+      <td>Similar use cases as Granite-4.0-H-1B, but even smaller and cheaper to run</td>
+    </tr>
+    <tr>
+      <td style={{ lineHeight: "1.2" }}>
+        Granite-4.0-350M <img src="../images/granite-images/small.png" alt="Granite 350M Hybrid" width="11"/>
+      </td>
+      <td>Dense, Traditional</td>
+      <td>350M</td>
+      <td>Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
+    </tr>
 
-</thead>
-
-<tbody>
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-H-Small <img src="../images/granite-images/small.png" alt="Granite H Small" width="50" />
-
-</td>
-
-<td>
-Hybrid, Mixture of Experts</td>
-
- <td>
-32B total / 9B activated</td>
-
- <td>
-Workhorse model for key enterprise tasks like RAG and agents</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-H-Tiny <img src="../images/granite-images/small.png" alt="Granite H Tiny" width="30" />
-
-</td>
-
-<td>
-Hybrid, Mixture of Experts</td>
-
- <td>
-7B total / 1B activated</td>
-
- <td>
-Designed for low latency and local applications, particularly where the task has long prefill or other scenarios where a MoE model is desired</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-H-Micro <img src="../images/granite-images/small.png" alt="Granite H Micro" width="20" />
-
-</td>
-
-<td>
-Hybrid, Dense</td>
-
- <td>
-3B total</td>
-
- <td>
-Designed for low latency and local applications, and as a building block to perform key tasks (like function calling) quickly within agentic workflows</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-Micro <img src="../images/granite-images/small.png" alt="Granite Micro" width="20" />
-
-</td>
-
-<td>
-Traditional, Dense</td>
-
- <td>
-3B total</td>
-
- <td>
-Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-H-1B <img src="../images/granite-images/small.png" alt="Granite H 1B" width="16" />
-
-</td>
-
-<td>
-Dense, Hybrid</td>
-
- <td>
-1.5B</td>
-
- <td>
-Ideal models for edge, on-device, and latency-sensitive use cases</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-1B <img src="../images/granite-images/small.png" alt="Granite 1B Hybrid" width="16" />
-
-</td>
-
-<td>
-Dense, Traditional</td>
-
- <td>
-1B</td>
-
- <td>
-Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-H-350M <img src="../images/granite-images/small.png" alt="Granite H 350M" width="11" />
-
-</td>
-
-<td>
-Dense, Hybrid</td>
-
- <td>
-350M</td>
-
- <td>
-Similar use cases as Granite-4.0-H-1B, but even smaller and cheaper to run</td>
-
-</tr>
-
-<tr>
-<td style={{ lineHeight:"1.2" }}>
-Granite-4.0-350M <img src="../images/granite-images/small.png" alt="Granite 350M Hybrid" width="11" />
-
-</td>
-
-<td>
-Dense, Traditional</td>
-
- <td>
-350M</td>
-
- <td>
-Alternative option for users when Mamba2 support is not yet optimized (e.g. llama.cpp, PEFT, etc)</td>
-
-</tr>
-
-</tbody>
-
+  </tbody>
 </table>
 
 ## Inference Examples
@@ -204,7 +143,6 @@ Alternative option for users when Mamba2 support is not yet optimized (e.g. llam
 ### Basic Inference
 
 <CodeGroup>
-
 ```python transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -240,8 +178,8 @@ max_new_tokens=150, temperature=0)
 output = tokenizer.batch_decode(output)
 
 print(output[0])
-```
 
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -295,8 +233,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -333,7 +270,6 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-
 ```text Chat Template
 <|start_of_role|>user<|end_of_role|>What is the largest ocean on Earth?<|end_of_text|>
 <|start_of_role|>assistant<|end_of_role|>The largest ocean on Earth is the Pacific Ocean. It covers an area of about 63.8 million square miles (165.25 million square kilometers), which is more than twice the size of the second-largest ocean, the Atlantic Ocean. The Pacific Ocean lies between the Americas to the east and Asia and Australia to the west.<|end_of_text|>
@@ -342,13 +278,13 @@ print(json.dumps(data, indent=4))
 </CodeGroup>
 
 <Note>
-  The Granite 4 models work best with temperature set to 0 for most inferencing tasks.
+  The Granite 4 models work best with temperature set to 0 for most inferencing
+  tasks.
 </Note>
 
 ### Tool calling
 
 <CodeGroup>
-
 ```python Transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -436,8 +372,8 @@ output = tokenizer.batch_decode(output)
 # print output
 
 print(output[0])
-```
 
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -555,8 +491,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -656,7 +591,6 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-
 ```text Chat Template
 <|start_of_role|>system<|end_of_role|>You are a helpful assistant with access to the following tools. You may call one or more tools to assist with the user query.
 
@@ -696,7 +630,6 @@ Consider the following points to build promts for tool-calling tasks:
 ### RAG
 
 <CodeGroup>
-
 ```python Transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -754,8 +687,8 @@ output = tokenizer.batch_decode(output)
 # print output
 
 print(output[0])
-```
 
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -838,8 +771,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -909,7 +841,6 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-
 ```text Chat Template
 <|start_of_role|>system<|end_of_role|>You are a helpful assistant with access to the following documents. You may use one or more documents to assist with the user query.
 
@@ -944,7 +875,6 @@ Consider the following points to build promts for RAG tasks:
 ### FIM
 
 <CodeGroup>
-
 ```python Transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -990,8 +920,8 @@ output = tokenizer.batch_decode(output)
 # print output
 
 print(output[0])
-```
 
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -1056,8 +986,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -1105,7 +1034,6 @@ data = response.json()
 print(json.dumps(data, indent=4))
 ```
 
-
 ```text Chat Template
 <|start_of_role|>user<|end_of_role|><|fim_prefix|>
 def fibonacci(n):
@@ -1135,7 +1063,6 @@ Consider the following points to build prompts for FIM coding tasks:
 ### JSON output
 
 <CodeGroup>
-
 ```python Transformers
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -1179,8 +1106,8 @@ output = tokenizer.batch_decode(output)
 # print output
 
 print(output[0])
-```
 
+````
 
 ```python watsonx.ai
 ### This snippet assumes watsonx.ai access.
@@ -1245,8 +1172,7 @@ if response.status_code != 200:
 data = response.json()
 
 print(json.dumps(data, indent=4))
-```
-
+````
 
 ```python OpenAI API
 ### This snippet assumes access to an OpenAI compatible endpoint
@@ -1293,7 +1219,6 @@ data = response.json()
 
 print(json.dumps(data, indent=4))
 ```
-
 
 ```text Chat Template
 <|start_of_role|>system<|end_of_role|>You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:
