@@ -184,6 +184,27 @@
         ]
       },
       {
+        "header": "IBM Support & Legal",
+        "items": [
+          {
+            "label": "Contact IBM",
+            "href": "https://www.ibm.com/contact/global"
+          },
+          {
+            "label": "Terms of use",
+            "href": "https://www.ibm.com/legal?lnk=flg-tous-usen"
+          },
+          {
+            "label": "Privacy",
+            "href": "https://www.ibm.com/us-en/privacy"
+          },
+          {
+            "label": "Accessibility",
+            "href": "https://www.ibm.com/able/?lnk=flg-acce-usen"
+          }
+        ]
+      },
+      {
         "header": "More",
         "items": [
           {
