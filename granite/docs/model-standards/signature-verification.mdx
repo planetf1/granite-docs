@@ -3,13 +3,11 @@ title: Signature Verification
 description: Instructions for verifying model signatures.
 ---
 
-# Signature Verification
-
 Model signing is an experimental feature with ongoing development, which might include breaking changes. We are releasing these capabilities to improve the integrity of our models for our security-conscious users and to facilitate feedback from the community.
 
 ---
 
-## Before trying to verify the signature
+## Getting started
 
 Before trying to verify the signature, ensure that the tensor files have been downloaded with git-lfs and that no files have been added, removed, or modified in your local git checkout:
 
@@ -19,10 +17,6 @@ git lfs pull
 git lfs checkout
 ```
 
----
-
-## Install the model_signing library
-
 Install the model_signing (v1.0.1) library with the following command:
 
 ```bash
@@ -31,7 +25,7 @@ pip install 'model-signing==v1.1.1'
 
 ---
 
-## Verify the signature
+## Signature verification
 
 Then verify the signature with the following command ensuring that the IBM identity 'granite.preview@ibm.com' was used for signing this model:
 
