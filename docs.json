@@ -11,11 +11,17 @@
     "library": "lucide"
   },
   "fonts": {
-    "heading": {
-      "family": "IBM Plex Sans"
-    },
     "body": {
-      "family": "IBM Plex Sans"
+      "family": "IBM Plex Sans",
+      "source": "/fonts/IBMPlexSans-Regular.woff2",
+      "format": "woff2",
+      "weight": 400
+    },
+    "heading": {
+      "family": "IBM Plex Sans",
+      "source": "/fonts/IBMPlexSans-Bold.woff2",
+      "format": "woff2",
+      "weight": 700
     }
   },
   "favicon": "/granite/docs/images/granite-pictogram.svg",
