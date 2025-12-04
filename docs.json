@@ -60,6 +60,13 @@
             ]
           },
           {
+            "group": "Model Standards",
+            "pages": [
+            "granite/docs/model-standards/naming-guidance",
+            "granite/docs/model-standards/signature-verification"
+            ]
+          },
+          {
             "group": "Responsible AI",
             "pages": [
             "granite/docs/responsible-ai/index"
