@@ -13,7 +13,7 @@ In this guide, we'll use [Ollama](https://ollama.com/), an open-source tool that
 
 ## 1. Download Ollama
 
-You can download the installer directly from [Ollama](https://ollama.com/download/windows).  
+You can download the installer directly from [Ollama](https://ollama.com/download/windows).
 Alternatively, use PowerShell to download and run the installer:
 
 ```powershell
@@ -58,7 +58,7 @@ If you want to use a different variant, replace the model name (e.g., `granite4`
 ## 5. Notes on Context Length
 
 <Note>
-By default, Ollama runs models with a short context length to save memory.  
+By default, Ollama runs models with a short context length to save memory.
 For longer conversations, you can adjust it by setting:
 
 ```
@@ -79,5 +79,22 @@ curl -X POST http://localhost:11434/v1/chat/completions `
   -d '{
         "model": "granite4",
         "messages": [{"role": "user", "content": "How are you today?"}]
+      }'
+```
+
+---
+
+## 7. Adding documents
+
+You can add documents to your context using the special `"document <title>"` role:
+
+```bash
+curl -X POST http://localhost:11434/v1/chat/completions   -H "Content-Type: application/json"   -d '{
+        "model": "granite4",
+        "messages": [
+          {"role": "document me.txt", "content": "I live in Denver"},
+          {"role": "document weather.txt", "content": "It is currently snowing in Denver and sunny in Austin."},
+          {"role": "user", "content": "What is the weather like outside my house?"}
+        ]
       }'
 ```
