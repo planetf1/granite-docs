@@ -102,12 +102,6 @@
             ]
           },
           {
-            "group": "Granite Speech Cookbook",
-            "pages": [
-              "granite/docs/use-cases/voice-assistant"
-            ]
-          },
-          {
             "group": "Granite Guardian Cookbook",
             "pages": [
               "granite/docs/use-cases/risk-detection",
