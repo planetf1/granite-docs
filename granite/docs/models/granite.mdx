@@ -15,7 +15,7 @@ icon: "box"
   <Card
     title="Try our Granite agents"
     icon="bot"
-    href="https://www.ibm.com/granite/playground/"
+    href="/granite/playground/"
   >
     Leverage Granite to search the web and write research reports
   </Card>
@@ -25,14 +25,14 @@ icon: "box"
   <Card
     title="Experiment with Granite locally"
     icon="download"
-    href="https://www.ibm.com/granite/docs/run/granite-with-ollama-mac"
+    href="/granite/docs/run/granite-with-ollama-mac"
   >
     Download and run Granite locally with Ollama
   </Card>
   <Card
     title="Get cooking with Granite!"
     icon="file-code"
-    href="https://www.ibm.com/granite/docs/use-cases/all-cookbooks"
+    href="/granite/docs/use-cases/all-cookbooks"
   >
     Check out these recipes to start using Granite
   </Card>
@@ -170,7 +170,7 @@ input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 
 # generate output tokens
 
-output = model.generate(\*\*input_tokens,
+output = model.generate(**input_tokens,
 max_new_tokens=150, temperature=0)
 
 # decode output tokens into text
@@ -189,14 +189,14 @@ print(output[0])
 import requests
 import json
 
-WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
-WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+WATSONX_APIKEY = "WATSONX_APIKEY"  # Replace with your watsonx.ai API key
+WATSONX_PROJECT_ID = "WATSONX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-# STEP 1: Retrieve bearer token using WX_API_KEY
+# STEP 1: Retrieve bearer token using WATSONX_APIKEY
 token_url = "https://iam.cloud.ibm.com/oidc/token"
 token_data = {
     "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
-    "apikey": WX_API_KEY,
+    "apikey": WATSONX_APIKEY,
 }
 token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -217,7 +217,7 @@ headers = {
 
 body = {
     "messages": [{"role": "user", "content": "What is the largest ocean on Earth?"}],
-    "project_id": WX_PROJECT_ID,
+    "project_id": WATSONX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0,
@@ -362,7 +362,7 @@ input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 
 # generate output tokens
 
-output = model.generate(\*\*input_tokens,
+output = model.generate(**input_tokens,
 max_new_tokens=100, temperature=0)
 
 # decode output tokens into text
@@ -383,14 +383,14 @@ print(output[0])
 import requests
 import json
 
-WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
-WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+WATSONX_APIKEY = "WATSONX_APIKEY"  # Replace with your watsonx.ai API key
+WATSONX_PROJECT_ID = "WATSONX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-# STEP 1: Retrieve bearer token using WX_API_KEY
+# STEP 1: Retrieve bearer token using WATSONX_APIKEY
 token_url = "https://iam.cloud.ibm.com/oidc/token"
 token_data = {
     "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
-    "apikey": WX_API_KEY,
+    "apikey": WATSONX_APIKEY,
 }
 token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -475,7 +475,7 @@ tools = [
 body = {
     "messages": chat,
     "tools": tools,
-    "project_id": WX_PROJECT_ID,
+    "project_id": WATSONX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0,
@@ -620,12 +620,12 @@ New York is sunny with a temperature of 30°C.
 
 </CodeGroup>
 
-Consider the following points to build promts for tool-calling tasks:
+Consider the following points to build prompts for tool-calling tasks:
 
-- When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See the _Chat Template Design_ section for more information about system prompt design in tool-calling scenarios.
+- When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for more information about system prompt design in tool-calling scenarios.
 - Please follow OpenAI's function [definition schema](https://platform.openai.com/docs/guides/function-calling?api-mode=responses#defining-functions) to define tools.
-- Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to the _Chat Template Design_ section for examples.
-- The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please, refer to the _Chat Template Design_ section for examples.
+- Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for examples.
+- The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for examples.
 
 ### RAG
 
@@ -658,7 +658,7 @@ documents=[
 {
 "doc_id": 2,
 "title": "Bridget Jones's Baby (2016)",
-"text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+"text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfillment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
 "source": ""
 },
 {
@@ -669,7 +669,7 @@ documents=[
 },
 ]
 
-chat = tokenizer.apply_chat_template(chat,tokenize=False, add_generation_prompt=True, documents=documents)
+chat = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True, documents=documents)
 
 # tokenize the text
 
@@ -677,7 +677,7 @@ input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 
 # generate output tokens
 
-output = model.generate(\*\*input_tokens,
+output = model.generate(**input_tokens,
 max_new_tokens=800, temperature=0)
 
 # decode output tokens into text
@@ -698,14 +698,14 @@ print(output[0])
 import requests
 import json
 
-WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
-WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+WATSONX_APIKEY = "WATSONX_APIKEY"  # Replace with your watsonx.ai API key
+WATSONX_PROJECT_ID = "WATSONX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-# STEP 1: Retrieve bearer token using WX_API_KEY
+# STEP 1: Retrieve bearer token using WATSONX_APIKEY
 token_url = "https://iam.cloud.ibm.com/oidc/token"
 token_data = {
     "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
-    "apikey": WX_API_KEY,
+    "apikey": WATSONX_APIKEY,
 }
 token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -741,7 +741,7 @@ documents = [
     {
         "doc_id": "2",
         "title": "Bridget Jones's Baby (2016)",
-        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfillment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
         "source": "",
     },
     {
@@ -755,7 +755,7 @@ documents = [
 body = {
     "messages": chat,
     "chat_template_kwargs": {"documents": documents},
-    "project_id": WX_PROJECT_ID,
+    "project_id": WATSONX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0,
@@ -806,7 +806,7 @@ documents = [
     {
         "doc_id": "2",
         "title": "Bridget Jones's Baby (2016)",
-        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
+        "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfillment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.",
         "source": "",
     },
     {
@@ -847,7 +847,7 @@ print(json.dumps(data, indent=4))
 You are given a list of documents within <documents></documents> XML tags:
 <documents>
 {"doc_id": 1, "title": "Bridget Jones: The Edge of Reason (2004)", "text": "Bridget Jones: The Edge of Reason (2004) - Bridget is currently living a happy life with her lawyer boyfriend Mark Darcy, however not only does she start to become threatened and jealous of Mark's new young intern, she is angered by the fact Mark is a Conservative voter. With so many issues already at hand, things get worse for Bridget as her ex-lover, Daniel Cleaver, re-enters her life; the only help she has are her friends and her reliable diary.", "source": ""}
-{"doc_id": 2, "title": "Bridget Jones's Baby (2016)", "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfilment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.", "source": ""}
+{"doc_id": 2, "title": "Bridget Jones's Baby (2016)", "text": "Bridget Jones's Baby (2016) - Bridget Jones is struggling with her current state of life, including her break up with her love Mark Darcy. As she pushes forward and works hard to find fulfillment in her life seems to do wonders until she meets a dashing and handsome American named Jack Quant. Things from then on go great, until she discovers that she is pregnant but the biggest twist of all, she does not know if Mark or Jack is the father of her child.", "source": ""}
 {"doc_id": 3, "title": "Bridget Jones's Diary (2001)", "text": "Bridget Jones's Diary (2001) - Bridget Jones is a binge drinking and chain smoking thirty-something British woman trying to keep her love life in order while also dealing with her job as a publisher. When she attends a Christmas party with her parents, they try to set her up with their neighbours' son, Mark. After being snubbed by Mark, she starts to fall for her boss Daniel, a handsome man who begins to send her suggestive e-mails that leads to a dinner date. Daniel reveals that he and Mark attended college together, in that time Mark had an affair with his fiancée. Bridget decides to get a new job as a TV presenter after finding Daniel being frisky with a colleague. At a dinner party, she runs into Mark who expresses his affection for her, Daniel claims he wants Bridget back, the two fight over her and Bridget must make a decision who she wants to be with.", "source": ""}
 </documents>
 
@@ -858,9 +858,9 @@ Write the response to the user's input by strictly aligning with the facts in th
 
 </CodeGroup>
 
-Consider the following points to build promts for RAG tasks:
+Consider the following points to build prompts for RAG tasks:
 
-- The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please, refert to _Chat Template Design_ section for further details.
+- The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for further details.
 - Documents are provided to the model as a list of dictionaries, with each dictionary representing a document. We recommend formatting documents as follows:
 
 ```
@@ -880,8 +880,6 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda"
-
-# model_path = ""
 
 model_path = "ibm-granite/granite-4.0-micro"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
@@ -910,7 +908,7 @@ input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 
 # generate output tokens
 
-output = model.generate(\*\*input_tokens,
+output = model.generate(**input_tokens,
 max_new_tokens=50, temperature=0)
 
 # decode output tokens into text
@@ -931,14 +929,14 @@ print(output[0])
 import requests
 import json
 
-WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
-WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+WATSONX_APIKEY = "WATSONX_APIKEY"  # Replace with your watsonx.ai API key
+WATSONX_PROJECT_ID = "WATSONX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-# STEP 1: Retrieve bearer token using WX_API_KEY
+# STEP 1: Retrieve bearer token using WATSONX_APIKEY
 token_url = "https://iam.cloud.ibm.com/oidc/token"
 token_data = {
     "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
-    "apikey": WX_API_KEY,
+    "apikey": WATSONX_APIKEY,
 }
 token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -970,7 +968,7 @@ chat = [
 
 body = {
     "messages": chat,
-    "project_id": WX_PROJECT_ID,
+    "project_id": WATSONX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0,
@@ -1096,7 +1094,7 @@ input_tokens = tokenizer(chat, return_tensors="pt").to(device)
 
 # generate output tokens
 
-output = model.generate(\*\*input_tokens,
+output = model.generate(**input_tokens,
 max_new_tokens=200, temperature=0)
 
 # decode output tokens into text
@@ -1117,14 +1115,14 @@ print(output[0])
 import requests
 import json
 
-WX_API_KEY = "WX_API_KEY"  # Replace with your watsonx.ai API key
-WX_PROJECT_ID = "WX_PROJECT_ID"  # Replace with your watsonx.ai project id
+WATSONX_APIKEY = "WATSONX_APIKEY"  # Replace with your watsonx.ai API key
+WATSONX_PROJECT_ID = "WATSONX_PROJECT_ID"  # Replace with your watsonx.ai project id
 
-# STEP 1: Retrieve bearer token using WX_API_KEY
+# STEP 1: Retrieve bearer token using WATSONX_APIKEY
 token_url = "https://iam.cloud.ibm.com/oidc/token"
 token_data = {
     "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
-    "apikey": WX_API_KEY,
+    "apikey": WATSONX_APIKEY,
 }
 token_headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -1156,7 +1154,7 @@ chat = [
 
 body = {
     "messages": chat,
-    "project_id": WX_PROJECT_ID,
+    "project_id": WATSONX_PROJECT_ID,
     "model_id": "ibm/granite-4-h-small",
     "max_completion_tokens": 2000,
     "temperature": 0,
@@ -1238,5 +1236,5 @@ Prompt templates designed for basic inference tasks should remain compatible wit
 
 Some points to consider while migrating templates are:
 
-- The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to the _Chat Template Design_ section for more details.
+- The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for more details.
 - Controls for `length` and `originality` have been deprecated, they are no longer supported in this version.
