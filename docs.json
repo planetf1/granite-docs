@@ -89,7 +89,6 @@
             "pages": [
               "granite/docs/use-cases/prompt-engineering",
               "granite/docs/fine-tune/unsloth",
-              "granite/docs/fine-tune/granite",
               "granite/docs/use-cases/summarize",
               "granite/docs/use-cases/langchain-rag",
               "granite/docs/use-cases/contract-analysis",
@@ -100,12 +99,6 @@
             "group": "Granite Vision Cookbook",
             "pages": [
               "granite/docs/use-cases/multimodal-rag"
-            ]
-          },
-          {
-            "group": "Granite Speech Cookbook",
-            "pages": [
-              "granite/docs/use-cases/voice-assistant"
             ]
           },
           {
@@ -188,7 +181,7 @@
           },
           {
             "label": "Ollama",
-            "href": "https://ollama.com/library/granite3.3"
+            "href": "https://ollama.com/library/granite4"
           },
           {
             "label": "GitHub",

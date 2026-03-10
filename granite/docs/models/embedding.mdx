@@ -139,12 +139,11 @@ First, install LangChain dependencies
 <CodeGroup>
 
 ```python Python
-pip install git+https://github.com/ibm-granite-community/utils \
-#     "langchain_community<0.3.0" \
-#     langchain-huggingface \
-#     langchain-milvus \
-#     replicate \
-#     wget
+pip install langchain_huggingface sentence_transformers \
+    langchain_milvus 'pymilvus[milvus_lite]' \
+    langchain_community \
+    langchain_text_splitters \
+    wget
 ```
 
 </CodeGroup>
@@ -159,20 +158,24 @@ The below recipe, with granite-embedding-30m-english model, shows how to:
 ```python Python
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_milvus import Milvus
-from langchain.document_loaders import TextLoader
-from langchain.text_splitter import CharacterTextSplitter
-import uuid
-import os, wget
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import CharacterTextSplitter
+import os, tempfile, wget
 
-#load the embedding model
+# load the embedding model
 embeddings_model = HuggingFaceEmbeddings(model_name="ibm-granite/granite-embedding-30m-english")
 
-#setup the vectordb
-db_file = f"/tmp/milvus_{str(uuid.uuid4())[:8]}.db"
+# setup the vectordb
+db_file = tempfile.NamedTemporaryFile(prefix="milvus_", suffix=".db", delete=False).name
 print(f"The vector database will be saved to {db_file}")
-vector_db = Milvus(embedding_function=embeddings_model, connection_args={"uri": db_file}, auto_id=True)
+vector_db = Milvus(
+  embedding_function=embeddings_model,
+  connection_args={"uri": db_file},
+  auto_id=True,
+  index_params={"index_type": "AUTOINDEX"},
+  )
 
-#load example corpus file
+# load example corpus file
 filename = 'state_of_the_union.txt'
 url = 'https://raw.github.com/IBM/watson-machine-learning-samples/master/cloud/data/foundation_models/state_of_the_union.txt'
 
@@ -181,13 +184,13 @@ if not os.path.isfile(filename):
 
 loader = TextLoader(filename)
 documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=0)
 texts = text_splitter.split_documents(documents)
 
-#add processed documents to the vectordb
+# add processed documents to the vectordb
 vector_db.add_documents(texts)
 
-#search the vectordb with the query
+# search the vectordb with the query
 query = "What did the president say about Ketanji Brown Jackson"
 docs = vector_db.similarity_search(query)
 print(docs[0].page_content)

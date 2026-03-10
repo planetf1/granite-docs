@@ -43,7 +43,7 @@ Ollama supports a range of [IBM Granite models](https://ollama.com/ibm). Larger 
 To download Granite 4:
 
 ```sh
-ollama pull granite4
+ollama pull ibm/granite4
 ```
 
 ---
@@ -53,10 +53,10 @@ ollama pull granite4
 To start chatting with Granite:
 
 ```sh
-ollama run granite4
+ollama run ibm/granite4
 ```
 
-If you want to use a different variant, replace the model name (e.g., `granite4`).
+If you want to use a different variant, replace the model name (e.g., `ibm/granite4`).
 
 ---
 
@@ -70,7 +70,7 @@ For longer conversations, you can adjust it by setting:
 /set parameter num_ctx <desired_context_length>
 ```
 
-The largest supported context for Granite 4.0 models is `128K`.
+The largest supported context for Granite 4.0 models is `131072` (128k).
 
 </Note>
 
@@ -82,7 +82,7 @@ You can also interact with Granite programmatically using Ollama’s OpenAI-comp
 
 ```sh
 curl -X POST http://localhost:11434/v1/chat/completions   -H "Content-Type: application/json"   -d '{
-        "model": "granite4",
+        "model": "ibm/granite4",
         "messages": [{"role": "user", "content": "How are you today?"}]
       }'
 ```
@@ -95,7 +95,7 @@ You can add documents to your context using the special `"document <title>"` rol
 
 ```bash
 curl -X POST http://localhost:11434/v1/chat/completions   -H "Content-Type: application/json"   -d '{
-        "model": "granite4",
+        "model": "ibm/granite4",
         "messages": [
           {"role": "document me.txt", "content": "I live in Denver"},
           {"role": "document weather.txt", "content": "It is currently snowing in Denver and sunny in Austin."},

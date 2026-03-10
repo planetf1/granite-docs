@@ -28,7 +28,7 @@ The elements of this chat template serve the following purpose:
   - `assistant` role identifies model generations.
   - `system` role identifies system messages. This role, in particular, encompasses several design decisions, which we discuss in detail below.
 
-    - Granite 4.0 models chat template does not specify a default system prompt; however, users may optionally define one. This is an example of a user-defined system prompt:
+    - Granite 4.0 models chat template do specify a default system prompt; however, users may define a different one. This is an example of a user-defined system prompt:
 
     ```
     <|start_of_role|>system<|end_of_role|>You are a weather assistant that responds with relevant function calls instead of natural language.<|end_of_text|>
@@ -40,7 +40,7 @@ The elements of this chat template serve the following purpose:
     <|start_of_role|>system<|end_of_role|>You are a senior software engineer assistant. Your task is to help users write, debug, and optimize code in Python, C++, and JavaScript.<|end_of_text|>
     <|start_of_role|>user<|end_of_role|>How do you create a list in Python?<|end_of_text|>
     <|start_of_role|>assistant<|end_of_role|>my_list = [1, 2, 3, 4, 5]<|end_of_text|>
-    <|start_of_role|>system<|end_of_role|>You have also recently learn TypeScript programming language.<|end_of_text|>
+    <|start_of_role|>system<|end_of_role|>You have also recently learned TypeScript programming language.<|end_of_text|>
     <|start_of_role|>user<|end_of_role|>Please give me the same code in TypeScript<|end_of_text|>
     <|start_of_role|>assistant<|end_of_role|>let myList: number[] = [1, 2, 3, 4, 5]<|end_of_text|>
     ```
@@ -132,7 +132,7 @@ The elements of this chat template serve the following purpose:
 
 <Note>
     * Granite 4.0 models chat template uses reverse iteration over messages to identify the last user query index.
-    * All outputs should be terminated with `<|end_of_text|>` to clearly segment messages. 
+    * All outputs should be terminated with `<|end_of_text|>` to clearly segment messages.
 </Note>
 
 ### Basic chat template example
