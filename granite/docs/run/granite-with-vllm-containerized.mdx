@@ -23,7 +23,7 @@ In this guide, we'll use [vLLM](https://docs.vllm.ai/en/latest/) running inside 
 docker pull vllm/vllm-openai:latest
 ```
 
-_(For stability, you may pin a version tag, e.g., `vllm/vllm-openai:v0.10.2`. Granite models require `vllm` version 0.10.2 and above.)_
+_(For stability, you may pin a version tag, e.g., `vllm/vllm-openai:v0.18.0`. Granite models require `vllm` version 0.18.0 and above.)_
 
 ---
 
@@ -39,7 +39,7 @@ docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/
 You can pre-download the model into `~/.cache/huggingface` using:
 
 ```sh
-huggingface-cli download ibm-granite/granite-4.0-h-small
+hf download ibm-granite/granite-4.0-h-small
 ```
 
 If not pre-downloaded, the model will be fetched automatically when vLLM starts and cached in the mounted directory.
@@ -61,14 +61,14 @@ curl -X POST http://localhost:8000/v1/chat/completions   -H "Content-Type: appli
 
 ## 4. Enabling tool calling and other extended capabilities
 
-To run vllm with the Granite 4.0 models and enabling capabilities such as tool calling, use the additional parameters `--tool-call-parser hermes` and `--enable-auto-tool-choice`. Refer to the vLLM documentation [here](https://docs.vllm.ai/en/v0.10.2/features/tool_calling.html) for more details on these and other parameters.
+To run vLLM with the Granite 4.0 models and enabling capabilities such as tool calling, use the additional parameters `--tool-call-parser granite4` and `--enable-auto-tool-choice`. Refer to the vLLM documentation [here](https://docs.vllm.ai/en/stable/features/tool_calling/#ibm-granite) for more details on these and other parameters.
 
 Now run the container with the added parameters:
 
 ```sh
-docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-4.0-h-small --tool-call-parser hermes --enable-auto-tool-choice
+docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-4.0-h-small --tool-call-parser granite4 --enable-auto-tool-choice
 ```
 
 Once the container is up, you can start running requests using the OpenAI API. Refer to the documentation on OpenAI API [tool calling](/granite/docs/models/granite#tool-calling) for examples.
 
-To run vllm with the Granite 3 models and tool calling, use the additional parameters specified in the vLLM documentation [here](https://docs.vllm.ai/en/v0.10.2/features/tool_calling.html?h=#ibm-granite) as part of the `docker run` command share in Section 2.
+To run vLLM with the Granite 3 models and tool calling, use the additional parameters specified in the vLLM documentation [here](https://docs.vllm.ai/en/stable/features/tool_calling/#ibm-granite) as part of the `docker run` command share in Section 2.

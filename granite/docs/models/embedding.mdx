@@ -187,18 +187,11 @@ Pre-converted ONNX and OpenVINO models are released alongside the PyTorch weight
 <CodeGroup>
 
 ```python Python
-from optimum.onnxruntime import ORTModelForFeatureExtraction
-from transformers import AutoTokenizer
-
-model = ORTModelForFeatureExtraction.from_pretrained(
-    "ibm-granite/granite-embedding-311m-multilingual-r2",
-    subfolder="onnx"    # or "openvino" for OpenVINO format
-)
-tokenizer = AutoTokenizer.from_pretrained("ibm-granite/granite-embedding-311m-multilingual-r2")
-
-inputs = tokenizer("example text", return_tensors="pt")
-outputs = model(**inputs)
-embeddings = outputs.last_hidden_state[:, 0]  # CLS pooling
+pip install langchain_huggingface sentence_transformers \
+    langchain_milvus 'pymilvus[milvus_lite]' \
+    langchain_community \
+    langchain_text_splitters \
+    wget
 ```
 
 </CodeGroup>
@@ -211,29 +204,45 @@ The model can be served as an embedding endpoint using vLLM:
 
 <CodeGroup>
 
-```bash Serve
-vllm serve ibm-granite/granite-embedding-311m-multilingual-r2 --task embed
-```
+```python Python
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_milvus import Milvus
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import CharacterTextSplitter
+import os, tempfile, wget
 
-</CodeGroup>
+# load the embedding model
+embeddings_model = HuggingFaceEmbeddings(model_name="ibm-granite/granite-embedding-30m-english")
 
-#### Ollama
+# setup the vectordb
+db_file = tempfile.NamedTemporaryFile(prefix="milvus_", suffix=".db", delete=False).name
+print(f"The vector database will be saved to {db_file}")
+vector_db = Milvus(
+  embedding_function=embeddings_model,
+  connection_args={"uri": db_file},
+  auto_id=True,
+  index_params={"index_type": "AUTOINDEX"},
+  )
 
-The model can be used with Ollama after converting to GGUF format. Users must perform the conversion themselves using tools from llama.cpp:
+# load example corpus file
+filename = 'state_of_the_union.txt'
+url = 'https://raw.github.com/IBM/watson-machine-learning-samples/master/cloud/data/foundation_models/state_of_the_union.txt'
 
-<CodeGroup>
+if not os.path.isfile(filename):
+  wget.download(url, out=filename)
 
-```bash Convert and Deploy
-# Step 1: Convert to GGUF (user-performed)
-python convert_hf_to_gguf.py ibm-granite/granite-embedding-311m-multilingual-r2 \
-    --outfile granite-embedding-311m-multilingual-r2.gguf
+loader = TextLoader(filename)
+documents = loader.load()
+text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
 
-# Step 2: Create a Modelfile
-echo 'FROM granite-embedding-311m-multilingual-r2.gguf' > Modelfile
+# add processed documents to the vectordb
+vector_db.add_documents(texts)
 
-# Step 3: Create and run in Ollama
-ollama create granite-embed-ml -f Modelfile
-ollama embed granite-embed-ml "example text"
+# search the vectordb with the query
+query = "What did the president say about Ketanji Brown Jackson"
+docs = vector_db.similarity_search(query)
+print(docs[0].page_content)
 ```
 
 </CodeGroup>

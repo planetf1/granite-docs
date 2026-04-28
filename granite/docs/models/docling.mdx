@@ -23,7 +23,7 @@ icon: "files"
 
 ## Overview
 
-The **Granite Docling** model is designed for enterprise applications that involve end-to-end document understanding and conversion. Unlike traditional pipelines that chain together OCR, layout analysis, and post-processing, Docling integrates vision and language into a single compact model (≈ 258M parameters), capable of parsing PDFs, slides, and scanned pages directly into structured, machine-readable formats.
+The **Granite Docling** model is designed for enterprise applications that involve end-to-end document understanding and conversion. Unlike traditional pipelines that chain together OCR, layout analysis, and post-processing, Docling integrates vision and language into a single compact model (~ 258M parameters), capable of parsing PDFs, slides, and scanned pages directly into structured, machine-readable formats.
 
 A key feature is its use of DocTags, a purpose-built markup language that separates content from layout while faithfully preserving tables, code blocks, inline and block math, and document hierarchy. This design improves fidelity, minimizes errors in reading order and structure, and makes outputs well-suited for downstream tasks such as retrieval-augmented generation (RAG) and fine-tuning. While optimized for Latin-script documents, it also offers early support for Japanese, Chinese, and Arabic.
 
@@ -102,7 +102,7 @@ print(doc.export_to_markdown())
 
 </CodeGroup>
 
-Alternatively, you can use bare transformers, vllm, onnx or mlx-vlm to perform inference, and docling-core APIs to convert results to variety of output formats (md, html, etc.).
+Alternatively, you can use bare transformers, vLLM, onnx or mlx-vlm to perform inference, and docling-core APIs to convert results to variety of output formats (md, html, etc.).
 
 Here's an example of single-page image inference using plain transformers.
 
@@ -180,7 +180,7 @@ print(f"Markdown:\n{doc.export_to_markdown()}\n")
 
 </CodeGroup>
 
-Here's an example of fast batch inference using VLLM:
+Here's an example of fast batch inference using vLLM:
 
 <CodeGroup>
 

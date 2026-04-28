@@ -6,15 +6,9 @@ icon: "cloud"
 
 ## IBM watsonx
 
-IBM [watsonx.ai](https://www.ibm.com/products/watsonx-ai) is an enterprise-grade
-AI studio that gives AI builders a complete developer toolkit of APIs, tools,
-models, and runtimes, to support the rapid adoption of AI use-cases, from data
-through deployment using pro-code and low-code tools. On watsonx.ai you can
-experience the new Granite dense models, as well as the guardian models in a
-secure, reliable environment for your use cases. Try watsonx.ai for free today.
+IBM [watsonx.ai](https://www.ibm.com/products/watsonx-ai) is an enterprise-grade AI studio that gives AI builders a complete developer toolkit of APIs, tools, models, and runtimes, to support the rapid adoption of AI use-cases, from data through deployment using pro-code and low-code tools. On watsonx.ai you can experience the new Granite dense models, as well as the guardian models in a secure, reliable environment for your use cases. Try watsonx.ai for free today.
 
-Supported models can be found
-[here](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-models.html?context=wx).
+Supported models can be found [here](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-models.html?context=wx).
 
 ## Azure AI Foundry
 
@@ -24,39 +18,23 @@ Supported models can be found [here](https://ai.azure.com/catalog/models).
 
 ## Ollama
 
-[Ollama](https://ollama.com/library) lets users run large language models
-directly on their devices, with flexible deployment options across cloud
-providers. IBM and Ollama are partnering to bring IBM's Granite models to users
-and organizations. Whether on x86 CPUs, GPUs from AMD, Intel, and Nvidia, ARM
-devices from Qualcomm, Apple M-series MacBooks, IBM Cloud, other major cloud
-platforms, or even a Raspberry Pi, Ollama makes Granite models accessible to the
-devices that users and organizations depend on.
+[Ollama](https://ollama.com/library) lets users run large language models directly on their devices, with flexible deployment options across cloud providers. IBM and Ollama are partnering to bring IBM's Granite models to users and organizations. Whether on x86 CPUs, GPUs from AMD, Intel, and Nvidia, ARM devices from Qualcomm, Apple M-series MacBooks, IBM Cloud, other major cloud platforms, or even a Raspberry Pi, Ollama makes Granite models accessible to the devices that users and organizations depend on.
 
-Supported models can be found [here](https://ollama.com/library/granite3.3).
+Supported models can be found [here](https://ollama.com/search).
 
 <Note>
-By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this in the API, add the following to the request body: "options": `{"num_ctx": <desired_context_length>}`. The largest `<desired_context_length>` supported by Granite 3.1 models is `131072` (128k).
+  By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this in the API, add the following to the request body: "options": `{"num_ctx": <desired_context_length>}`. The largest `<desired_context_length>` supported by Granite 4.0 models is `131072` (128k).
 </Note>
 
 ## Replicate
 
-[Replicate](https://replicate.com/explore) makes machine learning easy. With one
-line of code, you can run AI models for tasks like image generation, text
-processing, and audio creation.We host thousands of models and handle the
-infrastructure, so you can focus on building cool stuff. You pay only for the
-compute time you use.Our goal is simple: simplify machine learning so you can
-create cool stuff. We're making AI accessible to everyone.
+[Replicate](https://replicate.com) makes machine learning easy. With one line of code, you can run AI models for tasks like image generation, text processing, and audio creation.We host thousands of models and handle the infrastructure, so you can focus on building cool stuff. You pay only for the compute time you use.Our goal is simple: simplify machine learning so you can create cool stuff. We're making AI accessible to everyone.
 
-Supported models can be found [here](https://replicate.com/models).
+Supported models can be found [here](https://replicate.com/explore).
 
 ## LM Studio
 
-[LM Studio](https://lmstudio.ai) is a beginner-friendly desktop application for
-running Large Language Models (LLMs) and Embedding models locally on Mac,
-Windows, and Linux. It provides both a familiar chat interface and a built-in
-local server for using models programmatically in your code. The app features
-easy model browsing and downloading from Hugging Face, plus the ability to chat
-with PDF and Word documents.
+[LM Studio](https://lmstudio.ai) is a beginner-friendly desktop application for running Large Language Models (LLMs) and Embedding models locally on Mac, Windows, and Linux. It provides both a familiar chat interface and a built-in local server for using models programmatically in your code. The app features easy model browsing and downloading from Hugging Face, plus the ability to chat with PDF and Word documents.
 
 Supported models can be found [here](https://lmstudio.ai/models).
 
@@ -64,27 +42,21 @@ Supported models can be found [here](https://lmstudio.ai/models).
 
 [Docker Hub](https://hub.docker.com/) is the world’s largest container registry for storing, managing, and sharing images. You can pull IBM’s Granite models directly from Docker Hub and run them locally with Docker Model Runner with the same simplicity and portability that you can expect from running your Docker containers.
 
-Supported models can be found [here](https://hub.docker.com/) 
+Supported models can be found [here](https://hub.docker.com/)
 
 ## Qualcomm
 
-[Qualcomm AI Hub](https://aihub.qualcomm.com/) is a developer-centric platform
-designed to streamline on-device AI model development and deployment, empowering
-developers to test and validate model performance. It automates model
-compilation and inference, testing on real devices. The platform also provides a
-library of over 100 pre-optimized models for Qualcomm and Snapdragon platforms,
-ensuring superior performance, and reduced memory usage.
+[Qualcomm AI Hub](https://aihub.qualcomm.com/) is a developer-centric platform designed to streamline on-device AI model development and deployment, empowering developers to test and validate model performance. It automates model compilation and inference, testing on real devices. The platform also provides a library of over 100 pre-optimized models for Qualcomm and Snapdragon platforms, ensuring superior performance, and reduced memory usage.
 
-Supported models can be found
-[here](https://aihub.qualcomm.com/model-makers/ibm-watsonx).
+Supported models can be found [here](https://aihub.qualcomm.com/model-makers/ibm-watsonx).
 
 ## Dell
 
-[Dell Pro AI Studio (DPAIS)](https://www.dell.com/en-us/lp/dell-pro-ai-studio#Streamline-AI-development-for-innovators) is a complimentary toolkit available with the purchase of your Dell PC. Users can also experience the power of IBM’s Granite 4 models, now available on the [Dell Enterprise Hub](dell.huggingface.co) on Hugging Face. Seamlessly deploy cutting-edge AI with Dell’s validated infrastructure, unlocking long-context efficiency, memory optimization, and enterprise-grade innovation—all tailored to your business needs. Start building AI applications with IBM Granite models faster on Dell Enterprise Hub and enable your IT administrators to manage your AI more easily with DPAIS.
+[Dell Pro AI Studio (DPAIS)](https://www.dell.com/en-us/lp/dell-pro-ai-studio#Streamline-AI-development-for-innovators) is a complimentary toolkit available with the purchase of your Dell PC. Users can also experience the power of IBM’s Granite 4 models, now available on the [Dell Enterprise Hub](https://dell.huggingface.co) on Hugging Face. Seamlessly deploy cutting-edge AI with Dell’s validated infrastructure, unlocking long-context efficiency, memory optimization, and enterprise-grade innovation—all tailored to your business needs. Start building AI applications with IBM Granite models faster on Dell Enterprise Hub and enable your IT administrators to manage your AI more easily with DPAIS.
 
-Supported models can be found [here](dell.huggingface.co).
+Supported models can be found [here](https://dell.huggingface.co).
 
-## AWS 
+## AWS
 
 AWS customers can discover and subscribe to IBM Granite models from various deployment options depending on their preference. Access IBM Granite models from the Amazon Bedrock Marketplace and deploy on managed endpoints through the Amazon Bedrock console. Through AWS Marketplace, organizations can subscribe to and deploy IBM Granite models to Amazon SageMaker AI, maintaining control over their data and compute resources. Data scientists can also access IBM Granite models via Amazon SageMaker JumpStart for easy deployment within SageMaker Studio.
 
@@ -92,11 +64,12 @@ Supported models can be found [here](https://aws.amazon.com/bedrock/marketplace/
 
 ## NVIDIA NIM
 
-IBM has partnered with NVIDIA to offer the Granite models on
-[NVIDIA NIM](https://build.nvidia.com/explore/discover) - a set of easy-to-use
-microservices designed for secure, reliable deployment of high performance AI
-model inferencing across clouds, data centers and workstations. You can
-experience these models as NVIDIA-hosted APIs using free NVIDIA cloud credits
-from ai.nvidia.com.
+IBM has partnered with NVIDIA to offer the Granite models on [NVIDIA NIM](https://build.nvidia.com/explore/discover) - a set of easy-to-use microservices designed for secure, reliable deployment of high performance AI model inferencing across clouds, data centers and workstations. You can experience these models as NVIDIA-hosted APIs using free NVIDIA cloud credits from ai.nvidia.com.
 
 Supported models can be found [here](https://build.nvidia.com/explore/discover).
+
+## Nexa AI
+
+[NexaSDK](https://nexa.ai/) is an easy-to-use developer toolkit for running any AI model locally — across NPUs, GPUs, and CPUs — powered by our NexaML engine, built entirely from scratch for peak performance on every hardware stack. Unlike wrappers that depend on existing runtimes, NexaML is a unified inference engine built at the kernel level. It’s what lets NexaSDK achieve Day-0 support for new model architectures (LLMs, multimodal, audio, vision). NexaML supports 3 model formats: GGUF, MLX, and Nexa AI's own .nexa format.
+
+Supported models can be found [here](https://sdk.nexa.ai/model).
