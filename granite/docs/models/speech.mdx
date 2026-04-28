@@ -4,7 +4,7 @@ description: ""
 icon: "mic"
 ---
 
-<CardGroup cols={1}>
+<CardGroup cols={2}>
   <Card
     title="Model Collection"
     icon="arrow-right"
@@ -12,28 +12,61 @@ icon: "mic"
   >
     View the full Granite Speech collection on Hugging Face
   </Card>
+  <Card
+    title="Speech Demo"
+    icon="rocket"
+    href="https://huggingface.co/spaces/ibm-granite/granite-speech"
+  >
+    Try Granite Speech in action
+  </Card>
+  <Card
+    title="WebGPU Demo"
+    icon="zap"
+    href="https://huggingface.co/spaces/ibm-granite/granite-speech-webgpu"
+  >
+    Run Granite Speech in your browser
+  </Card>
+  <Card
+    title="Replicate"
+    icon="play"
+    href="https://replicate.com/ibm-granite/granite-speech-3.3-8b"
+  >
+    Deploy Granite Speech on Replicate
+  </Card>
 </CardGroup>
 
 ## Overview
 
-The **Granite Speech** models are designed for enterprise applications that involve processing speech inputs. In particular, the model is well-suited for English, French, Germain, Spanish, and Portuguese speech-to-text (STT) and speech translations to and from English for the same languages, plus English-to-Japanese and English-to-Mandarin.
+The **Granite Speech 4.1** model family provides compact and efficient speech-language models for multilingual automatic speech recognition (ASR) and automatic speech translation (AST), supporting English, French, German, Spanish, Portuguese, and Japanese. All models are trained on 174,000 hours of audio from public corpora and tailored synthetic datasets.
 
-It leverages a two-pass design for inference: the initial call will prompt the speech model to transcribe audio inputs and following calls will be made to its underlying language model base to process the transcribed text. This separation was a purposeful design choice, isolating transcription from downstream text processing to improve accuracy and flexibility. It proves effective as Granite Speech has continuously held the #2 and #3 spot on the [OpenASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard) (as of 10/2/2025).
+### Model Variants
+
+The Granite Speech 4.1 suite includes three specialized variants:
+
+- **[granite-speech-4.1-2b](https://huggingface.co/ibm-granite/granite-speech-4.1-2b)**: Balanced ASR and AST capabilities with improved punctuation and capitalization across all supported languages
+- **[granite-speech-4.1-2b-plus](https://huggingface.co/ibm-granite/granite-speech-4.1-2b-plus)**: Speech-to-text model with speaker-attributed ASR, timestamps, and keyword-prompted ASR for enhanced recognition of names, acronyms, and technical jargon
+- **[granite-speech-4.1-2b-nar](https://huggingface.co/ibm-granite/granite-speech-4.1-2b-nar)**: Non-autoregressive variant ([NLE architecture](https://arxiv.org/abs/2603.08397)) optimized for fast and accurate ASR with significantly lower latency
+
+### Performance
+
+Granite Speech 4.1 models deliver industry-leading performance on the [OpenASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard): **granite-speech-4.1-2b ranks #1** for accuracy, while **granite-speech-4.1-2b-nar places #3** with exceptional speed through its non-autoregressive architecture.
 
 Granite Speech is released under the Apache 2.0 license, making it freely available for both research and commercial purposes, with full transparency into its training data.
 
 [Granite Speech Paper](https://arxiv.org/abs/2505.08699)
 
-## Examples
+## Getting Started
 
-### Granite Speech with transformers
+Granite Speech model is supported natively in transformers>=4.52.1. Below is a simple example of how to use the granite-speech-4.1-2b model.
 
-This is a simple example of how to use granite-speech-3.3-8b model with transformers. First, make sure to build the latest version of transformers from source:
+### Usage with Transformers
+
+First, make sure to install a recent version of transformers:
 
 <CodeGroup>
 
-```python Python
-pip install https://github.com/huggingface/transformers/archive/main.zip torchaudio peft soundfile
+```bash Install
+pip install transformers torchaudio soundfile
 ```
 
 </CodeGroup>
@@ -45,71 +78,191 @@ Then run the code:
 ```python Python
 import torch
 import torchaudio
-from transformers import AutoProcessor, AutoModelForSpeechSeq2Seq
 from huggingface_hub import hf_hub_download
+from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-model_name = "ibm-granite/granite-speech-3.3-8b"
-speech_granite_processor = AutoProcessor.from_pretrained(
-    model_name)
-tokenizer = speech_granite_processor.tokenizer
-speech_granite = AutoModelForSpeechSeq2Seq.from_pretrained(
-    model_name).to(device)
+model_name = "ibm-granite/granite-speech-4.1-2b"
+processor = AutoProcessor.from_pretrained(model_name)
+tokenizer = processor.tokenizer
+model = AutoModelForSpeechSeq2Seq.from_pretrained(
+    model_name, device_map=device, torch_dtype=torch.bfloat16
+)
 
-# prepare speech and text prompt, using the appropriate prompt template
-
-audio_path = hf_hub_download(repo_id=model_name, filename='10226_10111_000000.wav')
+# Load audio
+audio_path = hf_hub_download(repo_id=model_name, filename="multilingual_sample.wav")
 wav, sr = torchaudio.load(audio_path, normalize=True)
-assert wav.shape[0] == 1 and sr == 16000 # mono, 16khz
+assert wav.shape[0] == 1 and sr == 16000  # mono, 16kHz
 
-# create text prompt
+# Create text prompt
+user_prompt = "<|audio|>transcribe the speech with proper punctuation and capitalization."
 chat = [
-    {
-        "role": "system",
-        "content": "Knowledge Cutoff Date: April 2024.\nToday's Date: April 9, 2024.\nYou are Granite, developed by IBM. You are a helpful AI assistant",
-    },
-    {
-        "role": "user",
-        "content": "<|audio|>can you transcribe the speech into a written format?",
-    }
+    {"role": "user", "content": user_prompt},
 ]
+prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
-text = tokenizer.apply_chat_template(
-    chat, tokenize=False, add_generation_prompt=True
+# Run the processor + model
+model_inputs = processor(prompt, wav, device=device, return_tensors="pt").to(device)
+model_outputs = model.generate(
+    **model_inputs, max_new_tokens=200, do_sample=False, num_beams=1
 )
 
-# compute audio embeddings
-model_inputs = speech_granite_processor(
-    text,
-    wav,
-    device=device, # Computation device; returned tensors are put on CPU
-    return_tensors="pt",
-).to(device)
-
-model_outputs = speech_granite.generate(
-    **model_inputs,
-    max_new_tokens=200,
-    num_beams=4,
-    do_sample=False,
-    min_length=1,
-    top_p=1.0,
-    repetition_penalty=3.0,
-    length_penalty=1.0,
-    temperature=1.0,
-    bos_token_id=tokenizer.bos_token_id,
-    eos_token_id=tokenizer.eos_token_id,
-    pad_token_id=tokenizer.pad_token_id,
-)
-
-# Transformers includes the input IDs in the response.
+# Transformers includes the input IDs in the response
 num_input_tokens = model_inputs["input_ids"].shape[-1]
-new_tokens = torch.unsqueeze(model_outputs[0, num_input_tokens:], dim=0)
-
+new_tokens = model_outputs[0, num_input_tokens:].unsqueeze(0)
 output_text = tokenizer.batch_decode(
     new_tokens, add_special_tokens=False, skip_special_tokens=True
 )
-print(f"STT output = {output_text[0].upper()}")
+print(f"STT output = {output_text[0]}")
+```
+
+</CodeGroup>
+
+### Usage with vLLM
+
+First, make sure to install vLLM:
+
+<CodeGroup>
+
+```bash Install
+pip install vllm
+```
+
+</CodeGroup>
+
+#### Offline mode
+
+<CodeGroup>
+
+```python Python
+from transformers import AutoTokenizer
+from vllm import LLM, SamplingParams
+from vllm.assets.audio import AudioAsset
+
+model_id = "ibm-granite/granite-speech-4.1-2b"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+def get_prompt(question: str, has_audio: bool):
+    """Build the input prompt to send to vLLM."""
+    if has_audio:
+        question = f"<|audio|>{question}"
+    chat = [
+        {
+            "role": "user",
+            "content": question
+        }
+    ]
+    return tokenizer.apply_chat_template(chat, tokenize=False)
+
+model = LLM(
+    model=model_id,
+    max_model_len=2048, # This may be needed for lower resource devices.
+    limit_mm_per_prompt={"audio": 1},
+)
+
+question = "can you transcribe the speech into a written format?"
+prompt_with_audio = get_prompt(
+    question=question,
+    has_audio=True,
+)
+audio = AudioAsset("mary_had_lamb").audio_and_sample_rate
+
+inputs = {
+    "prompt": prompt_with_audio,
+    "multi_modal_data": {
+        "audio": audio,
+    }
+}
+
+outputs = model.generate(
+    inputs,
+    sampling_params=SamplingParams(
+        temperature=0.2,
+        max_tokens=64,
+    ),
+)
+print(f"Audio Example - Question: {question}")
+print(f"Generated text: {outputs[0].outputs[0].text}")
+```
+
+</CodeGroup>
+
+#### Online mode
+
+First, launch the vLLM server:
+
+<CodeGroup>
+
+```bash Server
+vllm serve ibm-granite/granite-speech-4.1-2b \
+    --api-key token-abc123 \
+    --max-model-len 2048
+```
+
+</CodeGroup>
+
+Then, use the OpenAI-compatible API:
+
+<CodeGroup>
+
+```python Python
+import base64
+
+import requests
+from openai import OpenAI
+
+from vllm.assets.audio import AudioAsset
+
+# Modify OpenAI's API key and API base to use vLLM's API server.
+openai_api_key = "token-abc123"
+openai_api_base = "http://localhost:8000/v1"
+
+client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key=openai_api_key,
+    base_url=openai_api_base,
+)
+
+model_name = "ibm-granite/granite-speech-4.1-2b"
+# Any format supported by librosa is supported
+audio_url = AudioAsset("mary_had_lamb").url
+
+# Use base64 encoded audio in the payload
+def encode_audio_base64_from_url(audio_url: str) -> str:
+    """Encode an audio retrieved from a remote url to base64 format."""
+    with requests.get(audio_url) as response:
+        response.raise_for_status()
+        result = base64.b64encode(response.content).decode("utf-8")
+    return result
+
+audio_base64 = encode_audio_base64_from_url(audio_url=audio_url)
+
+question = "can you transcribe the speech into a written format?"
+chat_completion_with_audio = client.chat.completions.create(
+    messages=[{
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "text": question
+            },
+            {
+                "type": "audio_url",
+                "audio_url": {
+                    # Any format supported by librosa is supported
+                    "url": f"data:audio/ogg;base64,{audio_base64}"
+                },
+            },
+        ],
+    }],
+    temperature=0.2,
+    max_tokens=64,
+    model=model_name,
+)
+
+print(f"Audio Example - Question: {question}")
+print(f"Generated text: {chat_completion_with_audio.choices[0].message.content}")
 ```
 
 </CodeGroup>

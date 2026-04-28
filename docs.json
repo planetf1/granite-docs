@@ -27,6 +27,7 @@
           {
             "group": "Models",
             "pages": [
+              "granite/docs/models/granite4-1",
               "granite/docs/models/granite",
               "granite/docs/models/docling",
               "granite/docs/models/vision",

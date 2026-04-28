@@ -19,6 +19,13 @@ icon: "vector-square"
   >
     Download and run Granite Embedding with Ollama
   </Card>
+  <Card
+    title="Replicate"
+    icon="play"
+    href="https://replicate.com/ibm-granite/granite-embedding-small-english-r2"
+  >
+    Deploy Granite Embedding on Replicate
+  </Card>
 </CardGroup>
 
 ## Overview
@@ -27,75 +34,115 @@ The **Granite Embedding** model collection consists of embedding models to gener
 
 The **Granite Embedding Reranker** model is optional, but useful to further improve the relevance and quality of search results or recommendations. After the initial retrieval of items based on their embeddings, the reranker refines the ranking by considering additional factors and more complex criteria.
 
-Built on a foundation of carefully curated, permissibly licensed public datasets, the Granite Embedding models set a high standard for performance, achieving state-of-the-art results in their respective weight classes. See the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard) where Granite Embedding ranks in the top 10 amongst models of a similar size (as of 10/2/2025).
+Built on a foundation of carefully curated, permissibly licensed public datasets, the Granite Embedding models achieve state-of-the-art results in their respective weight classes. On the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard), **granite-embedding-97m-multilingual-r2 ranks #1** for multilingual embedding models under 100M parameters, and **granite-embedding-311m-multilingual-r2 ranks #2** for multilingual embedding models under 500M parameters.
 
 Granite Embedding models are released under the Apache 2.0 license, making them freely available for both research and commercial purposes, with full transparency into their training data.
 
 [Granite Embedding Paper](https://arxiv.org/abs/2508.21085)
 
-## Examples
+## Getting Started
 
-### Granite Embedding with sentence transformers
+### Intended Use
 
-This is a simple example of how to use granite-embedding-30m-english model with sentence transformers.
+The Granite Embedding 311m multilingual model is designed to produce fixed-length vector representations for a given text, which can be used for text similarity, retrieval, and search applications across multiple languages. It supports 200+ languages with enhanced support for 52 languages.
 
-First, install the sentence transformers library
+For efficient inference, these models support Flash Attention 2. Installing it is optional but can lead to faster encoding:
 
 <CodeGroup>
 
-```python Python
+```bash Install
+pip install flash_attn
+```
+
+</CodeGroup>
+
+### Usage with Sentence Transformers
+
+The model is compatible with the SentenceTransformer library and is very easy to use:
+
+First, install the sentence transformers library:
+
+<CodeGroup>
+
+```bash Install
 pip install sentence_transformers
 ```
 
 </CodeGroup>
 
-The model can then be used to encode pairs of text and find the similarity between their representations
+The model can then be used to encode pairs of text and find the similarity between their representations:
 
 <CodeGroup>
 
 ```python Python
 from sentence_transformers import SentenceTransformer, util
 
-model_path = "ibm-granite/granite-embedding-30m-english"
+model_path = "ibm-granite/granite-embedding-311m-multilingual-r2"
 # Load the Sentence Transformer model
 model = SentenceTransformer(model_path)
 
 input_queries = [
-    ' Who made the song My achy breaky heart? ',
-    'summit define'
+    'What is the tallest mountain in Japan?',          # English query
+    'Wer hat das Lied Achy Breaky Heart geschrieben?', # German query
+    'ドイツの首都はどこですか？',                            # Japanese query
     ]
 
 input_passages = [
-    "Achy Breaky Heart is a country song written by Don Von Tress. Originally titled Don't Tell My Heart and performed by The Marcy Brothers in 1991. ",
-    "Definition of summit for English Language Learners. : 1 the highest point of a mountain : the top of a mountain. : 2 the highest level. : 3 a meeting or series of meetings between the leaders of two or more governments."
+    "富士山は、静岡県と山梨県にまたがる活火山で、標高3776.12 mで日本最高峰の独立峰である。",  # Japanese passage
+    "Achy Breaky Heart is a country song written by Don Von Tress. Originally titled Don't Tell My Heart and performed by The Marcy Brothers in 1991.",  # English passage
+    "Berlin ist die Hauptstadt und ein Land der Bundesrepublik Deutschland. Die Stadt ist mit rund 3,7 Millionen Einwohnern die bevölkerungsreichste Kommune Deutschlands.",  # German passage
     ]
 
-# encode queries and passages
+# Cross-lingual retrieval: each query should score highest with its matching passage in a different language
 query_embeddings = model.encode(input_queries)
 passage_embeddings = model.encode(input_passages)
 
-# calculate cosine similarity
+# calculate cosine similarity — expect high scores on the diagonal (EN→JA, DE→EN, JA→DE)
 print(util.cos_sim(query_embeddings, passage_embeddings))
-
+# output: tensor([[0.9393, 0.6899, 0.7627],
+#                 [0.6780, 0.9598, 0.7062],
+#                 [0.7818, 0.7342, 0.9172]])
 ```
 
 </CodeGroup>
 
-### Granite Embedding with Hugging Face transformers
+### Matryoshka Representation Learning
 
-This is a simple example of how to use the granite-embedding-30m-english model with the Transformers library and PyTorch.
-
-First, install the required libraries
+This model supports Matryoshka Representation Learning (MRL), which allows you to truncate embeddings to smaller dimensions (e.g., 512, 256, 128) with graceful performance degradation. This is useful for reducing storage and memory requirements.
 
 <CodeGroup>
 
 ```python Python
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer("ibm-granite/granite-embedding-311m-multilingual-r2")
+
+# Full 768-dimensional embeddings
+full_embeddings = model.encode(["example text"])
+print(full_embeddings.shape)  # (1, 768)
+
+# Truncated to 256 dimensions — still effective for many retrieval tasks
+truncated_embeddings = model.encode(["example text"], truncate_dim=256)
+print(truncated_embeddings.shape)  # (1, 256)
+```
+
+</CodeGroup>
+
+### Usage with Hugging Face Transformers
+
+This is a simple example of how to use the granite-embedding-311m-multilingual-r2 model with the Transformers library and PyTorch. For a complete retrieval workflow including passage encoding and cosine similarity, see the Sentence Transformers example above.
+
+First, install the required libraries:
+
+<CodeGroup>
+
+```bash Install
 pip install transformers torch
 ```
 
 </CodeGroup>
 
-The model can then be used to encode pairs of text
+The model can then be used to encode text:
 
 <CodeGroup>
 
@@ -103,7 +150,7 @@ The model can then be used to encode pairs of text
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-model_path = "ibm-granite/granite-embedding-30m-english"
+model_path = "ibm-granite/granite-embedding-311m-multilingual-r2"
 
 # Load the model and tokenizer
 model = AutoModel.from_pretrained(model_path)
@@ -111,8 +158,9 @@ tokenizer = AutoTokenizer.from_pretrained(model_path)
 model.eval()
 
 input_queries = [
-    ' Who made the song My achy breaky heart? ',
-    'summit define'
+    'What is the tallest mountain in Japan?',          # English query
+    'Wer hat das Lied Achy Breaky Heart geschrieben?', # German query
+    'ドイツの首都はどこですか？',                            # Japanese query
     ]
 
 # tokenize inputs
@@ -120,9 +168,8 @@ tokenized_queries = tokenizer(input_queries, padding=True, truncation=True, retu
 
 # encode queries
 with torch.no_grad():
-    # Queries
     model_output = model(**tokenized_queries)
-    # Perform pooling. granite-embedding-30m-english uses CLS Pooling
+    # Perform pooling. granite-embedding-311m-multilingual-r2 uses CLS Pooling
     query_embeddings = model_output[0][:, 0]
 
 # normalize the embeddings
@@ -130,67 +177,63 @@ query_embeddings = torch.nn.functional.normalize(query_embeddings, dim=1)
 ```
 
 </CodeGroup>
-### Granite Embedding with LangChain
 
-This is how you could use our models for Retrieval using IBM LangChain.
+### Optimized Inference and Deployment
 
-First, install LangChain dependencies
+#### ONNX and OpenVINO
+
+Pre-converted ONNX and OpenVINO models are released alongside the PyTorch weights for production deployment. These can be loaded through the Optimum library:
 
 <CodeGroup>
 
 ```python Python
-pip install git+https://github.com/ibm-granite-community/utils \
-#     "langchain_community<0.3.0" \
-#     langchain-huggingface \
-#     langchain-milvus \
-#     replicate \
-#     wget
+from optimum.onnxruntime import ORTModelForFeatureExtraction
+from transformers import AutoTokenizer
+
+model = ORTModelForFeatureExtraction.from_pretrained(
+    "ibm-granite/granite-embedding-311m-multilingual-r2",
+    subfolder="onnx"    # or "openvino" for OpenVINO format
+)
+tokenizer = AutoTokenizer.from_pretrained("ibm-granite/granite-embedding-311m-multilingual-r2")
+
+inputs = tokenizer("example text", return_tensors="pt")
+outputs = model(**inputs)
+embeddings = outputs.last_hidden_state[:, 0]  # CLS pooling
 ```
 
 </CodeGroup>
 
-The below recipe, with granite-embedding-30m-english model, shows how to:
+The ONNX model is compatible with any ONNX Runtime backend (CPU, CUDA, TensorRT, DirectML). The OpenVINO model is optimized for Intel hardware including CPUs and integrated GPUs.
 
-- **Database Setup:** How to setup a local Milvus VectorDB, process the corpus to produce indexable documents, and ingest those documents using an embedding model.
-- **Relevant Passage Retrieval from the Database:** How to use an embedding of the query to retrieve semantically similar passages.
+#### vLLM
+
+The model can be served as an embedding endpoint using vLLM:
 
 <CodeGroup>
 
-```python Python
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_milvus import Milvus
-from langchain.document_loaders import TextLoader
-from langchain.text_splitter import CharacterTextSplitter
-import uuid
-import os, wget
+```bash Serve
+vllm serve ibm-granite/granite-embedding-311m-multilingual-r2 --task embed
+```
 
-#load the embedding model
-embeddings_model = HuggingFaceEmbeddings(model_name="ibm-granite/granite-embedding-30m-english")
+</CodeGroup>
 
-#setup the vectordb
-db_file = f"/tmp/milvus_{str(uuid.uuid4())[:8]}.db"
-print(f"The vector database will be saved to {db_file}")
-vector_db = Milvus(embedding_function=embeddings_model, connection_args={"uri": db_file}, auto_id=True)
+#### Ollama
 
-#load example corpus file
-filename = 'state_of_the_union.txt'
-url = 'https://raw.github.com/IBM/watson-machine-learning-samples/master/cloud/data/foundation_models/state_of_the_union.txt'
+The model can be used with Ollama after converting to GGUF format. Users must perform the conversion themselves using tools from llama.cpp:
 
-if not os.path.isfile(filename):
-  wget.download(url, out=filename)
+<CodeGroup>
 
-loader = TextLoader(filename)
-documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-texts = text_splitter.split_documents(documents)
+```bash Convert and Deploy
+# Step 1: Convert to GGUF (user-performed)
+python convert_hf_to_gguf.py ibm-granite/granite-embedding-311m-multilingual-r2 \
+    --outfile granite-embedding-311m-multilingual-r2.gguf
 
-#add processed documents to the vectordb
-vector_db.add_documents(texts)
+# Step 2: Create a Modelfile
+echo 'FROM granite-embedding-311m-multilingual-r2.gguf' > Modelfile
 
-#search the vectordb with the query
-query = "What did the president say about Ketanji Brown Jackson"
-docs = vector_db.similarity_search(query)
-print(docs[0].page_content)
+# Step 3: Create and run in Ollama
+ollama create granite-embed-ml -f Modelfile
+ollama embed granite-embed-ml "example text"
 ```
 
 </CodeGroup>

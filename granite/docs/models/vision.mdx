@@ -44,124 +44,245 @@ The **Granite Vision** models are designed for enterprise applications, speciali
 
 The family of vision models also includes **Granite Vision Embedding**, a novel multimodal embedding model for document retrieval. It enables queries on documents containing tables, charts, infographics, and complex layouts. By eliminating the need for text extraction, Vision Embedding simplifies and accelerates retrieval-augmented generation (RAG) pipelines.
 
-Despite its lightweight architecture, Granite Vision achieves strong performance on standard visual document understanding benchmarks and on the LiveXiv benchmark, which continuously evaluates the model on updated sets of arXiv papers to prevent data leakage. Granite Vision is currently ranked 2nd on the [OCRBench Leaderboard](https://huggingface.co/spaces/echo840/ocrbench-leaderboard) (as of 10/2/2025). Similarly, Granite Vision Embedding achieves top ranks on visual document retrieval benchmarks, currently holding 5th place on the [ViDoRe 2 leaderboard](https://huggingface.co/spaces/vidore/vidore-leaderboard) (as of 10/2/2025).
+Despite its lightweight architecture, Granite Vision 4.1 achieves excellent performance on chart, table, and semantic key-value pair (KVP) extraction. For detailed performance metrics and full evaluation results, see the [Granite Vision 4.1 model card](https://huggingface.co/ibm-granite/granite-vision-4.1-4b).
 
-Granite Vision and Vision Embedding are released under the Apache 2.0 license, making them freely available for both research and commercial purposes, with full transparency into their training data.
+Granite Vision models are released under the Apache 2.0 license, making them freely available for both research and commercial purposes, with full transparency into their training data.
 
-[Granite Vision Paper](https://arxiv.org/abs/2502.09927) - _Please note that the paper describes Granite Vision 3.2. However, Granite Vision 3.3 shares most of the technical underpinnings with Granite 3.2, but with several enhancements in terms of new and improved vision encoder, many new high quality datasets for training, and several new experimental capabilities._
+[Granite Vision Paper](https://arxiv.org/abs/2502.09927)
+
+[Granite Vision 4 Technical Blog](https://huggingface.co/blog/ibm-granite/granite-4-vision)
 
 ## Getting started
 
-### Granite Vision with Hugging Face transformers
+Follow the steps below to get started with [Granite Vision 4.1 4B](https://huggingface.co/ibm-granite/granite-vision-4.1-4b). This model is optimized for chart, table, and key-value pair extraction from enterprise documents.
 
-This is a simple example of how to use the granite-vision-3.3-2b model with the Transformers library and PyTorch.
+### Setup
 
-First, install the required libraries
+Tested with python=3.11
 
 <CodeGroup>
 
-```python Python
-pip install transformers>=4.49
+```bash Install
+pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cu128
+pip install transformers==4.57.6 peft==0.18.1 tokenizers==0.22.2 pillow==12.1.1
 ```
 
 </CodeGroup>
 
+### Usage with Transformers
+
 <CodeGroup>
 
 ```python Python
-from transformers import AutoProcessor, AutoModelForVision2Seq
-from huggingface_hub import hf_hub_download
-import torch
+import re
+from io import StringIO
 
+import pandas as pd
+import torch
+from transformers import AutoProcessor, AutoModelForImageTextToText
+from PIL import Image
+from huggingface_hub import hf_hub_download
+
+model_id = "ibm-granite/granite-vision-4.1-4b"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-model_path = "ibm-granite/granite-vision-3.3-2b"
-processor = AutoProcessor.from_pretrained(model_path)
-model = AutoModelForVision2Seq.from_pretrained(model_path).to(device)
-
-# prepare image and text prompt, using the appropriate prompt template
-
-img_path = hf_hub_download(repo_id=model_path, filename='example.png')
-
-conversation = [
-    {
-        "role": "user",
-        "content": [
-            {"type": "image", "url": img_path},
-            {"type": "text", "text": "What is the highest scoring model on ChartQA and what is its score?"},
-        ],
-    },
-]
-inputs = processor.apply_chat_template(
-    conversation,
-    add_generation_prompt=True,
-    tokenize=True,
-    return_dict=True,
-    return_tensors="pt"
-).to(device)
+processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+model = AutoModelForImageTextToText.from_pretrained(
+    model_id,
+    trust_remote_code=True,
+    dtype=torch.bfloat16,
+    device_map=device
+).eval()
 
 
-# autoregressively complete prompt
-output = model.generate(**inputs, max_new_tokens=100)
-print(processor.decode(output[0], skip_special_tokens=True))
+def run_inference(model, processor, images, prompts):
+    """Run batched inference on image+prompt pairs (one image per prompt)."""
+    conversations = [
+        [{"role": "user", "content": [
+            {"type": "image"},
+            {"type": "text", "text": prompt},
+        ]}]
+        for prompt in prompts
+    ]
+    texts = [
+        processor.apply_chat_template(conv, tokenize=False, add_generation_prompt=True)
+        for conv in conversations
+    ]
+    inputs = processor(
+        text=texts, images=images, return_tensors="pt", padding=True, do_pad=True
+    ).to(model.device)
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=4096, 
+        use_cache=True
+    )
+    results = []
+    for i in range(len(prompts)):
+        gen = outputs[i, inputs["input_ids"].shape[1]:]
+        results.append(processor.decode(gen, skip_special_tokens=True))
+    return results
+
+
+def display_table(text):
+    """Pretty-print CSV (possibly wrapped in ```csv```) or HTML table content via pandas."""
+    m = re.search(r"```csv\s*
+(.*?)```", text, re.DOTALL)
+    if m:
+        df = pd.read_csv(StringIO(m.group(1)))
+        print(df.to_string(index=False))
+    elif "<table" in text.lower():
+        df = pd.read_html(StringIO(text))[0]
+        print(df.to_string(index=False))
+    else:
+        print(text)
 ```
 
 </CodeGroup>
 
-### Granite Vision with vLLM
+### Chart and Table Tasks
 
-The granite-vision-3.3-2b model can also be loaded with vLLM. First make sure to install the following libraries:
+You can pass tags and the chat template handles the rest:
 
 <CodeGroup>
 
 ```python Python
-pip install torch torchvision torchaudio
-pip install vllm==0.6.6
+chart_path = hf_hub_download(repo_id=model_id, filename="chart.jpg")
+table_path = hf_hub_download(repo_id=model_id, filename="table.png")
+chart_img = Image.open(chart_path).convert("RGB")
+table_img = Image.open(table_path).convert("RGB")
+
+# Batched chart tasks
+chart_prompts = ["<chart2csv>", "<chart2summary>", "<chart2code>"]
+chart_results = run_inference(model, processor, [chart_img] * len(chart_prompts), chart_prompts)
+for prompt, result in zip(chart_prompts, chart_results):
+    print(f"{prompt}:")
+    display_table(result)
+    print()
+
+# Batched table tasks
+table_prompts = ["<tables_html>", "<tables_otsl>"]
+table_results = run_inference(model, processor, [table_img] * len(table_prompts), table_prompts)
+for prompt, result in zip(table_prompts, table_results):
+    print(f"{prompt}:")
+    display_table(result)
+    print()
 ```
 
 </CodeGroup>
 
-Then, copy the snippet from the section that is relevant for your use case.
+### Key-Value Pair Extraction (KVP)
+
+For KVP extraction use the VAREX prompt format. Provide a JSON Schema describing the fields to extract and the model will return a JSON object with the extracted values.
 
 <CodeGroup>
 
 ```python Python
-from vllm import LLM, SamplingParams
-from vllm.assets.image import ImageAsset
-from huggingface_hub import hf_hub_download
-from PIL import Image
+import json
 
-model_path = "ibm-granite/granite-vision-3.3-2b"
-
-model = LLM(
-    model=model_path,
-)
-
-sampling_params = SamplingParams(
-    temperature=0.2,
-    max_tokens=64,
-)
-
-# Define the question we want to answer and format the prompt
-image_token = "<image>"
-system_prompt = "<|system|>\nA chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\n"
-
-question = "What is the highest scoring model on ChartQA and what is its score?"
-prompt = f"{system_prompt}<|user|>\n{image_token}\n{question}\n<|assistant|>\n"
-img_path = hf_hub_download(repo_id=model_path, filename='example.png')
-image = Image.open(img_path).convert("RGB")
-print(image)
-
-# Build the inputs to vLLM; the image is passed as `multi_modal_data`.
-inputs = {
-    "prompt": prompt,
-    "multi_modal_data": {
-        "image": image,
+invoice_path = hf_hub_download(repo_id=model_id, filename="invoice.png")
+invoice_img = Image.open(invoice_path).convert("RGB")
+schema = {
+    "type": "object",
+    "properties": {
+        "invoice_date": {"type": "string", "description": "The date the invoice was issued"},
+        "order_number": {"type": "string", "description": "The unique identifier for the order"},
+        "seller_tax_id": {"type": "string", "description": "The tax identification number of the seller"},
     }
 }
 
-outputs = model.generate(inputs, sampling_params=sampling_params)
-print(f"Generated text: {outputs[0].outputs[0].text}")
+prompt = f"""Extract structured data from this document.
+Return a JSON object matching this schema:
+
+{json.dumps(schema, indent=2)}
+
+Return null for fields you cannot find.
+Return ONLY valid JSON.
+Return an instance of the JSON with extracted values, not the schema itself."""
+
+result = run_inference(model, processor, [invoice_img], [prompt])[0]
+print(result)
 ```
 
 </CodeGroup>
+
+### Usage with vLLM
+
+Granite Vision 4.1 is supported natively in vLLM as of commit d249a9e. Until an official release ships, install vLLM from source:
+
+<CodeGroup>
+
+```bash Install
+git clone https://github.com/vllm-project/vllm.git
+cd vllm
+pip install -e ".[cuda]"
+```
+
+</CodeGroup>
+
+#### Serving with native LoRA
+
+The model ships as a LoRA adapter on top of Granite 4.1 Micro. vLLM applies the adapter automatically for image requests while text-only requests use the base model:
+
+<CodeGroup>
+
+```bash Serve
+vllm serve ibm-granite/granite-vision-4.1-4b \
+    --enable-lora \
+    --max-lora-rank 256 \
+    --default-mm-loras '{"image": "ibm-granite/granite-vision-4.1-4b"}' \
+    --host 0.0.0.0 --port 8000
+```
+
+</CodeGroup>
+
+#### Client example
+
+Query the running server using the OpenAI-compatible API:
+
+<CodeGroup>
+
+```python Python
+import base64
+from openai import OpenAI
+from huggingface_hub import hf_hub_download
+from PIL import Image
+
+model_id = "ibm-granite/granite-vision-4.1-4b"
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="EMPTY")
+
+def run_inference(client, model_id, image_path, tag):
+    with open(image_path, "rb") as f:
+        image_b64 = base64.b64encode(f.read()).decode("utf-8")
+    messages = [
+        {"role": "user", "content": [
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image_b64}"}},
+            {"type": "text", "text": tag},
+        ]}
+    ]
+    response = client.chat.completions.create(
+        model=model_id, messages=messages, max_tokens=4096, temperature=0,
+    )
+    return response.choices[0].message.content
+
+chart_path = hf_hub_download(repo_id=model_id, filename="chart.jpg")
+table_path = hf_hub_download(repo_id=model_id, filename="table.png")
+
+# Chart tasks
+for tag in ["<chart2csv>", "<chart2summary>", "<chart2code>"]:
+    result = run_inference(client, model_id, chart_path, tag)
+    print(f"{tag}:\n{result}\n")
+
+# Table tasks
+for tag in ["<tables_json>", "<tables_html>", "<tables_otsl>"]:
+    result = run_inference(client, model_id, table_path, tag)
+    print(f"{tag}:\n{result}\n")
+```
+
+</CodeGroup>
+
+### Usage with Docling
+
+Docling integrates Granite Vision for document conversion pipelines:
+
+- Table structure recognition — use Granite Vision instead of the default TableFormer model (pip install docling[vlm])
+- Chart data extraction — extract structured data from bar, pie, and line charts (pip install docling[granite_vision])
