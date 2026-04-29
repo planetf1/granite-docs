@@ -57,7 +57,7 @@
               },
               "granite/docs/run/granite-with-vllm-containerized",
               "granite/docs/run/granite-with-lmstudio",
-              "granite/docs/run/granite-on-cloud"
+              "granite/docs/run/granite-on-partners"
             ]
           },
           {
