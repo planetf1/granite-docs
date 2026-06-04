@@ -55,7 +55,7 @@ description: "What this page covers."
 
 ### Components
 
-The following Mintlify-compatible components are available in MDX files:
+The following components are available in MDX files:
 
 | Component | Purpose |
 |---|---|
