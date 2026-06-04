@@ -4,9 +4,7 @@ import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';
 import type {Options as RedirectOptions} from '@docusaurus/plugin-client-redirects';
 
 const BASE_URL: string = process.env.DOCS_BASE_URL ?? '/docs/';
-const SITE_URL: string = process.env.DOCS_SITE_URL ?? (
-  BASE_URL === '/docs/' ? 'https://ibm-granite.github.io' : 'https://planetf1.github.io'
-);
+const SITE_URL: string = process.env.DOCS_SITE_URL ?? 'https://ibm-granite.github.io';
 
 const config: Config = {
   title: 'IBM Granite',

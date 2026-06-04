@@ -37,6 +37,9 @@ export default function Icon({icon, size = 16, style, className}: IconProps): Re
   }> | undefined;
 
   if (!LucideIcon) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`[Icon] unknown icon name: "${icon}"`);
+    }
     return null;
   }
 
