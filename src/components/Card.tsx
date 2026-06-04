@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from '@docusaurus/Link';
 import Icon from './Icon';
 
 interface CardProps {
@@ -30,7 +31,7 @@ export default function Card({title, icon, href, children}: CardProps): React.Re
   );
 
   if (href) {
-    return <a href={href} style={{textDecoration: 'none', display: 'block', height: '100%'}}>{content}</a>;
+    return <Link to={href} style={{textDecoration: 'none', display: 'block', height: '100%'}}>{content}</Link>;
   }
   return content;
 }
