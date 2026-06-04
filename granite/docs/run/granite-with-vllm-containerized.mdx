@@ -1,7 +1,6 @@
 ---
 title: "vLLM (Containerized)"
 description: "Learn how to run Granite models with vLLM in a container."
-icon: "docker"
 ---
 
 ## Overview
@@ -35,7 +34,7 @@ Run the container with your Hugging Face cache mounted:
 docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-4.0-h-small
 ```
 
-<Note>
+:::note
 You can pre-download the model into `~/.cache/huggingface` using:
 
 ```sh
@@ -43,8 +42,7 @@ hf download ibm-granite/granite-4.0-h-small
 ```
 
 If not pre-downloaded, the model will be fetched automatically when vLLM starts and cached in the mounted directory.
-
-</Note>
+:::
 
 ---
 

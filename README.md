@@ -1,90 +1,85 @@
-# Contribute to the docs
+# IBM Granite Documentation
 
-Please follow this guide to contribute to the [Granite documentation site](https://github.com/ibm-granite/docs).
-
----
-
-### 💻 1. Clone repo and add content
-
-The Granite documentation pages are built with Markdown and MDX. You can embed components and interactive elements directly into your pages.
-
-#### Clone the documentation repo
-
-```bash
-git clone https://github.com/ibm-granite/docs.git
-```
-
-#### Pull the latest changes
-
-```bash
-cd docs
-git checkout main
-git pull origin main
-```
-
-#### Create a branch
-
-```bash
-git checkout -b feature/add-new-page
-```
-
-#### Add or update content
-
-- To add a page: create a `.mdx` file in the right directory
-- To update a page: edit the existing `.mdx` file
+Source for the IBM Granite documentation site, built with [Docusaurus 3](https://docusaurus.io/) and published to GitHub Pages.
 
 ---
 
-### 📽️ 2. Preview your changes
+## Local development
 
-#### Install Mintlify CLI globally
-```bash
-npm install -g mint
-```
+### Prerequisites
 
-### Run locally
-```bash
-mint dev
-```
-The site will be available at http://localhost:3000.
+- Node.js 20 or later
 
-
-### ✅ 3. Submit your changes
-
-#### Commit your work
+### Install dependencies
 
 ```bash
-git add .
-git commit -m "<description of update>"
+npm install
 ```
 
-#### Push your branch
+### Start the dev server
 
 ```bash
-git push origin feature/add-new-page
+npm start
 ```
 
-#### Open a pull request
+The site is available at http://localhost:3000/docs/granite/docs/.
 
-The response to your push request will tell you how to open a PR.
+### Build
 
-> Important Note: Make sure you open a PR to the branch named ```stage```, NOT ```main```.
+```bash
+npm run build
+```
 
-Fill in the PR request with:
-   - Summary of your changes
-   - Linked issues (create issues if there aren't any to match)
+A production build is written to `build/`.
 
+---
 
+## Contributing
 
-#### Review process
+### Add or update a page
 
-- PRs are reviewed by maintainers
-- Automated checks must pass
-- At least one approval is required before merging
+- Pages live under `granite/docs/` as `.mdx` files.
+- To add a page: create an `.mdx` file in the right directory, then add it to `sidebars.ts`.
+- To update a page: edit the existing `.mdx` file directly.
 
+### Frontmatter
 
-#### Mintlify documentation guide
+Each page should have a `title` and `description` in its frontmatter:
 
-The Granite documentation site is powered by [Mintlify](https://mintlify.com), which offers plenty of helpful tips and tricks for creating great docs.
-Explore their resources here: [Mintlify Documentation guide](https://www.mintlify.com/docs)
+```mdx
+---
+title: "My Page"
+description: "What this page covers."
+---
+```
 
+### Components
+
+The following Mintlify-compatible components are available in MDX files:
+
+| Component | Purpose |
+|---|---|
+| `<Card title="..." href="..." icon="...">` | Linked card |
+| `<CardGroup cols={2}>` | Grid container for cards |
+| `<Accordion title="...">` | Collapsible section |
+| `<AccordionGroup>` | Container for accordions |
+
+For simple callouts, prefer native Docusaurus admonitions:
+
+```mdx
+:::note
+This is a note.
+:::
+
+:::warning
+This is a warning.
+:::
+```
+
+### Submit a pull request
+
+1. Create a branch: `git checkout -b feature/my-change`
+2. Make your changes and test locally with `npm start`
+3. Open a PR against `main`
+
+PRs require at least one maintainer approval and a passing CI build before merging.

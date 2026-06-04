@@ -1,7 +1,6 @@
 ---
 title: "Prompt Engineering Guide"
 description: "This document is the official prompt engineering guide for Granite 4.0 models. It highlights basic and advanced features that Granite 4.0 models support and demonstrates how to perform common text generation tasks."
-icon: "robot"
 ---
 
 ## Granite 4.0 highlights
@@ -130,10 +129,10 @@ The elements of this chat template serve the following purpose:
 - About FIM
   - The tags supported for fill-in-the-middle (FIM) code completion are: `<|fim_prefix|>`, `<|fim_middle|>`, and `<|fim_suffix|>`. Make sure to use the correct FIM tags when using Granite 4.0 models for FIM code completions.
 
-<Note>
-    * Granite 4.0 models chat template uses reverse iteration over messages to identify the last user query index.
+:::note
+* Granite 4.0 models chat template uses reverse iteration over messages to identify the last user query index.
     * All outputs should be terminated with `<|end_of_text|>` to clearly segment messages.
-</Note>
+:::
 
 ### Basic chat template example
 

@@ -33,6 +33,8 @@ dist/
 build/
 .next/
 out/
+.docusaurus/
+.fastembed_cache/
 
 # Environment files
 .env

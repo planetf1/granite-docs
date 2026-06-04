@@ -1,8 +1,7 @@
 ---
 title: "Ollama on Linux"
-sidebarTitle: "Linux"
+sidebar_label: "Linux"
 description: "Learn how to run Granite models with Ollama on Linux."
-icon: "linux"
 ---
 
 ## Overview
@@ -21,11 +20,11 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 This will install Ollama on your system and set up a `systemd` service named `ollama.service` to run the server in the background.
 
-<Warning>
-  The automatic installation script requires root access. For manual
+:::warning
+The automatic installation script requires root access. For manual
   installation (without root), see the [manual installation
   instructions](https://github.com/ollama/ollama/blob/main/docs/linux.md).
-</Warning>
+:::
 
 To manage the service manually:
 
@@ -69,7 +68,7 @@ If you want to use a different variant, replace the model name (e.g., `ibm/grani
 
 ## 4. Notes on Context Length
 
-<Note>
+:::note
 By default, Ollama runs models with a short context length to save memory.
 For longer conversations, you can adjust it by setting:
 
@@ -78,8 +77,7 @@ For longer conversations, you can adjust it by setting:
 ```
 
 The largest supported context for Granite 4.0 models is `131072` (128k).
-
-</Note>
+:::
 
 ---
 
