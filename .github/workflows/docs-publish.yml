@@ -18,7 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DOCS_BASE_URL: "/docs/"
+  # /docs/ on upstream (ibm-granite/docs), /<repo-name>/ on any fork
+  DOCS_BASE_URL: ${{ github.repository == 'ibm-granite/docs' && '/docs/' || format('/{0}/', github.event.repository.name) }}
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
