@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface CardGroupProps {
-  cols?: number;
+  cols?: number; // accepted for back-compat with existing MDX; layout is auto-fit
   children?: React.ReactNode;
 }
 
