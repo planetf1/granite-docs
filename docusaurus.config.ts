@@ -6,6 +6,31 @@ import type {Options as RedirectOptions} from '@docusaurus/plugin-client-redirec
 const BASE_URL: string = process.env.DOCS_BASE_URL ?? '/docs/';
 const SITE_URL: string = process.env.DOCS_SITE_URL ?? 'https://ibm-granite.github.io';
 
+// Self-hosted IBM Plex @font-face declarations. Paths are prefixed with BASE_URL so they
+// resolve correctly regardless of whether the site is deployed at / or a subdirectory.
+function ibmPlexFontFaces(base: string): string {
+  const f = base.replace(/\/$/, '');
+  const face = (name: string, wt: number, style: 'normal' | 'italic') =>
+    `@font-face{font-family:'IBM Plex Sans';src:url('${f}/fonts/${name}.woff2') format('woff2');font-weight:${wt};font-style:${style};font-display:swap}`;
+  const mono = (name: string, wt: number, style: 'normal' | 'italic') =>
+    `@font-face{font-family:'IBM Plex Mono';src:url('${f}/fonts/${name}.woff2') format('woff2');font-weight:${wt};font-style:${style};font-display:swap}`;
+  return [
+    face('IBMPlexSans-Light', 300, 'normal'),
+    face('IBMPlexSans-LightItalic', 300, 'italic'),
+    face('IBMPlexSans-Regular', 400, 'normal'),
+    face('IBMPlexSans-Italic', 400, 'italic'),
+    face('IBMPlexSans-Medium', 500, 'normal'),
+    face('IBMPlexSans-MediumItalic', 500, 'italic'),
+    face('IBMPlexSans-SemiBold', 600, 'normal'),
+    face('IBMPlexSans-SemiBoldItalic', 600, 'italic'),
+    face('IBMPlexSans-Bold', 700, 'normal'),
+    face('IBMPlexSans-BoldItalic', 700, 'italic'),
+    mono('IBMPlexMono-Regular', 400, 'normal'),
+    mono('IBMPlexMono-Italic', 400, 'italic'),
+    mono('IBMPlexMono-Medium', 500, 'normal'),
+  ].join('');
+}
+
 const config: Config = {
   title: 'IBM Granite',
   tagline: 'Foundation models for business',
@@ -18,6 +43,9 @@ const config: Config = {
 
   favicon: 'images/granite-pictogram.svg',
   trailingSlash: false,
+  headTags: [
+    {tagName: 'style', attributes: {}, innerHTML: ibmPlexFontFaces(BASE_URL)},
+  ],
   i18n: {defaultLocale: 'en', locales: ['en']},
   markdown: {format: 'detect', hooks: {onBrokenMarkdownLinks: 'warn'}},
 
