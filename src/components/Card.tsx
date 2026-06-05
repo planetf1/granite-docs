@@ -22,7 +22,7 @@ export default function Card({title, icon, href, children}: CardProps): React.Re
     }}>
       {(icon || title) && (
         <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
-          {icon && <Icon icon={icon} size={16} style={{flexShrink: 0, opacity: 0.7}} />}
+          {icon && <Icon icon={icon} size={20} style={{flexShrink: 0}} />}
           {title && <strong>{title}</strong>}
         </div>
       )}

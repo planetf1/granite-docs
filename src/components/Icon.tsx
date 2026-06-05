@@ -29,6 +29,16 @@ interface IconProps {
 }
 
 export default function Icon({icon, size = 16, style, className}: IconProps): React.ReactElement | null {
+  if (icon.startsWith('/') || icon.startsWith('./') || icon.startsWith('http')) {
+    const imgStyle: React.CSSProperties = {
+      width: size,
+      height: size,
+      objectFit: 'contain',
+      ...parseStyle(style),
+    };
+    return <img src={icon} alt="" width={size} height={size} style={imgStyle} className={className} />;
+  }
+
   const pascalName = kebabToPascal(icon) as LucideIconName;
   const LucideIcon = LucideIcons[pascalName] as React.ComponentType<{
     size?: number;
