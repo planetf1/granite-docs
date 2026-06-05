@@ -3,6 +3,14 @@ name: Docs
 # Builds, validates, and deploys Docusaurus documentation to GitHub Pages.
 # Fork → https://<user>.github.io/docs/ (baseUrl: /docs/)
 # Upstream (ibm-granite/docs) → https://ibm-granite.github.io/docs/ (baseUrl: /docs/)
+#
+# Production cutover (IBM hosting at www.ibm.com/granite/docs/...):
+#   Set in the deploy job's env block:
+#     DOCS_SITE_URL: https://www.ibm.com
+#     DOCS_BASE_URL: /               # routeBasePath:'granite/docs' already provides the path prefix
+#   The 'granite/docs' path segment in all URLs comes from routeBasePath in
+#   docusaurus.config.ts, NOT from baseUrl. Do not set DOCS_BASE_URL to
+#   '/granite/docs/' — that would double the prefix in every URL.
 
 on:
   push:
