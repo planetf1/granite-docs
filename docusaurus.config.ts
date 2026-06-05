@@ -138,7 +138,7 @@ const config: Config = {
           items: [
             {label: 'IBM Granite', href: 'https://www.ibm.com/granite'},
             {label: 'Hugging Face', href: 'https://huggingface.co/ibm-granite'},
-            {label: 'Ollama', href: 'https://ollama.com/library/granite4'},
+            {label: 'Ollama', href: 'https://ollama.com/library/granite4.1'},
             {label: 'GitHub', href: 'https://github.com/ibm-granite'},
           ],
         },
@@ -154,7 +154,7 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            {label: 'Blog', href: 'https://ibm.com/blog'},
+            {label: 'Blog', href: 'https://research.ibm.com/blog?tag=artificial-intelligence'},
             {label: 'Playground', href: 'https://www.ibm.com/granite/playground'},
           ],
         },

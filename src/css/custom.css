@@ -95,6 +95,11 @@
   margin-bottom: 1rem;
 }
 
+/* Footer: override hover to white on dark background (Infima defaults to --ifm-color-primary = black) */
+.footer__link-item:hover {
+  color: #ffffff;
+}
+
 /* Sidebar nav: match Mintlify sizing — smaller text, bold section headings, normal leaf items */
 .menu__link {
   font-size: 0.875rem;
