@@ -1,4 +1,5 @@
 import React from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import type {IconDefinition, SizeProp} from '@fortawesome/fontawesome-svg-core';
 import {
@@ -79,11 +80,18 @@ interface IconProps {
 }
 
 export default function Icon({icon, size = 16, style, className}: IconProps): React.ReactElement | null {
-  // Absolute paths and URLs: render as <img>
-  if (icon.startsWith('/') || icon.startsWith('./') || icon.startsWith('http')) {
+  // Resolve baseUrl-relative paths (e.g. "images/foo.svg") so they work at
+  // any deploy prefix. External URLs and FA/Lucide names are passed through.
+  const isAssetPath = !icon.startsWith('http') && (
+    icon.includes('/') || icon.endsWith('.svg') || icon.endsWith('.png')
+  );
+  const resolvedSrc = useBaseUrl(isAssetPath ? icon : '');
+
+  if (isAssetPath || icon.startsWith('http')) {
+    const src = isAssetPath ? resolvedSrc : icon;
     return (
       <img
-        src={icon}
+        src={src}
         alt=""
         width={size}
         height={size}
