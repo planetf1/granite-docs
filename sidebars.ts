@@ -23,6 +23,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Ollama',
+          collapsed: true,
           customProps: {icon: 'download'},
           items: [
             'run/granite-with-ollama-mac',
