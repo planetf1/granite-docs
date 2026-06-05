@@ -59,7 +59,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           sidebarCollapsed: false,
           showLastUpdateAuthor: false,
-          showLastUpdateTime: true,
+          showLastUpdateTime: false,
         } satisfies DocsOptions,
         blog: false,
         theme: {
