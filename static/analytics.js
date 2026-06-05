@@ -1,9 +1,8 @@
 // IBM Analytics — loaded via docusaurus.config.ts scripts[]
 
 (function() {
-  // Only run in production or when explicitly enabled
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    console.log('IBM Analytics disabled in development');
+  // Only run on IBM production domains
+  if (!window.location.hostname.endsWith('.ibm.com')) {
     return;
   }
 
