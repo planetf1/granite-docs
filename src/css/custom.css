@@ -31,6 +31,17 @@
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
 }
 
+/* Navbar: full-black text for maximum contrast (Infima defaults to #1c1e21) */
+.navbar__link {
+  color: #000000;
+  font-weight: 500;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: #000000;
+}
+
 /* Download Granite navbar button */
 .navbar-download-btn {
   border: 1px solid var(--ifm-color-primary);
