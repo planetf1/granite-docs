@@ -12,8 +12,14 @@
   --ifm-color-primary-lightest: #666666;
   --ifm-font-family-base: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --ifm-font-family-monospace: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  --ifm-font-size-base: 15px;
   --ifm-code-font-size: 90%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Constrain prose content width to match Mintlify maple (~680px) */
+.markdown {
+  max-width: 680px;
 }
 
 [data-theme='dark'] {
