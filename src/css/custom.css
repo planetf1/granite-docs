@@ -80,6 +80,17 @@
   margin-bottom: 1rem;
 }
 
+/* Sidebar nav: match Mintlify sizing — smaller text, bold section headings, normal leaf items */
+.menu__link {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+/* Category headings (Introduction, Models, Run Granite…) — bold */
+.menu__link--sublist {
+  font-weight: 600;
+}
+
 /* TOC active-heading accent */
 .table-of-contents__link--active {
   font-weight: 600;
