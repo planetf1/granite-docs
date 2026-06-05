@@ -58,9 +58,8 @@ const config: Config = {
           routeBasePath: 'granite/docs',
           sidebarPath: './sidebars.ts',
           sidebarCollapsed: false,
-          showLastUpdateAuthor: true,
+          showLastUpdateAuthor: false,
           showLastUpdateTime: true,
-          editUrl: 'https://github.com/ibm-granite/docs/edit/main/',
         } satisfies DocsOptions,
         blog: false,
         theme: {
