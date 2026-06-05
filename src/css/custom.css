@@ -17,10 +17,6 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* Constrain prose content width to match Mintlify maple (~680px) */
-.markdown {
-  max-width: 680px;
-}
 
 [data-theme='dark'] {
   --ifm-color-primary: #c5c5c5;
