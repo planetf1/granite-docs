@@ -1,6 +1,8 @@
 # IBM Granite Documentation
 
-Source for the IBM Granite documentation site, built with [Docusaurus 3](https://docusaurus.io/) and published to GitHub Pages.
+Source for the IBM Granite documentation site at **https://www.ibm.com/granite/docs**, built with [Docusaurus 3](https://docusaurus.io/) and published via GitHub Pages.
+
+Every merge to `main` triggers CI, which builds and deploys the site automatically. There is no staging branch or versioning — `main` is always the live site.
 
 ---
 
