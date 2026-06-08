@@ -3,7 +3,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';
 import type {Options as RedirectOptions} from '@docusaurus/plugin-client-redirects';
 
-const BASE_URL: string = process.env.DOCS_BASE_URL ?? '/docs/';
+const BASE_URL: string = process.env.DOCS_BASE_URL ?? '/docs/granite/docs/';
 const SITE_URL: string = process.env.DOCS_SITE_URL ?? 'https://ibm-granite.github.io';
 
 // Self-hosted IBM Plex @font-face declarations. Paths are prefixed with BASE_URL so they
@@ -55,7 +55,7 @@ const config: Config = {
       {
         docs: {
           path: 'granite/docs',
-          routeBasePath: 'granite/docs',
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           sidebarCollapsed: false,
           showLastUpdateAuthor: false,
@@ -83,7 +83,7 @@ const config: Config = {
         hashed: true,
         indexBlog: false,
         indexPages: false,
-        docsRouteBasePath: ['granite/docs'],
+        docsRouteBasePath: ['/'],
         language: ['en'],
         explicitSearchResultPath: true,
         searchBarShortcutHint: false,

@@ -3,5 +3,5 @@ import {Redirect} from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function Home(): React.ReactElement {
-  return <Redirect to={useBaseUrl('/granite/docs/models/granite4-1')} />;
+  return <Redirect to={useBaseUrl('models/granite4-1')} />;
 }

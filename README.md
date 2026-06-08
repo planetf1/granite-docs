@@ -24,7 +24,7 @@ npm install
 npm start
 ```
 
-The site is available at http://localhost:3000/docs/granite/docs/.
+The site is available at http://localhost:3000/granite/docs/.
 
 ### Build
 
