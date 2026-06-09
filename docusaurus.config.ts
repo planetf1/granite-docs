@@ -75,6 +75,7 @@ const config: Config = {
     [
       '@docusaurus/plugin-client-redirects',
       {
+        // Pre-wired empty: add entries here if any URLs change after the IBM.com cutover.
         redirects: [],
       } satisfies RedirectOptions,
     ],

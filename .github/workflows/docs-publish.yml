@@ -76,7 +76,7 @@ jobs:
         id: markdownlint
         run: |
           npx --yes markdownlint-cli2 "granite/docs/**/*.mdx" "granite/docs/**/*.md" \
-            --config granite/docs/.markdownlint.json 2>&1 || true
+            --config granite/docs/.markdownlint.json 2>&1
         continue-on-error: true
 
       - name: Spell check (codespell)
@@ -84,8 +84,8 @@ jobs:
         run: |
           pip install codespell --quiet
           codespell granite/docs \
-            --skip="*.json,package-lock.json" \
-            --quiet-level=2 || true
+            --skip="*.json" \
+            --quiet-level=2
         continue-on-error: true
 
       - name: Upload built site artifact
