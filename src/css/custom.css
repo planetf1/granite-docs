@@ -1,0 +1,121 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* IBM Plex @font-face declarations are injected via headTags in docusaurus.config.ts
+   so that the font paths are prefixed with the correct baseUrl at build time. */
+
+
+:root {
+  --ifm-color-primary: #000000;
+  --ifm-color-primary-dark: #1a1a1a;
+  --ifm-color-primary-darker: #2b2b2b;
+  --ifm-color-primary-darkest: #404040;
+  --ifm-color-primary-light: #333333;
+  --ifm-color-primary-lighter: #4d4d4d;
+  --ifm-color-primary-lightest: #666666;
+  --ifm-font-family-base: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  --ifm-h1-font-size: 1.75rem;
+  --ifm-h2-font-size: 1.375rem;
+  --ifm-heading-font-weight: 600;
+  --ifm-code-font-size: 90%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+
+[data-theme='dark'] {
+  --ifm-color-primary: #c5c5c5;
+  --ifm-color-primary-dark: #b0b0b0;
+  --ifm-color-primary-darker: #a0a0a0;
+  --ifm-color-primary-darkest: #888888;
+  --ifm-color-primary-light: #d4d4d4;
+  --ifm-color-primary-lighter: #e0e0e0;
+  --ifm-color-primary-lightest: #f0f0f0;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Navbar: full-black text for maximum contrast (Infima defaults to #1c1e21) */
+.navbar__link {
+  color: #000000;
+  font-weight: 500;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: #000000;
+}
+
+/* Download Granite navbar button */
+.navbar-download-btn {
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem !important;
+  font-weight: 500;
+}
+
+[data-theme='dark'] .navbar-download-btn {
+  border-color: var(--ifm-color-primary);
+}
+
+/* Accordion (details/summary) styling */
+.granite-accordion {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.granite-accordion summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.granite-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.granite-accordion summary::before {
+  content: '▶';
+  font-size: 0.65em;
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+.granite-accordion[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.granite-accordion .granite-accordion-body {
+  padding: 0 1rem 1rem;
+}
+
+.granite-accordion-group {
+  margin-bottom: 1rem;
+}
+
+/* Footer: override hover to white on dark background (Infima defaults to --ifm-color-primary = black) */
+.footer__link-item:hover {
+  color: #ffffff;
+}
+
+/* Sidebar nav: match Mintlify sizing — smaller text, bold section headings, normal leaf items */
+.menu__link {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+/* Category headings (Introduction, Models, Run Granite…) — bold */
+.menu__link--sublist {
+  font-weight: 600;
+}
+
+/* TOC active-heading accent */
+.table-of-contents__link--active {
+  font-weight: 600;
+  border-left: 2px solid var(--ifm-color-primary);
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+}

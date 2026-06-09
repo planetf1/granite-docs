@@ -1,7 +1,8 @@
 ---
 title: "Partners"
 description: "Learn about the partner providers that support deployment of Granite models."
-icon: "cloud"
+sidebar_custom_props:
+  icon: "cloud"
 ---
 
 ## IBM watsonx
@@ -22,9 +23,9 @@ Supported models can be found [here](https://ai.azure.com/catalog/models).
 
 Supported models can be found [here](https://ollama.com/search).
 
-<Note>
-  By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this in the API, add the following to the request body: "options": `{"num_ctx": <desired_context_length>}`. The largest `<desired_context_length>` supported by Granite 4.0 models is `131072` (128k).
-</Note>
+:::note
+By default, Ollama runs models with a short context length to avoid preallocating excessive RAM. This can cause long requests to be truncated. To override this in the API, add the following to the request body: "options": `{"num_ctx": <desired_context_length>}`. The largest `<desired_context_length>` supported by Granite 4.0 models is `131072` (128k).
+:::
 
 ## Replicate
 

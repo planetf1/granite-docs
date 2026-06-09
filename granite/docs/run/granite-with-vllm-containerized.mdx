@@ -1,7 +1,8 @@
 ---
 title: "vLLM (Containerized)"
 description: "Learn how to run Granite models with vLLM in a container."
-icon: "docker"
+sidebar_custom_props:
+  icon: "docker"
 ---
 
 ## Overview
@@ -35,7 +36,7 @@ Run the container with your Hugging Face cache mounted:
 docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-4.0-h-small
 ```
 
-<Note>
+:::note
 You can pre-download the model into `~/.cache/huggingface` using:
 
 ```sh
@@ -43,8 +44,7 @@ hf download ibm-granite/granite-4.0-h-small
 ```
 
 If not pre-downloaded, the model will be fetched automatically when vLLM starts and cached in the mounted directory.
-
-</Note>
+:::
 
 ---
 
@@ -69,6 +69,6 @@ Now run the container with the added parameters:
 docker run --runtime nvidia --gpus all     -v ~/.cache/huggingface:/root/.cache/huggingface     -p 8000:8000     vllm/vllm-openai:latest     --model ibm-granite/granite-4.0-h-small --tool-call-parser granite4 --enable-auto-tool-choice
 ```
 
-Once the container is up, you can start running requests using the OpenAI API. Refer to the documentation on OpenAI API [tool calling](/granite/docs/models/granite#tool-calling) for examples.
+Once the container is up, you can start running requests using the OpenAI API. Refer to the documentation on OpenAI API [tool calling](/models/granite#tool-calling) for examples.
 
 To run vLLM with the Granite 3 models and tool calling, use the additional parameters specified in the vLLM documentation [here](https://docs.vllm.ai/en/stable/features/tool_calling/#ibm-granite) as part of the `docker run` command share in Section 2.

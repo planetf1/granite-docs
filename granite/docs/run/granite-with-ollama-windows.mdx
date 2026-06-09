@@ -1,8 +1,9 @@
 ---
 title: "Ollama on Windows"
-sidebarTitle: "Windows"
+sidebar_label: "Windows"
 description: "Learn how to run Granite models with Ollama on Windows."
-icon: "windows"
+sidebar_custom_props:
+  icon: "windows"
 ---
 
 ## Overview
@@ -57,7 +58,7 @@ If you want to use a different variant, replace the model name (e.g., `ibm/grani
 
 ## 5. Notes on Context Length
 
-<Note>
+:::note
 By default, Ollama runs models with a short context length to save memory.
 For longer conversations, you can adjust it by setting:
 
@@ -66,8 +67,7 @@ For longer conversations, you can adjust it by setting:
 ```
 
 The largest supported context for Granite 4.0 models is `131072` (128k).
-
-</Note>
+:::
 
 ---
 

@@ -33,6 +33,8 @@ dist/
 build/
 .next/
 out/
+.docusaurus/
+.fastembed_cache/
 
 # Environment files
 .env
@@ -48,3 +50,6 @@ logs/
 # Temporary files
 tmp/
 temp/
+
+# Local proxy test scripts
+proxy-*.mjs

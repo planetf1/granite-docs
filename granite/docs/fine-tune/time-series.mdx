@@ -1,7 +1,8 @@
 ---
 title: "Fine-tune Granite Time Series"
 description: "Learn how to fine-tune Granite Time Series models"
-icon: "chart-line"
+sidebar_custom_props:
+  icon: "chart-line"
 ---
 
 ## Overview
@@ -36,7 +37,7 @@ Please make sure your python environment is properly set up. The code snippets
 below are illustrative examples of how various components work with our
 Granite-TimeSeries models, and require the installation of the
 [Granite TSFM library](https://github.com/ibm-granite/granite-tsfm). Please
-[see the setup instructions](/run/granite-on-mac/time-series).
+[see the setup instructions](/run/granite-with-ollama-mac).
 
 ## Data loading
 
@@ -219,7 +220,7 @@ fewshot_output = finetune_forecast_trainer.evaluate(dset_test)
   </Card>
   <Card
     title="Try it out"
-    icon="/granite/docs/images/icons8-google-colab.svg"
+    icon="images/icons8-google-colab.svg"
     href="https://colab.research.google.com/github/ibm-granite-community/granite-timeseries-cookbook/blob/main/recipes/Time_Series/Bike_Sharing_Finetuning_with_Exogenous.ipynb"
   >
     Execute sample code in Colab

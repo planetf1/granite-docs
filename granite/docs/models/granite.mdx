@@ -1,8 +1,11 @@
 ---
 title: "Granite 4.0"
-description: ""
-icon: "box"
+description: "Granite 4.0 language models with a hybrid Mamba-2/transformer architecture and Mixture-of-Experts, delivering 70% lower memory use and 2× faster inference."
+sidebar_custom_props:
+  icon: "box"
 ---
+
+import smallPng from '../images/granite-images/small.png';
 
 <CardGroup cols={2}>
   <Card
@@ -15,7 +18,7 @@ icon: "box"
   <Card
     title="Try our Granite agents"
     icon="bot"
-    href="/granite/playground/"
+    href="https://www.ibm.com/granite/playground"
   >
     Leverage Granite to search the web and write research reports
   </Card>
@@ -25,14 +28,14 @@ icon: "box"
   <Card
     title="Experiment with Granite locally"
     icon="download"
-    href="/granite/docs/run/granite-with-ollama-mac"
+    href="/run/granite-with-ollama-mac"
   >
     Download and run Granite locally with Ollama
   </Card>
   <Card
     title="Get cooking with Granite!"
     icon="file-code"
-    href="/granite/docs/use-cases/all-cookbooks"
+    href="/use-cases/all-cookbooks"
   >
     Check out these recipes to start using Granite
   </Card>
@@ -69,7 +72,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
 
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-H-Small <img src="../images/granite-images/small.png" alt="Granite H Small" width="50"/>
+        Granite-4.0-H-Small <img src={smallPng} alt="Granite H Small" width="50"/>
       </td>
       <td>Hybrid, Mixture of Experts</td>
       <td>32B total / 9B activated</td>
@@ -78,7 +81,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
 
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-         Granite-4.0-H-Tiny <img src="../images/granite-images/small.png" alt="Granite H Tiny" width="30"/>
+         Granite-4.0-H-Tiny <img src={smallPng} alt="Granite H Tiny" width="30"/>
       </td>
       <td>Hybrid, Mixture of Experts</td>
       <td>7B total / 1B activated</td>
@@ -87,7 +90,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
 
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-H-Micro <img src="../images/granite-images/small.png" alt="Granite H Micro" width="20"/>
+        Granite-4.0-H-Micro <img src={smallPng} alt="Granite H Micro" width="20"/>
       </td>
       <td>Hybrid, Dense</td>
       <td>3B total</td>
@@ -96,7 +99,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
 
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-Micro <img src="../images/granite-images/small.png" alt="Granite Micro" width="20"/>
+        Granite-4.0-Micro <img src={smallPng} alt="Granite Micro" width="20"/>
       </td>
       <td>Traditional, Dense</td>
       <td>3B total</td>
@@ -104,7 +107,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-H-1B <img src="../images/granite-images/small.png" alt="Granite H 1B" width="16"/>
+        Granite-4.0-H-1B <img src={smallPng} alt="Granite H 1B" width="16"/>
       </td>
       <td>Dense, Hybrid</td>
       <td>1.5B</td>
@@ -112,7 +115,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-1B <img src="../images/granite-images/small.png" alt="Granite 1B Hybrid" width="16"/>
+        Granite-4.0-1B <img src={smallPng} alt="Granite 1B Hybrid" width="16"/>
       </td>
       <td>Dense, Traditional</td>
       <td>1B</td>
@@ -120,7 +123,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-H-350M <img src="../images/granite-images/small.png" alt="Granite H 350M" width="11"/>
+        Granite-4.0-H-350M <img src={smallPng} alt="Granite H 350M" width="11"/>
       </td>
       <td>Dense, Hybrid</td>
       <td>350M</td>
@@ -128,7 +131,7 @@ Granite 4.0 introduces a hybrid Mamba-2/transformer architecture, with a Mixture
     </tr>
     <tr>
       <td style={{ lineHeight: "1.2" }}>
-        Granite-4.0-350M <img src="../images/granite-images/small.png" alt="Granite 350M Hybrid" width="11"/>
+        Granite-4.0-350M <img src={smallPng} alt="Granite 350M Hybrid" width="11"/>
       </td>
       <td>Dense, Traditional</td>
       <td>350M</td>
@@ -277,10 +280,10 @@ print(json.dumps(data, indent=4))
 
 </CodeGroup>
 
-<Note>
-  The Granite 4 models work best with temperature set to 0 for most inferencing
+:::note
+The Granite 4 models work best with temperature set to 0 for most inferencing
   tasks.
-</Note>
+:::
 
 ### Tool calling
 
@@ -622,10 +625,10 @@ New York is sunny with a temperature of 30°C.
 
 Consider the following points to build prompts for tool-calling tasks:
 
-- When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for more information about system prompt design in tool-calling scenarios.
+- When a list of tools is supplied, the chat template automatically formats this list as a system prompt. See [Chat Template Design](/use-cases/prompt-engineering#chat-template-design) for more information about system prompt design in tool-calling scenarios.
 - Please follow OpenAI's function [definition schema](https://platform.openai.com/docs/guides/function-calling?api-mode=responses#defining-functions) to define tools.
-- Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for examples.
-- The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for examples.
+- Granite 4.0 chat template automatically returns tool calls between `<tool_call>` and `</tool_call>` tags within the assistant turn. Refer to [Chat Template Design](/use-cases/prompt-engineering#chat-template-design) for examples.
+- The Granite 4.0 chat template converts content from `tool` role into a user role, where tool responses appear between `<tool_response>` and `</tool_response>` tags. This conversion occurs automatically when using libraries that apply the chat template for you. However, users who build prompts directly in `Jinja` must ensure that tool responses are formatted according to the Granite 4.0 chat template. Please refer to [Chat Template Design](/use-cases/prompt-engineering#chat-template-design) for examples.
 
 ### RAG
 
@@ -860,7 +863,7 @@ Write the response to the user's input by strictly aligning with the facts in th
 
 Consider the following points to build prompts for RAG tasks:
 
-- The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for further details.
+- The chat template lists documents as part of the `system` turn between `<documents>` and `</documents>` tags. Please refer to [Chat Template Design](/use-cases/prompt-engineering#chat-template-design) for further details.
 - Documents are provided to the model as a list of dictionaries, with each dictionary representing a document. We recommend formatting documents as follows:
 
 ```
@@ -1236,5 +1239,5 @@ Prompt templates designed for basic inference tasks should remain compatible wit
 
 Some points to consider while migrating templates are:
 
-- The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to [Chat Template Design](/granite/docs/use-cases/prompt-engineering#chat-template-design) for more details.
+- The chat template in this version handles lists of tools and documents differently. This update is applied automatically when using the `apply_chat_template` function from the transformers library to construct prompts. However, users who craft `Jinja` templates manually must ensure they follow the updated chat template format. Please refer to [Chat Template Design](/use-cases/prompt-engineering#chat-template-design) for more details.
 - Controls for `length` and `originality` have been deprecated, they are no longer supported in this version.
