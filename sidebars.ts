@@ -49,6 +49,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Responsible AI',
       items: [
+        'responsible-ai/index',
         {
           type: 'link',
           label: 'Trust',
