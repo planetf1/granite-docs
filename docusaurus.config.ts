@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 import React from 'react';
 import MDXComponents from '@theme-original/MDXComponents';
 import Card from '@site/src/components/Card';

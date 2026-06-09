@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 import React from 'react';
 import Link from '@docusaurus/Link';
 import Icon from './Icon';

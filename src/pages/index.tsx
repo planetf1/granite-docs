@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 import React from 'react';
 import {Redirect} from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
